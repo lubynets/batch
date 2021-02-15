@@ -4,10 +4,11 @@ source /lustre/cbm/users/lubynets/soft/cbmroot/install/bin/CbmRootConfig.sh
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lustre/cbm/users/lubynets/soft/cbmroot/install/lib/
 export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:/lustre/cbm/users/lubynets/soft/cbmroot/install/include/
+export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:/lustre/cbm/users/lubynets/soft/cbmroot/install/include/AnalysisTree
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-SETUP=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_target_25_mkm
+SETUP=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_rho0/auau/12agev/mbias/sis100_electron_target_25_mkm
 
 PROJECT_DIR=/lustre/cbm/users/lubynets/cbm2atree
 MACRO_DIR=${PROJECT_DIR}/macro
