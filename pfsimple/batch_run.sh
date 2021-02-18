@@ -18,6 +18,7 @@ SETUP=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_elec
 
 EXE_DIR=/lustre/cbm/users/lubynets/soft/PFSimple/install/bin
 OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP/nopid/defaultcuts
+OUTPUT_DIR=${PROJECT_DIR}/outputs/test
 WORK_DIR=$PROJECT_DIR/workdir
 FILELIST_DIR=$PROJECT_DIR/filelists/$SETUP
 
@@ -28,7 +29,7 @@ cd $WORK_DIR/$INDEX
 
 cp $EXE_DIR/main ./
 
-./main $FILELIST_DIR/filelist.$INDEX.txt >& log_${INDEX}.txt
+./main $FILELIST_DIR/filelist.$INDEX.list >& log_${INDEX}.txt
 
 rm main
 mv PFSimpleOutput.root PFSimpleOutput.$INDEX.root
