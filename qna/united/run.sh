@@ -22,8 +22,8 @@ sbatch --job-name=QnA \
        --partition main \
        --output=$LOGDIR/out/%j.out.log \
        --error=$LOGDIR/error/%j.err.log \
-       -a 1-100 \
-       -- $PWD/batch_run_0.sh
+       -a 1-10 \
+       -- $PWD/batch_run.sh 0
        
 hadd -T /lustre/cbm/users/$USER/qna/workdir/correction_merged_out_0.root /lustre/cbm/users/$USER/qna/workdir/*/correction_out_0.root >& log_merge_0.txt
 
@@ -33,8 +33,8 @@ sbatch --job-name=QnA \
        --partition main \
        --output=$LOGDIR/out/%j.out.log \
        --error=$LOGDIR/error/%j.err.log \
-       -a 1-100 \
-       -- $PWD/batch_run_1.sh
+       -a 1-10 \
+       -- $PWD/batch_run.sh 1
        
 hadd -T /lustre/cbm/users/$USER/qna/workdir/correction_merged_out_1.root /lustre/cbm/users/$USER/qna/workdir/*/correction_out_1.root >& log_merge_1.txt
 
@@ -43,5 +43,5 @@ sbatch --job-name=QnA \
        --partition main \
        --output=$LOGDIR/out/%j.out.log \
        --error=$LOGDIR/error/%j.err.log \
-       -a 1-100 \
-       -- $PWD/batch_run_2.sh
+       -a 1-10 \
+       -- $PWD/batch_run.sh 2

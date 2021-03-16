@@ -20,10 +20,9 @@ SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_
 SETUP_REC=nopid/defaultcuts
 
 EXE_DIR=$SOFT_DIR/build/src
-OUTPUT_DIR=${PROJECT_DIR}/outputs_united/$SETUP_SIM/$SETUP_REC/all/large
+OUTPUT_DIR=${PROJECT_DIR}/outputs_united/$SETUP_SIM/$SETUP_REC/set2_separate/all
 WORK_DIR=$PROJECT_DIR/workdir
 FILELIST_DIR=/lustre/cbm/users/lubynets/pfsimple/filelists/$SETUP_SIM
-FILELIST_SEC_DIR=$PROJECT_DIR/filelists/$SETUP_SIM/$SETUP_REC
 YAML_DIR=/lustre/cbm/users/lubynets/qna/setup
 
 cd $WORK_DIR/$INDEX
