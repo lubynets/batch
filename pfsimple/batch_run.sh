@@ -2,7 +2,7 @@
 
 source /lustre/cbm/users/lubynets/soft/root-6/install-cpp11/bin/thisroot.sh
 
-SOFT_DIR=/lustre/cbm/users/lubynets/soft/PFSimple/install_cbmsw_chi2
+SOFT_DIR=/lustre/cbm/users/lubynets/soft/PFSimple/install
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/external/lib
@@ -19,7 +19,7 @@ PROJECT_DIR=/lustre/cbm/users/lubynets/pfsimple
 SETUP=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
 
 EXE_DIR=$SOFT_DIR/bin
-OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP/mcpid/nocuts/chi2
+OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP/mcpid/nocuts/standard
 WORK_DIR=$PROJECT_DIR/workdir
 FILELIST_DIR=$PROJECT_DIR/filelists/$SETUP
 
