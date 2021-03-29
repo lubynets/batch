@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo
+echo "Bash script started"
+date
+
 CORR_STEP=${1}
 
 module use /cvmfs/it.gsi.de/modulefiles
@@ -19,12 +23,12 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 PROJECT_DIR=/lustre/cbm/users/lubynets/qna
 
 SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
-SETUP_REC=nopid/defaultcuts
+SETUP_REC=nopid/lightcuts1
 
 EXE_DIR=$SOFT_DIR/build/src
-OUTPUT_DIR=${PROJECT_DIR}/outputs_united/$SETUP_SIM/$SETUP_REC/set9/all
+OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP_SIM/$SETUP_REC/set4/sgnl12
 WORK_DIR=$PROJECT_DIR/workdir
-FILELIST_DIR=/lustre/cbm/users/lubynets/pfsimple/filelists/$SETUP_SIM
+FILELIST_DIR=/lustre/cbm/users/lubynets/atfiller/filelists/$SETUP_SIM
 YAML_DIR=/lustre/cbm/users/lubynets/qna/setup
 
 if [ $CORR_STEP = 0 ]
@@ -65,4 +69,9 @@ rm QnAnalysisCorrect QnAnalysisCorrelate filelist_sec.list
 
 cd ..
 mv $INDEX $OUTPUT_DIR
+mv correction_merged_out* $OUTPUT_DIR
 fi
+
+echo
+echo "Bash script finished successfully"
+date

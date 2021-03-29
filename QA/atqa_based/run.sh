@@ -9,5 +9,5 @@ sbatch --job-name=ATQA \
         --partition main \
         --output=$LOGDIR/out/%j.out.log \
         --error=$LOGDIR/error/%j.err.log \
-        -a 1-1000 \
+        -a 1-10 \
         -- $PWD/batch_run.sh

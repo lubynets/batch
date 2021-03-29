@@ -18,7 +18,7 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 PROJECT_DIR=/lustre/cbm/users/lubynets/QA
 
 SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
-SETUP_REC=mcpid/nocuts/standard
+SETUP_REC=nopid/nocuts_fCM9
 
 EXE_DIR=/lustre/cbm/users/lubynets/soft/AnalysisTreeQA/install/bin
 EXE=pfs_qa

@@ -9,5 +9,5 @@ sbatch --job-name=ATFill \
         --partition main \
         --output=$LOGDIR/out/%j.out.log \
         --error=$LOGDIR/error/%j.err.log \
-        -a 1-100 \
+        -a 28 \
         -- $PWD/batch_run.sh
