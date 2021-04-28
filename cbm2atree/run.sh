@@ -5,9 +5,9 @@ mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
 sbatch --job-name=cbm2atree \
-        -t 02:20:00 \
-        --partition main \
+        -t 00:20:00 \
+        --partition debug \
         --output=$LOGDIR/out/%j.out.log \
         --error=$LOGDIR/error/%j.err.log \
-        -a 4001-5000 \
+        -a 1-100 \
         -- $PWD/batch_run.sh

@@ -26,7 +26,7 @@ SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_
 SETUP_REC=nopid/lightcuts1
 
 EXE_DIR=$SOFT_DIR/build/src
-OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP_SIM/$SETUP_REC/set4/sgnl12
+OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP_SIM/$SETUP_REC/set4pull/sgnl_12
 WORK_DIR=$PROJECT_DIR/workdir
 FILELIST_DIR=/lustre/cbm/users/lubynets/atfiller/filelists/$SETUP_SIM
 YAML_DIR=/lustre/cbm/users/lubynets/qna/setup
@@ -69,8 +69,12 @@ rm QnAnalysisCorrect QnAnalysisCorrelate filelist_sec.list
 
 cd ..
 mv $INDEX $OUTPUT_DIR
-mv correction_merged_out* $OUTPUT_DIR
+# mv correction_merged_out* $OUTPUT_DIR
 fi
+
+mkdir -p $WORK_DIR/success
+cd $WORK_DIR/success
+touch step_${CORR_STEP}_index_${INDEX}
 
 echo
 echo "Bash script finished successfully"

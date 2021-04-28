@@ -14,13 +14,13 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 PROJECT_DIR=/lustre/cbm/users/lubynets/QA
 
 SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
-SETUP_REC=nopid/defaultcuts_fCM9
+SETUP_REC=nopid/lightcuts1
 
 MACRO_DIR=$PROJECT_DIR/macro
 MACRO=mass3D
 
 INPUT_DIR=/lustre/cbm/users/lubynets/atfiller/outputs/$SETUP_SIM/$SETUP_REC
-OUTPUT_DIR=${PROJECT_DIR}/outputs/$MACRO/$SETUP_SIM/$SETUP_REC/set3/sgnl_12
+OUTPUT_DIR=${PROJECT_DIR}/outputs/$MACRO/$SETUP_SIM/$SETUP_REC/set4pull/all
 WORK_DIR=$PROJECT_DIR/workdir
 
 mkdir -p $WORK_DIR/$INDEX

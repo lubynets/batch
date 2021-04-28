@@ -9,5 +9,5 @@ sbatch  --job-name=PFSimple \
         --partition main \
         --output=$LOGDIR/out/%j.out.log \
         --error=$LOGDIR/error/%j.err.log \
-        -a 165 \
+        -a 1-100 \
         -- $PWD/batch_run.sh

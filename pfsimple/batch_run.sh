@@ -23,7 +23,8 @@ PROJECT_DIR=/lustre/cbm/users/lubynets/pfsimple
 SETUP=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
 
 EXE_DIR=$SOFT_DIR/bin
-OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP/nopid/lightcuts1
+# OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP/nopid/lightcuts1
+OUTPUT_DIR=${PROJECT_DIR}/outputs/test
 WORK_DIR=$PROJECT_DIR/workdir
 FILELIST_DIR=$PROJECT_DIR/filelists/$SETUP
 
