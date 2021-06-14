@@ -1,7 +1,7 @@
 ATREE_PATH=/lustre/cbm/users/lubynets/cbm2atree/outputs/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
 
-N=100
-M=50
+N=100 # how many filelists to create
+M=50  # how many files in each of them
 
 for I in `seq 1 $N`
 do

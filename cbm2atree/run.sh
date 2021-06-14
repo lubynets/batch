@@ -9,5 +9,5 @@ sbatch --job-name=cbm2atree \
         --partition debug \
         --output=$LOGDIR/out/%j.out.log \
         --error=$LOGDIR/error/%j.err.log \
-        -a 1-100 \
+        -a 2-100 \
         -- $PWD/batch_run.sh
