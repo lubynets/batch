@@ -26,7 +26,7 @@ SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_
 SETUP_REC=nopid/lightcuts1
 
 EXE_DIR=$SOFT_DIR/build/src
-OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP_SIM/$SETUP_REC/set4pull/sgnl_12
+OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP_SIM/$SETUP_REC/set4/all/weight_250
 WORK_DIR=$PROJECT_DIR/workdir
 FILELIST_DIR=/lustre/cbm/users/lubynets/atfiller/filelists/$SETUP_SIM
 YAML_DIR=/lustre/cbm/users/lubynets/qna/setup
@@ -44,7 +44,7 @@ then
 cp $EXE_DIR/QnAnalysisCorrect/QnAnalysisCorrect ./
 cp $EXE_DIR/QnAnalysisCorrelate/QnAnalysisCorrelate ./
 
-ls -d /lustre/cbm/users/lubynets/atfiller/outputs/$SETUP_SIM/$SETUP_REC/$INDEX/fillerOut.$INDEX.root > filelist_sec.list
+ls -d /lustre/cbm/users/lubynets/atfiller/outputs/$SETUP_SIM/$SETUP_REC/weight_250/$INDEX/fillerOut.$INDEX.root > filelist_sec.list
 fi
 
 CORR_FILE=../correction_merged_out_$(($CORR_STEP-1)).root    

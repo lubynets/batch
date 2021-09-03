@@ -23,12 +23,13 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/cbm/users/$USER/pfsimple
 
-# SETUP=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
+SETUP=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
 # SETUP=apr21_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_apr20_target_25_mkm/TGeant4
-SETUP=apr21_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_apr20_target_25_mkm/TGeant4
+# SETUP=apr21_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_apr20_target_25_mkm/TGeant4
 
 EXE_DIR=$SOFT_DIR/bin
-OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP/mcpid/defaultcuts
+EXE=main2
+OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP/mcpid/nocuts/AT2/kaon
 WORK_DIR=$PROJECT_DIR/workdir
 FILELIST_DIR=$PROJECT_DIR/filelists/$SETUP
 
@@ -37,11 +38,11 @@ mkdir -p $OUTPUT_DIR
 
 cd $WORK_DIR/$INDEX
 
-cp $EXE_DIR/main ./
+cp $EXE_DIR/$EXE ./
 
-./main $FILELIST_DIR/filelist.$INDEX.list >& log_${INDEX}.txt
+./$EXE $FILELIST_DIR/filelist.$INDEX.list >& log_${INDEX}.txt
 
-rm main
+rm $EXE
 mv PFSimpleOutput.root PFSimpleOutput.$INDEX.root
 
 cd ..

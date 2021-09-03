@@ -24,7 +24,7 @@ SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_
 SETUP_REC=nopid/lightcuts1
 
 EXE_DIR=/lustre/cbm/users/lubynets/soft/analysis_tree_filler/install/bin
-OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP_SIM/$SETUP_REC
+OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP_SIM/$SETUP_REC/weight_250
 WORK_DIR=$PROJECT_DIR/workdir
 CENTRALITY_FILE=/lustre/cbm/users/lubynets/cbm2atree/outputs/$SETUP_SIM/sts_centrality.root
 FILELIST_PRIM_DIR=/lustre/cbm/users/lubynets/atfiller/filelists/$SETUP_SIM
