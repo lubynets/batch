@@ -9,5 +9,5 @@ sbatch --job-name=cbm2atree \
         --partition main \
         --output=$LOGDIR/out/%j.out.log \
         --error=$LOGDIR/error/%j.err.log \
-        -a 6,57,62,16,48,121,130,136 \
+        -a 1-5 \
         -- $PWD/batch_run.sh

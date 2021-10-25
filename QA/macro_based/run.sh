@@ -9,5 +9,5 @@ sbatch --job-name=QA \
         --partition main \
         --output=$LOGDIR/out/%j.out.log \
         --error=$LOGDIR/error/%j.err.log \
-        -a 1-100 \
+        -a 4774-4781 \
         -- $PWD/batch_run.sh

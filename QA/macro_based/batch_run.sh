@@ -4,24 +4,24 @@ echo
 echo "Bash script started"
 date
 
-source /lustre/cbm/users/lubynets/soft/root-6/install-cpp11/bin/thisroot.sh
+source /lustre/cbm/users/lubynets/soft/root-6/install_6.22_cpp11_debian10/bin/thisroot.sh
 ANALYSISTREE_DIR=AnalysisTree_2
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lustre/cbm/users/lubynets/soft/$ANALYSISTREE_DIR/install-cpp11/lib
-export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:/lustre/cbm/users/lubynets/soft/$ANALYSISTREE_DIR/install-cpp11/include/AnalysisTree
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lustre/cbm/users/lubynets/soft/$ANALYSISTREE_DIR/install_root6.22_cpp11_debian10/lib
+export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:/lustre/cbm/users/lubynets/soft/$ANALYSISTREE_DIR/install_root6.22_cpp11_debian10/include/AnalysisTree
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/cbm/users/lubynets/QA
 
-SETUP_SIM=apr21_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_apr20_target_25_mkm/TGeant4
-SETUP_REC=mcpid_withalt/defaultcuts2/xi/extrapoltopv
+SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
+SETUP_REC=mcpid/defaultcuts/AT2/xi
 
 MACRO_DIR=$PROJECT_DIR/macro
 MACRO=recmap_pt_y_phi
 
 INPUT_DIR=/lustre/cbm/users/lubynets/pfsimple/outputs/$SETUP_SIM/$SETUP_REC
-OUTPUT_DIR=${PROJECT_DIR}/outputs/$MACRO/$SETUP_SIM/$SETUP_REC/xi
+OUTPUT_DIR=${PROJECT_DIR}/outputs/$MACRO/$SETUP_SIM/$SETUP_REC
 WORK_DIR=$PROJECT_DIR/workdir
 
 mkdir -p $WORK_DIR/$INDEX
