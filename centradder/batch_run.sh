@@ -21,7 +21,7 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/cbm/users/lubynets/centradd
 
-SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
+SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
 
 EXE_DIR=$SOFT_DIR/bin
 EXE=fill_centrality
