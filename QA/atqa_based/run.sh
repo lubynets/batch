@@ -7,8 +7,8 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/cbm/users/lubynets/QA/workdir
 
 A_LOW=1
-A_HIGH=100
-TIME_LIMIT=08:00:00
+A_HIGH=5
+TIME_LIMIT=02:20:00
 
 NOT_COMPLETED=true
 while [ $NOT_COMPLETED = true ]
