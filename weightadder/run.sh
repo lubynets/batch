@@ -1,14 +1,14 @@
 #!/bin/bash
-LOGDIR=/lustre/cbm/users/$USER/pfsimple/log
+LOGDIR=/lustre/cbm/users/$USER/weightadd/log
 mkdir -p $LOGDIR
 mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
-WORK_DIR=/lustre/cbm/users/$USER/pfsimple/workdir
+WORK_DIR=/lustre/cbm/users/$USER/weightadd/workdir
 
 A_LOW=1
-A_HIGH=100
-TIME_LIMIT=00:40:00
+A_HIGH=60
+TIME_LIMIT=00:02:00
 
 NOT_COMPLETED=true
 ROUNDS=0
@@ -30,7 +30,7 @@ done
 
 if [ $NOT_COMPLETED = true ]
 then
-sbatch --job-name=pfsimple \
+sbatch --job-name=wghtadd \
        --wait \
        -t $TIME_LIMIT \
        --partition main \

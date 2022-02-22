@@ -7,12 +7,12 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/cbm/users/$USER/QA/workdir
 
 A_LOW=1
-A_HIGH=60
-TIME_LIMIT=00:15:00
+A_HIGH=100
+TIME_LIMIT=00:05:00
 
 NOT_COMPLETED=true
 ROUNDS=0
-while [[ $NOT_COMPLETED = true && $ROUNDS < 5 ]]
+while [[ $NOT_COMPLETED = true && $ROUNDS < 9 ]]
 do
 date
 

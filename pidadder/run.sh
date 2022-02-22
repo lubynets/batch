@@ -1,10 +1,10 @@
 #!/bin/bash
-LOGDIR=/lustre/cbm/users/$USER/centradd/log
+LOGDIR=/lustre/cbm/users/$USER/pidadd/log
 mkdir -p $LOGDIR
 mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
-WORK_DIR=/lustre/cbm/users/lubynets/centradd/workdir
+WORK_DIR=/lustre/cbm/users/lubynets/pidadd/workdir
 
 A_LOW=1
 A_HIGH=5000
@@ -55,7 +55,7 @@ done
 if [ $NOT_COMPLETED = true ]
 then
 echo "Array " $A
-sbatch --job-name=centradd \
+sbatch --job-name=pidadd \
        --wait \
        -t $TIME_LIMIT \
        --partition main \
