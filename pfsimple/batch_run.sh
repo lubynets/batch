@@ -6,10 +6,10 @@ date
 
 source /lustre/cbm/users/lubynets/soft/root-6/install_6.20_cpp17_debian10/bin/thisroot.sh
 
-PFSIMPLE_DIR=PFSimple_NEW/install_root6.20_cpp17_debian10_brex
-# PFSIMPLE_DIR=PFSimple_NEW/install_cascade_root6.20_cpp17_debian10
+PFSIMPLE_DIR=PFSimple_NEW/install_root6.20_cpp17_debian10_nobrex
+# PFSIMPLE_DIR=PFSimple_NEW/install_cascade_root6.20_cpp17_debian10_nobrex
 
-ANALYSISTREE_DIR=AnalysisTree_2/install_root6.20_cpp17_debian10_brex
+ANALYSISTREE_DIR=AnalysisTree_2/install_root6.20_cpp17_debian10_nobrex
 
 SOFT_DIR=/lustre/cbm/users/$USER/soft/$PFSIMPLE_DIR
 
@@ -25,16 +25,14 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/cbm/users/$USER/pfsimple
 
-# PDG=3122
-# PDG=310
+PDGS=3122and310
+# PDGS=3312and3334
 
-SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
+# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
 # SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56
+SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56
 
-SETUP_SIM=$SETUP_SIM/standard
-
-SETUP_REC=recpid/defaultcuts/3122and310
+SETUP_REC=recpid/defaultcuts/$PDGS
 
 EXE_DIR=$SOFT_DIR/bin
 EXE=main2

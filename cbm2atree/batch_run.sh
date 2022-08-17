@@ -20,14 +20,14 @@ EVENT_GEN=dcmqgsm_smm
 
 # --------------------- 12 AGeV ---------------------------------------------------------------------------------------------------------
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_w/auau/12agev/mbias/sis100_electron_target_25_mkm #          1-1000
-# SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_wdalitz/auau/12agev/mbias/sis100_electron_target_25_mkm # 1001-2000
-SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_etap/auau/12agev/mbias/sis100_electron_target_25_mkm #    2001-3000
+SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_wdalitz/auau/12agev/mbias/sis100_electron_target_25_mkm # 1001-2000
+# SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_etap/auau/12agev/mbias/sis100_electron_target_25_mkm #    2001-3000
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_phi/auau/12agev/mbias/sis100_electron_target_25_mkm #     3001-4000
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_rho0/auau/12agev/mbias/sis100_electron_target_25_mkm #    4001-5000
 
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto_wdalitz/auau/12agev/mbias/sis100_electron_target_25_mkm
 
-SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm/AT_brex
+SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm/AT_spec
 #----------------------------------------------------------------------------------------------------------------------------------------
 
 # # --------------------- 3.3 AGeV --------------------------------------------------------------------------------------------------------

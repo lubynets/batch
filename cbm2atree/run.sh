@@ -6,8 +6,8 @@ mkdir -p $LOGDIR/error
 
 WORK_DIR=/lustre/cbm/users/lubynets/cbm2atree/workdir
 
-A_LOW=2001
-A_HIGH=3000
+A_LOW=1300
+A_HIGH=1300
 TIME_LIMIT=00:20:00
 
 NOT_COMPLETED=true

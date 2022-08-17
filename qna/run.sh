@@ -7,29 +7,26 @@ mkdir -p $LOGDIR/error
 source /lustre/cbm/users/lubynets/soft/root-6/install_6.20_cpp17_debian10/bin/thisroot.sh
 
 SOFT_DIR=/lustre/cbm/users/lubynets/soft/QnAnalysis
-# BUILD_DIR=build_atv2compat
-BUILD_DIR=build_master
+# BUILD_DIR=build_master
+INSTALL_DIR=install
 WORK_DIR=/lustre/cbm/users/$USER/qna/workdir
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/$BUILD_DIR/src/QnAnalysisBase
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/$BUILD_DIR/src/QnAnalysisCorrelate
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/$BUILD_DIR/_deps/qntools-build/src/base
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/$BUILD_DIR/_deps/qntools-build/src/correction
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/$BUILD_DIR/src/QnAnalysisBase
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/$BUILD_DIR/src/QnAnalysisCorrelate
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/$BUILD_DIR/_deps/qntools-build/src/base
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/$BUILD_DIR/_deps/qntools-build/src/correction
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/$INSTALL_DIR/lib
 
 A_LOW=1
-A_HIGH=100
-TIME_LIMIT=00:20:00
+A_HIGH=2
+TIME_LIMIT=00:40:00
 
 for STEP in `seq 0 2`
 do
 
 echo
 echo $STEP
-
-# if [ $STEP -eq 2 ]
-# then
-# TIME_LIMIT=00:08:00
-# fi
 
 STEP_NOT_COMPLETED=true
 while [ $STEP_NOT_COMPLETED = true ]

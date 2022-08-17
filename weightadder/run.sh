@@ -8,7 +8,7 @@ WORK_DIR=/lustre/cbm/users/$USER/weightadd/workdir
 
 A_LOW=1
 A_HIGH=60
-TIME_LIMIT=00:02:00
+TIME_LIMIT=00:10:00
 
 NOT_COMPLETED=true
 ROUNDS=0
