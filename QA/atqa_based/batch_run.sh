@@ -4,10 +4,14 @@ echo
 echo "Bash script started"
 date
 
-source /lustre/cbm/users/lubynets/soft/root-6/install_6.20_cpp17_debian10/bin/thisroot.sh
+g++ --version
+gcc --version
+cc --version
 
-ATQA_DIR=AnalysisTreeQA_2
-SOFT_DIR=/lustre/cbm/users/lubynets/soft/$ATQA_DIR/install_brex
+source /lustre/cbm/users/lubynets/soft/root-6/install_6.24_cpp17_debian10/bin/thisroot.sh
+
+ATQA_DIR=AnalysisTreeQA
+SOFT_DIR=/lustre/cbm/users/lubynets/soft/$ATQA_DIR/install
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/lib
 export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/include/AnalysisTree
@@ -19,7 +23,7 @@ date
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-FILES_PER_JOB=50
+FILES_PER_JOB=1
 
 # REC_MODE=standard
 # REC_MODE=v0default
@@ -33,10 +37,12 @@ SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_
 # SETUP_REC=recpid/$REC_MODE/defaultcuts/3312and3334
 
 EXE_DIR=$SOFT_DIR/bin
-EXE=cbm_qa_lite
+EXE=pfs_qa
 
-INPUT_DIR=/lustre/cbm/users/lubynets/pidadd/outputs/$SETUP_SIM
-OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$SETUP_SIM
+# INPUT_DIR=/lustre/cbm/users/lubynets/cbm2atree/outputs/$SETUP_SIM/AT2
+INPUT_DIR=/lustre/cbm/users/lubynets/pfsimple/outputs/sw
+# OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$SETUP_SIM
+OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/sw
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 
@@ -57,7 +63,8 @@ for K in `seq 1 $FILES_PER_JOB`
 do
 FILE_NUMBER=$(($(($FILES_PER_JOB*$(($INDEX-1))))+$K))
 # ls -d $INPUT_DIR/$FILE_NUMBER.analysistree.root >> filelist.list
-ls -d $INPUT_DIR/pid.analysistree.$FILE_NUMBER.root >> filelist.list
+ls -d $INPUT_DIR/PFSimpleOutput.$FILE_NUMBER.root >> filelist.list
+# ls -d $INPUT_DIR/pid.analysistree.$FILE_NUMBER.root >> filelist.list
 done
 
 ./$EXE filelist.list >& log_$INDEX.txt

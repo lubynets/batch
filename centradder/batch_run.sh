@@ -9,15 +9,15 @@ g++ --version
 gcc --version
 cc --version
 
-source /lustre/cbm/users/lubynets/soft/root-6/install_6.20_cpp17_debian10/bin/thisroot.sh
+SOFT_DIR=/lustre/cbm/users/lubynets/soft/Centrality/install
+source ${SOFT_DIR}/bin/CentralityConfig.sh
 
-SOFT_DIR=/lustre/cbm/users/lubynets/soft/centrality/install_nobrex
-ANALYSISTREE_DIR=/lustre/cbm/users/lubynets/soft/AnalysisTree_2/install_root6.20_cpp17_debian10_nobrex
-
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/lib
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ANALYSISTREE_DIR/lib
-export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/include/Centrality
-export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$ANALYSISTREE_DIR/include/AnalysisTree
+# source /lustre/cbm/users/lubynets/soft/root-6/install_6.24_cpp17_debian10/bin/thisroot.sh
+#
+#
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/lib
+# export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/include/Centrality
+# export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/include/AnalysisTree
 
 echo
 echo "Environment variables are set"
@@ -27,15 +27,18 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/cbm/users/lubynets/centradd
 
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
-SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56
+EVEGEN=urqmd
+SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
+
+# EVEGEN=dcmqgsm
+# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
+# # SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56
 
 EXE_DIR=$SOFT_DIR/bin
 EXE=fill_centrality
-# EXE=rapidity_filler
+EXE_STS=fill_centrality_sts
+EXE_IMPACTPAR=fill_centrality_b
 
-# FILELIST_DIR=/lustre/cbm/users/lubynets/filelists/cbm2atree/$SETUP_SIM/1perfile
 OUTPUT_DIR=${PROJECT_DIR}/outputs/$SETUP_SIM/
 LOG_DIR=$OUTPUT_DIR/logs
 WORK_DIR=$PROJECT_DIR/workdir
@@ -46,12 +49,18 @@ mkdir -p $LOG_DIR
 
 cd $WORK_DIR/$INDEX
 
-cp $EXE_DIR/$EXE ./
+cp $EXE_DIR/${EXE}* ./
 
-CENTR_FILE=/lustre/cbm/users/lubynets/cbm2atree/outputs/$SETUP_SIM/sts_centrality.root
+CENTR_FILE_STS=${PROJECT_DIR}/getters/centr_getter.sts_mult.${EVEGEN}.12agev.root
+CENTR_FILE_IMPACTPAR=${PROJECT_DIR}/getters/centr_getter.impactpar.${EVEGEN}.12agev.root
 
-# ls -d /lustre/cbm/users/lubynets/cbm2atree/outputs/$SETUP_SIM/AT2/$INDEX.analysistree.root > filelist.list
-# ./$EXE filelist.list $CENTR_FILE >& log_$INDEX.txt
+ls -d /lustre/cbm/users/lubynets/cbm2atree/outputs/$SETUP_SIM/AT2/$INDEX.analysistree.root > filelist.list
+./$EXE_STS filelist.list $CENTR_FILE_STS >& log_sts_$INDEX.txt
+mv centrality.analysistree.root intermediate.root
+rm filelist.list
+ls -d intermediate.root > filelist.list
+./$EXE_IMPACTPAR filelist.list $CENTR_FILE_IMPACTPAR >& log_b_$INDEX.txt
+rm $EXE_STS $EXE_IMPACTPAR intermediate.root filelist.list
 
 # ls -d $PROJECT_DIR/outputs/${SETUP_SIM}_old/$INDEX/centrality.analysistree.$INDEX.root > filelist.list
 # ./$EXE filelist.list >& log_$INDEX.txt

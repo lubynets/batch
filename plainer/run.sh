@@ -1,14 +1,15 @@
 #!/bin/bash
-LOGDIR=/lustre/cbm/users/$USER/QA/log
+PROJECT_NAME=attreeplainer
+LOGDIR=/lustre/cbm/users/$USER/$PROJECT_NAME/log
 mkdir -p $LOGDIR
 mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
-WORK_DIR=/lustre/cbm/users/$USER/QA/workdir
+WORK_DIR=/lustre/cbm/users/$USER/$PROJECT_NAME/workdir
 
 A_LOW=1
-A_HIGH=100
-TIME_LIMIT=00:20:00
+A_HIGH=250
+TIME_LIMIT=00:45:00
 
 NOT_COMPLETED=true
 ROUNDS=0
@@ -55,7 +56,7 @@ done
 if [ $NOT_COMPLETED = true ]
 then
 echo "Array " $A
-sbatch --job-name=MacroQA \
+sbatch --job-name=plainer \
        --wait \
        -t $TIME_LIMIT \
        --partition main \

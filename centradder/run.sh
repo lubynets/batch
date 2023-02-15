@@ -6,8 +6,8 @@ mkdir -p $LOGDIR/error
 
 WORK_DIR=/lustre/cbm/users/lubynets/centradd/workdir
 
-A_LOW=1
-A_HIGH=5000
+A_LOW=1001
+A_HIGH=3000
 TIME_LIMIT=00:05:00
 
 NOT_COMPLETED=true

@@ -4,15 +4,14 @@ echo
 echo "Bash script started"
 date
 
-source /lustre/cbm/users/lubynets/soft/root-6/install_6.20_cpp17_debian10/bin/thisroot.sh
+source /lustre/cbm/users/lubynets/soft/root-6/install_6.24_cpp17_debian10/bin/thisroot.sh
 
-SOFT_DIR=/lustre/cbm/users/lubynets/soft/pid/install_nobrex
-ANALYSISTREE_DIR=AnalysisTree_2/install_root6.20_cpp17_debian10_nobrex
+SOFT_DIR=/lustre/cbm/users/lubynets/soft/Pid/install
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/lib
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lustre/cbm/users/lubynets/soft/$ANALYSISTREE_DIR/lib
+export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/include/pid
+export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/include/AnalysisTree
 export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/include
-export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:/lustre/cbm/users/lubynets/soft/$ANALYSISTREE_DIR/include/AnalysisTree
 
 echo
 echo "Environment variables are set"
@@ -23,8 +22,8 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 PROJECT_DIR=/lustre/cbm/users/lubynets/pidadd
 
 # SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
-SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56
+SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
+# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56
 
 EXE_DIR=$SOFT_DIR/bin
 EXE=fill_pid
@@ -42,7 +41,7 @@ cd $WORK_DIR/$INDEX
 
 cp $EXE_DIR/$EXE ./
 
-PID_FILE=$PROJECT_DIR/getters/pid_getter.apr20.dcmqgsm.3.3agev.root
+PID_FILE=$PROJECT_DIR/getters/pid_getter.apr20.dcmqgsm.12agev.root
 
 ls -d $INPUT_DIR/centrality.analysistree.$INDEX.root > filelist.list
 
