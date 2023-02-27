@@ -8,17 +8,20 @@ source /lustre/cbm/users/lubynets/soft/root-6/install_6.24_cpp17_debian10/bin/th
 SOFT_DIR=/lustre/cbm/users/lubynets/soft/QnAnalysis
 INSTALL_DIR=install
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/$INSTALL_DIR/lib
+export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/$INSTALL_DIR/include/QnTools
 
 WORK_DIR=/lustre/cbm/users/$USER/qna/workdir
 
-A_LOW=21
-A_HIGH=60
+A_LOW=1
+A_HIGH=100
 
-TIME_LIMIT=00:15:00
+NSTEPS=2
+
+TIME_LIMIT=00:40:00
 
 A_HIGH=$(($A_HIGH+1))
 
-for STEP in `seq 0 1`
+for STEP in `seq 0 $(($NSTEPS-1))`
 do
 
 echo
@@ -64,10 +67,9 @@ INTERVAL=
 fi
 done
 
-echo "Array " $A
-
 if [ $STEP_NOT_COMPLETED = true ]
 then
+echo "Array " $A
 sbatch --job-name=QnA \
        --wait \
        -t $TIME_LIMIT \
@@ -79,7 +81,7 @@ sbatch --job-name=QnA \
 fi
 done
 
-if [ $STEP -ne 2 ]
+if [ $STEP -ne $(($NSTEPS-1)) ]
 then
 hadd -T $WORK_DIR/correction_merged_out_$STEP.root $WORK_DIR/*/correction_out_$STEP.root >& $LOGDIR/log_merge_$STEP.txt
 fi
