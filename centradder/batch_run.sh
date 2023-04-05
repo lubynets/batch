@@ -12,13 +12,6 @@ cc --version
 SOFT_DIR=/lustre/cbm/users/lubynets/soft/Centrality/install
 source ${SOFT_DIR}/bin/CentralityConfig.sh
 
-# source /lustre/cbm/users/lubynets/soft/root-6/install_6.24_cpp17_debian10/bin/thisroot.sh
-#
-#
-# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/lib
-# export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/include/Centrality
-# export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/include/AnalysisTree
-
 echo
 echo "Environment variables are set"
 date
@@ -27,12 +20,15 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/cbm/users/lubynets/centradd
 
-EVEGEN=urqmd
-SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
+# PBEAM=12
+PBEAM=3.3
 
-# EVEGEN=dcmqgsm
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
-# # SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56
+# EVEGEN=urqmd
+# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm
+
+EVEGEN=dcmqgsm
+# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm
+SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56
 
 EXE_DIR=$SOFT_DIR/bin
 EXE=fill_centrality
@@ -51,8 +47,8 @@ cd $WORK_DIR/$INDEX
 
 cp $EXE_DIR/${EXE}* ./
 
-CENTR_FILE_STS=${PROJECT_DIR}/getters/centr_getter.sts_mult.${EVEGEN}.12agev.root
-CENTR_FILE_IMPACTPAR=${PROJECT_DIR}/getters/centr_getter.impactpar.${EVEGEN}.12agev.root
+CENTR_FILE_STS=${PROJECT_DIR}/getters/centr_getter.sts_mult.${EVEGEN}.${PBEAM}agev.root
+CENTR_FILE_IMPACTPAR=${PROJECT_DIR}/getters/centr_getter.impactpar.${EVEGEN}.${PBEAM}agev.root
 
 ls -d /lustre/cbm/users/lubynets/cbm2atree/outputs/$SETUP_SIM/AT2/$INDEX.analysistree.root > filelist.list
 ./$EXE_STS filelist.list $CENTR_FILE_STS >& log_sts_$INDEX.txt

@@ -15,8 +15,8 @@ export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$CBMROOT/include/AnalysisTree
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-# EVENT_GEN=dcmqgsm_smm
-EVENT_GEN=urqmd
+EVENT_GEN=dcmqgsm_smm
+# EVENT_GEN=urqmd
 
 # --------------------- 12 AGeV ---------------------------------------------------------------------------------------------------------
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_w/auau/12agev/mbias/sis100_electron_target_25_mkm #          1-1000 # unigen shift = 3
@@ -26,21 +26,26 @@ EVENT_GEN=urqmd
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_rho0/auau/12agev/mbias/sis100_electron_target_25_mkm #    4001-5000 # unigen shift = 3
 
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto_wdalitz/auau/12agev/mbias/sis100_electron_target_25_mkm # 1001-2000
-SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto_etap/auau/12agev/mbias/sis100_electron_target_25_mkm/TGeant4 # 2001-3000
+# SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto_etap/auau/12agev/mbias/sis100_electron_target_25_mkm/TGeant4 # 2001-3000
 
-SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm/AT_EandT
+# SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm/AT_EandT
 #----------------------------------------------------------------------------------------------------------------------------------------
 
 # --------------------- 3.3 AGeV --------------------------------------------------------------------------------------------------------
-# SETUP_IN=/lustre/cbm/users/isegal/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/TGeant4 # 1-250
-# SETUP_IN=/lustre/cbm/users/iselyuzh/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_wdalitz/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/TGeant4 # 501-750
-# SETUP_IN=/lustre/cbm/users/kashirin/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_phi/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/TGeant4 # 1501-1750
-# SETUP_IN=/lustre/cbm/users/klochkov/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_rho0/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/TGeant4 # 2001-2250
-# SETUP_IN=/lustre/cbm/users/iselyuzh/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_inmed_had_epem/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/TGeant4 # 2501-2750
+# SETUP_IN=/lustre/cbm/users/isegal/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/TGeant4 # 1-250 # unigen shift = 3
+# SETUP_IN=/lustre/cbm/users/iselyuzh/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_wdalitz/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/TGeant4 # 501-750 # unigen shift = 5
+# SETUP_IN=/lustre/cbm/users/kashirin/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_phi/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/TGeant4 # 1501-1750 # unigen shift = 3
+# SETUP_IN=/lustre/cbm/users/klochkov/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_rho0/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/TGeant4 # 2001-2250 # unigen shift = 3
+# SETUP_IN=/lustre/cbm/users/iselyuzh/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_inmed_had_epem/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/TGeant4 # 2501-2750 # unigen shift = 3
 
-# SETUP_IN=/lustre/cbm/users/isegal/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto_w/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/TGeant4 # 1-50
+SETUP_IN=/lustre/cbm/users/iselyuzh/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56/TGeant4 # 251-500, 751-1000, 1251-1500, 1751-2000 # unigen shift = 0
+# SETUP_IN=/lustre/cbm/users/iselyuzh/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_etap/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56/TGeant4 # 1001-1250 # unigen shift = 5
+# SETUP_IN=/lustre/cbm/users/iselyuzh/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_inmed_had_epem/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56/TGeant4 # 2751-3000 # unigen shift = 3
 
-# SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/AT2
+
+# SETUP_IN=/lustre/cbm/users/isegal/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto_w/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/TGeant4
+
+SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/AT2
 #----------------------------------------------------------------------------------------------------------------------------------------
 
 # SETUP_IN=/lustre/cbm/users/ogolosov/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_no_mvd/TGeant4
@@ -63,8 +68,8 @@ cd $WORK_DIR/$INDEX
 
 cp ${MACRO_DIR}/${MACRO} ./
 
-root -l -b -q "${MACRO}(\"/lustre/cbm/pwg/common/mc/cbmsim/${SETUP_IN}/\", \"${INDEX}\")" >& log_${INDEX}.txt
-# root -l -b -q "${MACRO}(\"${SETUP_IN}/\", \"${INDEX}\")" >& log_${INDEX}.txt
+# root -l -b -q "${MACRO}(\"/lustre/cbm/pwg/common/mc/cbmsim/${SETUP_IN}/\", \"${INDEX}\")" >& log_${INDEX}.txt
+root -l -b -q "${MACRO}(\"${SETUP_IN}/\", \"${INDEX}\")" >& log_${INDEX}.txt
 # root -l -b -q "${MACRO}(\"/lustre/cbm/users/ogolosov/mc/cbmsim/apr21_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_apr20_target_25_mkm/TGeant4/\", \"${INDEX}\")" >& log_${INDEX}.txt
 
 rm FairRunInfo* L1_histo.root ${MACRO} core*

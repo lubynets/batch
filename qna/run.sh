@@ -12,16 +12,18 @@ export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/$INSTALL_DIR/include/QnToo
 
 WORK_DIR=/lustre/cbm/users/$USER/qna/workdir
 
-A_LOW=1
-A_HIGH=100
+A_LOW=21
+A_HIGH=60
 
-NSTEPS=2
+# NSTEPS=1 # PLAIN
+# NSTEPS=2 # RECENTERING
+NSTEPS=3 # TWIST^RESCALE
 
-TIME_LIMIT=00:40:00
+TIME_LIMIT=07:40:00
 
 A_HIGH=$(($A_HIGH+1))
 
-for STEP in `seq 0 $(($NSTEPS-1))`
+for STEP in `seq 0 $NSTEPS`
 do
 
 echo
@@ -77,11 +79,11 @@ sbatch --job-name=QnA \
        --output=$LOGDIR/out/%j.out.log \
        --error=$LOGDIR/error/%j.err.log \
        -a $A \
-       -- $PWD/batch_run.sh $STEP
+       -- $PWD/batch_run.sh $STEP $NSTEPS
 fi
 done
 
-if [ $STEP -ne $(($NSTEPS-1)) ]
+if [ $STEP -lt $(($NSTEPS-1)) ]
 then
 hadd -T $WORK_DIR/correction_merged_out_$STEP.root $WORK_DIR/*/correction_out_$STEP.root >& $LOGDIR/log_merge_$STEP.txt
 fi

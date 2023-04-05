@@ -24,17 +24,19 @@ CBM_FILES_PER_JOB=50
 
 PROJECT_DIR=/lustre/cbm/users/lubynets/weightadd
 
-BEAM_MOM=12
-SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm # 1-100
-EFFMAP_FILE=$PROJECT_DIR/effmaps/effmap_pt_y_C.dcmqgsm.12agev.3122and310.root
+# BEAM_MOM=12
+# EVEGEN=dcmqgsm
+# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${BEAM_MOM}agev/mbias/sis100_electron_target_25_mkm # 1-100
 
 # BEAM_MOM=12
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm # 21-60
-# EFFMAP_FILE=$PROJECT_DIR/effmaps/effmap.$PDG.urqmd.12agev.defcuts.gen1.root
+# EVEGEN=urqmd
+# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${BEAM_MOM}agev/mbias/sis100_electron_target_25_mkm # 21-60
 
-# BEAM_MOM=3.3
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56 # 1-60
-# EFFMAP_FILE=$PROJECT_DIR/effmaps/effmap.apr20.dcmqgsm.${BEAM_MOM}agev.recpid.lightcuts1.3122and310.root
+BEAM_MOM=3.3
+EVEGEN=dcmqgsm
+SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${BEAM_MOM}agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56 # 1-60
+
+EFFMAP_FILE=$PROJECT_DIR/effmaps/effmap_pt_y_C.${EVEGEN}.${BEAM_MOM}agev.3122and310.root
 
 SETUP_REC=recpid/lightcuts1/3122and310
 

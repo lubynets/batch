@@ -21,9 +21,9 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/cbm/users/lubynets/pidadd
 
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
-SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56
+# EVEGEN=urqmd PBEAM=12    SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm
+# EVEGEN=dcmqgsm PBEAM=12  SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm
+EVEGEN=dcmqgsm PBEAM=3.3 SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56
 
 EXE_DIR=$SOFT_DIR/bin
 EXE=fill_pid
@@ -41,7 +41,7 @@ cd $WORK_DIR/$INDEX
 
 cp $EXE_DIR/$EXE ./
 
-PID_FILE=$PROJECT_DIR/getters/pid_getter.apr20.dcmqgsm.12agev.root
+PID_FILE=$PROJECT_DIR/getters/pid_getter.apr20.${EVEGEN}.${PBEAM}agev.root
 
 ls -d $INPUT_DIR/centrality.analysistree.$INDEX.root > filelist.list
 
