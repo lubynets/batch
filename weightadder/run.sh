@@ -7,7 +7,7 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/cbm/users/$USER/weightadd/workdir
 
 A_LOW=1
-A_HIGH=60
+A_HIGH=1
 TIME_LIMIT=00:25:00
 
 NOT_COMPLETED=true
