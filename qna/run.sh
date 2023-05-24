@@ -12,14 +12,14 @@ export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/$INSTALL_DIR/include/QnToo
 
 WORK_DIR=/lustre/cbm/users/$USER/qna/workdir
 
-A_LOW=21
-A_HIGH=60
+A_LOW=1
+A_HIGH=100
 
 # NSTEPS=1 # PLAIN
 # NSTEPS=2 # RECENTERING
 NSTEPS=3 # TWIST^RESCALE
 
-TIME_LIMIT=00:20:00
+TIME_LIMIT=00:10:00
 
 A_HIGH=$(($A_HIGH+1))
 
@@ -74,7 +74,7 @@ then
 echo "Array " $A
 sbatch --job-name=QnA \
        --wait \
-       -t $TIME_LIMIT \
+       -t 00:10:00 \
        --partition main \
        --output=$LOGDIR/out/%j.out.log \
        --error=$LOGDIR/error/%j.err.log \

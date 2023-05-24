@@ -2,6 +2,8 @@
 
 echo
 echo "Bash script started"
+echo "LD_LIBRARY_PATH="$LD_LIBRARY_PATH
+echo "ROOT_INCLUDE_PATH="$ROOT_INCLUDE_PATH
 date
 
 g++ --version
@@ -19,11 +21,13 @@ export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/include/AnalysisTreeQA
 
 echo
 echo "Environment variables are set"
+echo "LD_LIBRARY_PATH="$LD_LIBRARY_PATH
+echo "ROOT_INCLUDE_PATH="$ROOT_INCLUDE_PATH
 date
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-FILES_PER_JOB=1
+FILES_PER_JOB=10
 
 # REC_MODE=standard
 # REC_MODE=v0default
@@ -34,15 +38,15 @@ SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_
 # SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm # 1001 - 3000
 # SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56_MF_56 # 1 - 3000
 
-# SETUP_REC=recpid/$REC_MODE/defaultcuts/3312and3334
+SETUP_REC=nopid/nocuts/invmasscut/3122
 
 EXE_DIR=$SOFT_DIR/bin
-EXE=pfs_qa
+EXE=topo_corr
 
 # INPUT_DIR=/lustre/cbm/users/lubynets/cbm2atree/outputs/$SETUP_SIM/AT2
-INPUT_DIR=/lustre/cbm/users/lubynets/pfsimple/outputs/sw
-# OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$SETUP_SIM
-OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/sw
+INPUT_DIR=/lustre/cbm/users/lubynets/pfsimple/outputs/$SETUP_SIM/$SETUP_REC
+OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$SETUP_SIM
+# OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/sw
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 

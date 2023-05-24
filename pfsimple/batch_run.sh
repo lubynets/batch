@@ -20,20 +20,23 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/external/lib
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-FILES_PER_JOB=50
+FILES_PER_JOB=5
 
 PROJECT_DIR=/lustre/cbm/users/$USER/pfsimple
 
-PDGS=3122and310
+PDGS=3122
+# PDGS=3122and310
 # PDGS=3312
 
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
-SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
+SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
+# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm
 # SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56
 
-INPUT_DIR=/lustre/cbm/users/lubynets/pidadd/outputs/$SETUP_SIM
+INPUT_DIR=/lustre/cbm/users/lubynets/cbm2atree/outputs/$SETUP_SIM
+# INPUT_DIR=/lustre/cbm/users/lubynets/pidadd/outputs/$SETUP_SIM
 
-SETUP_REC=recpid/lightcuts1/$PDGS
+SETUP_REC=nopid/nocuts/invmasscut/$PDGS
+# SETUP_REC=recpid/lightcuts1/$PDGS
 # SETUP_REC=mcpid/defaultcuts/$PDGS
 
 EXE_DIR=$SOFT_DIR/bin
@@ -60,8 +63,8 @@ fi
 for K in `seq 1 $FILES_PER_JOB`
 do
 FILE_NUMBER=$(($(($FILES_PER_JOB*$(($INDEX-1))))+$K))
-# ls -d $INPUT_DIR/AT2/$FILE_NUMBER.analysistree.root >> filelist.list
-ls -d $INPUT_DIR/pid.analysistree.$FILE_NUMBER.root >> filelist.list
+ls -d $INPUT_DIR/AT2/$FILE_NUMBER.analysistree.root >> filelist.list
+# ls -d $INPUT_DIR/pid.analysistree.$FILE_NUMBER.root >> filelist.list
 done
 
 ./$EXE filelist.list >& log_${INDEX}.txt
