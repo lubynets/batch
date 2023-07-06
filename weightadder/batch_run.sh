@@ -20,34 +20,38 @@ date
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-CBM_FILES_PER_JOB=1
+CBM_FILES_PER_JOB=50
 
 PROJECT_DIR=/lustre/cbm/users/lubynets/weightadd
 
-BEAM_MOM=12
-EVEGEN=dcmqgsm
-SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${BEAM_MOM}agev/mbias/sis100_electron_target_25_mkm # 1-100
+# BEAM_MOM=12
+# EVEGEN=dcmqgsm
+# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${BEAM_MOM}agev/mbias/sis100_electron_target_25_mkm # 1-100
 
 # BEAM_MOM=12
 # EVEGEN=urqmd
 # SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${BEAM_MOM}agev/mbias/sis100_electron_target_25_mkm # 21-60
 
-# BEAM_MOM=3.3
-# EVEGEN=dcmqgsm
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${BEAM_MOM}agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56 # 1-60
+BEAM_MOM=3.3
+EVEGEN=dcmqgsm
+SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${BEAM_MOM}agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56 # 1-60
 
 # EFFMAP_FILE=$PROJECT_DIR/effmaps/effmap_pt_y_C.${EVEGEN}.${BEAM_MOM}agev.3122and310.root
+# EFFMAP_FILE=$PROJECT_DIR/effmaps/th2.${EVEGEN}.${BEAM_MOM}agev.3122and310.oc1.root
+EFFMAP_FILE=$PROJECT_DIR/effmaps/th2.${EVEGEN}.${BEAM_MOM}agev.3312and3334.root
 
 # SETUP_REC=recpid/lightcuts1/3122and310
+# SETUP_REC=recpid/optimcuts1/3122and310
+SETUP_REC=recpid/defaultcuts/3312and3334
 
 EXE_DIR=$SOFT_DIR/bin
 EXE=efficiency_filler
-EXE=rapidity_filler
+# EXE=rapidity_filler
 
 PFSIMPLE_DIR=/lustre/cbm/users/lubynets/pfsimple/outputs/$SETUP_SIM/$SETUP_REC
 PID_DIR=/lustre/cbm/users/lubynets/pidadd/outputs/$SETUP_SIM
-# OUTPUT_DIR=$PROJECT_DIR/outputs/$SETUP_SIM/$SETUP_REC
-OUTPUT_DIR=${PID_DIR}_extra
+OUTPUT_DIR=$PROJECT_DIR/outputs/$SETUP_SIM/$SETUP_REC
+# OUTPUT_DIR=${PID_DIR}_extra
 LOG_DIR=$OUTPUT_DIR/log
 WORK_DIR=$PROJECT_DIR/workdir
 
@@ -64,12 +68,12 @@ then
 rm filelist_cbm.list
 fi
 
-# if [ -f "filelist_pfs.list" ]
-# then
-# rm filelist_pfs.list
-# fi
-#
-# ls -d $PFSIMPLE_DIR/PFSimpleOutput.$INDEX.root > filelist_pfs.list
+if [ -f "filelist_pfs.list" ]
+then
+rm filelist_pfs.list
+fi
+
+ls -d $PFSIMPLE_DIR/PFSimpleOutput.$INDEX.root > filelist_pfs.list
 
 for K in `seq 1 $CBM_FILES_PER_JOB`
 do
@@ -77,13 +81,13 @@ FILE_NUMBER=$(($(($CBM_FILES_PER_JOB*$(($INDEX-1))))+$K))
 ls -d $PID_DIR/pid.analysistree.$FILE_NUMBER.root >> filelist_cbm.list
 done
 
-# ./$EXE filelist_cbm.list filelist_pfs.list $EFFMAP_FILE $BEAM_MOM >& log_$INDEX.txt
-./$EXE filelist_cbm.list >& log_$INDEX.txt
+./$EXE filelist_cbm.list filelist_pfs.list $EFFMAP_FILE $BEAM_MOM >& log_$INDEX.txt
+# ./$EXE filelist_cbm.list >& log_$INDEX.txt
 
 rm $EXE
 
-# mv fillerOut.root fillerOut.$INDEX.root
-mv pid.analysistree.root pid.analysistree.$INDEX.root
+mv fillerOut.root fillerOut.$INDEX.root
+# mv pid.analysistree.root pid.analysistree.$INDEX.root
 
 mv *root $OUTPUT_DIR
 mv log* $LOG_DIR

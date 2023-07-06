@@ -35,17 +35,22 @@ BEAM_MOM=12
 EVEGEN=dcmqgsm
 # EVEGEN=urqmd
 
-PDGS=3122and310
+# PDGS=3122and310
+# # PDG=3122
+# PDG=310
 
-# PDG=3122
-PDG=310
+PDGS=3312and3334
+# PDG=3312
 
 SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${BEAM_MOM}agev/mbias/sis100_electron_target_25_mkm # 1 - 5000, dcmqgsm, 12agev
 # SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${BEAM_MOM}agev/mbias/sis100_electron_target_25_mkm # 1001 - 3000, urqmd, 12agev
 # SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${BEAM_MOM}agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56 # 1 - 3000, dcmqgsm, 3.3agev
 
-SETUP_REC=recpid/lightcuts1/$PDGS
-# SETUP_REC=recpid/defaultcuts/3312and3334
+# SETUP_REC=recpid/lightcuts1
+SETUP_REC=recpid/defaultcuts
+# SETUP_REC=recpid/optimcuts1
+
+SETUP_REC=$SETUP_REC/$PDGS
 
 MACRO_DIR=$PROJECT_DIR/macro
 
@@ -54,8 +59,8 @@ INPUT_DIR_SIM=/lustre/cbm/users/lubynets/centradd/outputs/$SETUP_SIM
 
 INPUT_DIR_REC=/lustre/cbm/users/lubynets/pfsimple/outputs/$SETUP_SIM/$SETUP_REC
 
-MACRO=massDC
-# MACRO=cplxmap_pt_y_C
+# MACRO=massDC
+MACRO=cplxmap_pt_y_C
 # MACRO=multiplicity_qa
 # MACRO=m2_pq_vtx
 # MACRO=covariances_scol
@@ -97,11 +102,10 @@ done
 
 ls -d $INPUT_DIR_REC/PFSimpleOutput.$INDEX.root >> filelist_rec.list
 
-# root -l -b -q "${MACRO}.C(\"filelist_sim.list\", \"filelist_rec.list\", $BEAM_MOM)" >& log_${INDEX}.txt # cplxmap_pt_y_C
-root -l -b -q "${MACRO}.C(\"filelist_sim.list\", \"filelist_rec.list\", $PDG)" >& log_${INDEX}.txt # massDC
+root -l -b -q "${MACRO}.C(\"filelist_sim.list\", \"filelist_rec.list\", $BEAM_MOM)" >& log_${INDEX}.txt # cplxmap_pt_y_C
+# root -l -b -q "${MACRO}.C(\"filelist_sim.list\", \"filelist_rec.list\", $PDG)" >& log_${INDEX}.txt # massDC
 # root -l -b -q "${MACRO}.C({\"filelist_sim.list\"})" >& log_${INDEX}.txt # multiplicity_qa
 # root -l -b -q "${MACRO}.C(\"filelist_sim.list\")" >& log_${INDEX}.txt
-# root -l -b -q "${MACRO}.C({\"$FILELIST_DIR/filelist.$INDEX.list\"})" >& log_${INDEX}.txt
 # root -l -b -q "${MACRO}.C(\"/lustre/cbm/users/lubynets/qna/outputs/sim_tracks_flow/$INDEX/correction_out_1.root\", \"$PARTICLE\")" >& log_${INDEX}.txt
                     
 rm $MACRO.C

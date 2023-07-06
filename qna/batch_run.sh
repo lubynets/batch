@@ -30,29 +30,32 @@ CBM_FILES_PER_JOB=50
 
 PROJECT_DIR=/lustre/cbm/users/lubynets/qna
 
-# PBEAM=3.3
-PBEAM=12
+PBEAM=3.3
+# PBEAM=12
 
 EVEGEN=dcmqgsm_smm
 # EVEGEN=urqmd
 
-# PDG=3122
-PDG=310
+PDG=3122
+# PDG=310
+# PDG=3312
 
-SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm # dcmqgsm_smm & urqmd 12 agev (1-100, 21-60)
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56 # dcmqgsm_smm 3.3agev (1-60)
+# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm # dcmqgsm_smm & urqmd 12 agev (1-100, 21-60)
+SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56 # dcmqgsm_smm 3.3agev (1-60)
 
-SETUP_REC=recpid/lightcuts1/3122and310
+# SETUP_REC=recpid/lightcuts1/3122and310
+# SETUP_REC=recpid/defaultcuts/3312and3334
+SETUP_REC=recpid/optimcuts1/3122and310
 
 # ANATYPE=sim_tracks_flow
 # ANATYPE=rec_tracks_psi
-# ANATYPE=inv_mass_fit
+ANATYPE=inv_mass_fit
 
 EXE_DIR=$SOFT_DIR/$INSTALL_DIR/bin
 INPUT_DIR_CBM=/lustre/cbm/users/lubynets/pidadd/outputs/$SETUP_SIM
 INPUT_DIR_PFS=/lustre/cbm/users/lubynets/weightadd/outputs/$SETUP_SIM/$SETUP_REC
-OUTPUT_DIR=$PROJECT_DIR/outputs/$SETUP_SIM/$SETUP_REC/$PDG
-# OUTPUT_DIR=$PROJECT_DIR/outputs/$ANATYPE/$EVEGEN/${PBEAM}agev
+OUTPUT_DIR=$PROJECT_DIR/outputs/$SETUP_SIM/$SETUP_REC/${PDG}
+# OUTPUT_DIR=$PROJECT_DIR/outputs/$ANATYPE/d3
 WORK_DIR=$PROJECT_DIR/workdir
 YAML_DIR=/lustre/cbm/users/lubynets/qna/setup
 

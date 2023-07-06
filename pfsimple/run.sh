@@ -7,7 +7,7 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/cbm/users/$USER/pfsimple/workdir
 
 A_LOW=1
-A_HIGH=1000
+A_HIGH=60
 TIME_LIMIT=02:00:00
 
 NOT_COMPLETED=true

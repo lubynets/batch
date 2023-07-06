@@ -22,8 +22,8 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 PROJECT_DIR=/lustre/cbm/users/lubynets/pidadd
 
 # EVEGEN=urqmd PBEAM=12    SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm
-EVEGEN=dcmqgsm PBEAM=12  SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm
-# EVEGEN=dcmqgsm PBEAM=3.3 SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56
+# EVEGEN=dcmqgsm PBEAM=12  SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm
+EVEGEN=dcmqgsm PBEAM=3.3 SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_smm_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56
 
 EXE_DIR=$SOFT_DIR/bin
 EXE=fill_pid
