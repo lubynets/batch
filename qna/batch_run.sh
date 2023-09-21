@@ -9,20 +9,7 @@ START_TIME=$SECONDS
 CORR_STEP=${1}
 NSTEPS=${2}
 
-source /lustre/cbm/users/lubynets/soft/root-6/install_6.24_cpp17_debian10/bin/thisroot.sh
-
-SOFT_DIR=/lustre/cbm/users/lubynets/soft/QnAnalysis
-INSTALL_DIR=install
-
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/$INSTALL_DIR/lib
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lustre/cbm/users/lubynets/soft/boost/install_1_77_0/lib
-
-export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/$INSTALL_DIR/include
-export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/$INSTALL_DIR/include/AnalysisTree
-export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/$INSTALL_DIR/include/AnalysisTree/infra-1.0
-export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/$INSTALL_DIR/include/AnalysisTreeCutsRegistry
-export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/$INSTALL_DIR/include/QnAnalysis
-export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/$INSTALL_DIR/include/QnTools
+source /lustre/cbm/users/lubynets/soft/QnAnalysis/install/bin/QnAnalysisConfig.sh
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
@@ -30,8 +17,8 @@ CBM_FILES_PER_JOB=50
 
 PROJECT_DIR=/lustre/cbm/users/lubynets/qna
 
-PBEAM=3.3
-# PBEAM=12
+# PBEAM=3.3
+PBEAM=12
 
 EVEGEN=dcmqgsm_smm
 # EVEGEN=urqmd
@@ -40,12 +27,12 @@ PDG=3122
 # PDG=310
 # PDG=3312
 
-# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm # dcmqgsm_smm & urqmd 12 agev (1-100, 21-60)
-SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56 # dcmqgsm_smm 3.3agev (1-60)
+SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm # dcmqgsm_smm & urqmd 12 agev (1-100, 21-60)
+# SETUP_SIM=apr20_fr_18.2.1_fs_jun19p1/${EVEGEN}_pluto/auau/${PBEAM}agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56 # dcmqgsm_smm 3.3agev (1-60)
 
-# SETUP_REC=recpid/lightcuts1/3122and310
+SETUP_REC=recpid/lightcuts1/3122and310
 # SETUP_REC=recpid/defaultcuts/3312and3334
-SETUP_REC=recpid/optimcuts1/3122and310
+# SETUP_REC=recpid/optimcuts1/3122and310
 
 # ANATYPE=sim_tracks_flow
 # ANATYPE=rec_tracks_psi

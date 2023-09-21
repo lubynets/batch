@@ -26,9 +26,9 @@ EVENT_GEN=urqmd
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_rho0/auau/12agev/mbias/sis100_electron_target_25_mkm #    4001-5000 # unigen shift = 3
 
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto_wdalitz/auau/12agev/mbias/sis100_electron_target_25_mkm # 1001-2000
-SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto_etap/auau/12agev/mbias/sis100_electron_target_25_mkm/TGeant4 # 2001-3000
+# SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto_etap/auau/12agev/mbias/sis100_electron_target_25_mkm/TGeant4 # 2001-3000
 
-SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm/AT2_new
+# SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm/AT2_new
 #----------------------------------------------------------------------------------------------------------------------------------------
 
 # --------------------- 3.3 AGeV --------------------------------------------------------------------------------------------------------
@@ -48,8 +48,8 @@ SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/12agev/mbias/sis100
 # SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/AT2
 #----------------------------------------------------------------------------------------------------------------------------------------
 
-# SETUP_IN=/lustre/cbm/users/ogolosov/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_no_mvd/TGeant4
-# SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_no_mvd
+SETUP_IN=/lustre/cbm/users/ogolosov/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_no_mvd/TGeant4
+SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_no_mvd
 
 
 PROJECT_DIR=/lustre/cbm/users/lubynets/cbm2atree
@@ -68,8 +68,8 @@ cd $WORK_DIR/$INDEX
 
 cp ${MACRO_DIR}/${MACRO} ./
 
-root -l -b -q "${MACRO}(\"/lustre/cbm/pwg/common/mc/cbmsim/${SETUP_IN}/\", \"${INDEX}\")" >& log_${INDEX}.txt
-# root -l -b -q "${MACRO}(\"${SETUP_IN}/\", \"${INDEX}\")" >& log_${INDEX}.txt
+# root -l -b -q "${MACRO}(\"/lustre/cbm/pwg/common/mc/cbmsim/${SETUP_IN}/\", \"${INDEX}\")" >& log_${INDEX}.txt
+root -l -b -q "${MACRO}(\"${SETUP_IN}/\", \"${INDEX}\")" >& log_${INDEX}.txt
 # root -l -b -q "${MACRO}(\"/lustre/cbm/users/ogolosov/mc/cbmsim/apr21_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_apr20_target_25_mkm/TGeant4/\", \"${INDEX}\")" >& log_${INDEX}.txt
 
 rm FairRunInfo* L1_histo.root ${MACRO} core*

@@ -6,9 +6,9 @@ mkdir -p $LOGDIR/error
 
 WORK_DIR=/lustre/cbm/users/$USER/pfsimple/workdir
 
-A_LOW=1
-A_HIGH=60
-TIME_LIMIT=02:00:00
+A_LOW=71
+A_HIGH=100
+TIME_LIMIT=00:20:00
 
 NOT_COMPLETED=true
 ROUNDS=0
@@ -58,9 +58,9 @@ echo "Array " $A
 sbatch --job-name=pfsimple \
        --wait \
        -t $TIME_LIMIT \
-       --partition main \
-       --output=$LOGDIR/out/%j.out.log \
-       --error=$LOGDIR/error/%j.err.log \
+       --partition debug \
+       --output=$LOGDIR/out/%a.out.log \
+       --error=$LOGDIR/error/%a.err.log \
        -a $A \
        -- $PWD/batch_run.sh
 fi

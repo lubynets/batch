@@ -6,8 +6,8 @@ mkdir -p $LOGDIR/error
 
 WORK_DIR=/lustre/cbm/users/lubynets/cbm2atree/workdir
 
-A_LOW=2001
-A_HIGH=3000
+A_LOW=1
+A_HIGH=1
 TIME_LIMIT=00:05:00
 
 NOT_COMPLETED=true
@@ -58,9 +58,9 @@ echo "Array " $A
 sbatch --job-name=cbm2atree \
        --wait \
        -t $TIME_LIMIT \
-       --partition main \
-       --output=$LOGDIR/out/%j.out.log \
-       --error=$LOGDIR/error/%j.err.log \
+       --partition debug \
+       --output=$LOGDIR/out/%a.out.log \
+       --error=$LOGDIR/error/%a.err.log \
        -a $A \
        -- $PWD/batch_run.sh
 fi
