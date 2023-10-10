@@ -5,7 +5,6 @@ echo "Bash script started"
 date
 
 CBMROOT=/lustre/cbm/users/lubynets/soft/cbmroot/install_apr20_at2_debian10
-# CBMROOT=/u/lubynets/soft/cbmrootmaster/build/install
 
 source $CBMROOT/bin/CbmRootConfig.sh
 
@@ -15,11 +14,11 @@ export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$CBMROOT/include/AnalysisTree
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-# EVENT_GEN=dcmqgsm_smm
-EVENT_GEN=urqmd
+EVENT_GEN=dcmqgsm_smm
+# EVENT_GEN=urqmd
 
 # --------------------- 12 AGeV ---------------------------------------------------------------------------------------------------------
-# SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_w/auau/12agev/mbias/sis100_electron_target_25_mkm #          1-1000 # unigen shift = 3
+SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_w/auau/12agev/mbias/sis100_electron_target_25_mkm; UNIGEN_SHIFT=3 #          1-1000 # unigen shift = 3
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_wdalitz/auau/12agev/mbias/sis100_electron_target_25_mkm # 1001-2000 # unigen shift = 5
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_etap/auau/12agev/mbias/sis100_electron_target_25_mkm #    2001-3000 # unigen shift = 5
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto_phi/auau/12agev/mbias/sis100_electron_target_25_mkm #     3001-4000 # unigen shift = 3
@@ -28,7 +27,7 @@ EVENT_GEN=urqmd
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto_wdalitz/auau/12agev/mbias/sis100_electron_target_25_mkm # 1001-2000
 # SETUP_IN=apr20_fr_18.2.1_fs_jun19p1/urqmd_pluto_etap/auau/12agev/mbias/sis100_electron_target_25_mkm/TGeant4 # 2001-3000
 
-# SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm/AT2_new
+SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/12agev/mbias/sis100_electron_target_25_mkm/AT2_new
 #----------------------------------------------------------------------------------------------------------------------------------------
 
 # --------------------- 3.3 AGeV --------------------------------------------------------------------------------------------------------
@@ -48,8 +47,8 @@ EVENT_GEN=urqmd
 # SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/${EVENT_GEN}_pluto/auau/3.3agev/mbias/sis100_electron_target_25_mkm_psd_v18e_p3.3_56/AT2
 #----------------------------------------------------------------------------------------------------------------------------------------
 
-SETUP_IN=/lustre/cbm/users/ogolosov/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_no_mvd/TGeant4
-SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_no_mvd
+# SETUP_IN=/lustre/cbm/users/ogolosov/mc/cbmsim/apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_no_mvd/TGeant4
+# SETUP_OUT=apr20_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto/auau/12agev/mbias/sis100_electron_no_mvd
 
 
 PROJECT_DIR=/lustre/cbm/users/lubynets/cbm2atree
@@ -68,8 +67,8 @@ cd $WORK_DIR/$INDEX
 
 cp ${MACRO_DIR}/${MACRO} ./
 
-# root -l -b -q "${MACRO}(\"/lustre/cbm/pwg/common/mc/cbmsim/${SETUP_IN}/\", \"${INDEX}\")" >& log_${INDEX}.txt
-root -l -b -q "${MACRO}(\"${SETUP_IN}/\", \"${INDEX}\")" >& log_${INDEX}.txt
+root -l -b -q "${MACRO}(\"/lustre/cbm/pwg/common/mc/cbmsim/${SETUP_IN}/\", \"${INDEX}\", $UNIGEN_SHIFT)" >& log_${INDEX}.txt
+# root -l -b -q "${MACRO}(\"${SETUP_IN}/\", \"${INDEX}\")" >& log_${INDEX}.txt
 # root -l -b -q "${MACRO}(\"/lustre/cbm/users/ogolosov/mc/cbmsim/apr21_fr_18.2.1_fs_jun19p1/dcmqgsm_smm_pluto_w/auau/12agev/mbias/sis100_electron_apr20_target_25_mkm/TGeant4/\", \"${INDEX}\")" >& log_${INDEX}.txt
 
 rm FairRunInfo* L1_histo.root ${MACRO} core*

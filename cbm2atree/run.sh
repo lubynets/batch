@@ -58,7 +58,7 @@ echo "Array " $A
 sbatch --job-name=cbm2atree \
        --wait \
        -t $TIME_LIMIT \
-       --partition debug \
+       --partition main \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \
