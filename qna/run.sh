@@ -4,22 +4,18 @@ mkdir -p $LOGDIR
 mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
-source /lustre/cbm/users/lubynets/soft/root-6/install_6.24_cpp17_debian10/bin/thisroot.sh
-SOFT_DIR=/lustre/cbm/users/lubynets/soft/QnAnalysis
-INSTALL_DIR=install
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SOFT_DIR/$INSTALL_DIR/lib
-export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$SOFT_DIR/$INSTALL_DIR/include/QnTools
+source /lustre/cbm/users/lubynets/soft/QnAnalysis/install/bin/QnAnalysisConfig.sh
 
 WORK_DIR=/lustre/cbm/users/$USER/qna/workdir
 
 A_LOW=1
-A_HIGH=100
+A_HIGH=2
 
 # NSTEPS=1 # PLAIN
 # NSTEPS=2 # RECENTERING
-NSTEPS=3 # TWIST^RESCALE
+NSTEPS=3 # TWIST&RESCALE
 
-TIME_LIMIT=00:10:00
+TIME_LIMIT=00:15:00
 
 A_HIGH=$(($A_HIGH+1))
 
@@ -76,8 +72,8 @@ sbatch --job-name=QnA \
        --wait \
        -t $TIME_LIMIT \
        --partition main \
-       --output=$LOGDIR/out/%j.out.log \
-       --error=$LOGDIR/error/%j.err.log \
+       --output=$LOGDIR/out/%a.step_${STEP}.out.log \
+       --error=$LOGDIR/error/%a.step_${STEP}.err.log \
        -a $A \
        -- $PWD/batch_run.sh $STEP $NSTEPS
 fi

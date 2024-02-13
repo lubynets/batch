@@ -34,15 +34,18 @@ SETUP_REC=recpid/lightcuts1/3122and310
 # SETUP_REC=recpid/defaultcuts/3312and3334
 # SETUP_REC=recpid/optimcuts1/3122and310
 
+# ANATYPE=flow_from_model
 # ANATYPE=sim_tracks_flow
 # ANATYPE=rec_tracks_psi
-ANATYPE=inv_mass_fit
+# ANATYPE=inv_mass_fit
+# ANATYPE=stspipos4th
 
-EXE_DIR=$SOFT_DIR/$INSTALL_DIR/bin
+EXE_DIR=/lustre/cbm/users/lubynets/soft/QnAnalysis/install/bin
 INPUT_DIR_CBM=/lustre/cbm/users/lubynets/pidadd/outputs/$SETUP_SIM
 INPUT_DIR_PFS=/lustre/cbm/users/lubynets/weightadd/outputs/$SETUP_SIM/$SETUP_REC
-OUTPUT_DIR=$PROJECT_DIR/outputs/$SETUP_SIM/$SETUP_REC/${PDG}
-# OUTPUT_DIR=$PROJECT_DIR/outputs/$ANATYPE/d3
+# OUTPUT_DIR=$PROJECT_DIR/outputs/$SETUP_SIM/$SETUP_REC/${PDG}_finept
+# OUTPUT_DIR=$PROJECT_DIR/outputs/$ANATYPE/$EVEGEN/${PBEAM}agev
+OUTPUT_DIR=$PROJECT_DIR/outputs/draft
 WORK_DIR=$PROJECT_DIR/workdir
 YAML_DIR=/lustre/cbm/users/lubynets/qna/setup
 
