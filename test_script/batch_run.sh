@@ -17,7 +17,7 @@ OUTPUT_DIR=$PROJECT_DIR/outputs
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 
-MACRO_DIR=$PROJECT_DIR/outputs/MACRO_DIR
+MACRO_DIR=$PROJECT_DIR/macro
 MACRO=test_macro.C
 
 mkdir -p $WORK_DIR/$INDEX
@@ -26,7 +26,7 @@ mkdir -p $LOG_DIR
 
 cd $WORK_DIR/$INDEX
 
-root -l -b -q "${MACRO_DIR}/${MACRO}.C($INDEX)" >& log_${INDEX}.txt
+root -l -b -q "${MACRO_DIR}/${MACRO}($INDEX)" >& log_${INDEX}.txt
 
 mv *root $OUTPUT_DIR
 mv log* $LOG_DIR
