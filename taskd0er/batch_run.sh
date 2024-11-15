@@ -10,18 +10,17 @@ source /lustre/alice/users/lubynets/.export_tokens.sh
 
 export INDEX=${SLURM_ARRAY_TASK_ID}
 
-PROJECT_DIR=/lustre/alice/users/lubynets/tasklc
+PROJECT_DIR=/lustre/alice/users/lubynets/taskd0
 
 WORK_DIR=$PROJECT_DIR/workdir
 
 MACRO_DIR=$PROJECT_DIR/macro
 INPUT_DIR=/lustre/alice/users/lubynets/skim/outputs
-JSON_FILE=$MACRO_DIR/dpl-config_tasklc.json
-OUTPUT_DIR=$PROJECT_DIR/outputs_nosel
+JSON_FILE=$MACRO_DIR/dpl-config_taskd0.json
+OUTPUT_DIR=$PROJECT_DIR/outputs_df
 LOG_DIR=$OUTPUT_DIR/log
 INPUT_FILE=$INPUT_DIR/AnalysisResults_trees.$INDEX.root
 
-# export OPTIONS="-b --configuration json://$JSON_FILE --aod-file $INPUT_FILE --aod-memory-rate-limit 2000000000 --shm-segment-size 16000000000 --resources-monitoring 2 --aod-writer-keep AOD/HFCAND3PBASE/0,AOD/HFCAND3PMCGEN/0,AOD/HFCAND3PMCREC/0,AOD/HFSELLC/0,DYN/HFCAND3PEXT/0"
 export OPTIONS="-b --configuration json://$JSON_FILE --aod-file $INPUT_FILE --aod-memory-rate-limit 2000000000 --shm-segment-size 16000000000 --resources-monitoring 2"
 
 mkdir -p $WORK_DIR/$INDEX
@@ -33,14 +32,14 @@ cd $WORK_DIR/$INDEX
 apptainer shell -B /lustre -B /scratch /lustre/alice/containers/singularity_base_o2compatibility.sif << \EOF
 alienv -w /scratch/alice/lubynets/alice/sw enter O2Physics::latest
 
-time o2-analysis-hf-task-lc $OPTIONS | \
-o2-analysis-hf-candidate-selector-lc $OPTIONS | \
-o2-analysis-pid-tpc $OPTIONS | \
-o2-analysis-pid-tpc-base $OPTIONS | \
-o2-analysis-pid-tof-full $OPTIONS | \
-o2-analysis-pid-tof-base $OPTIONS | \
+time o2-analysis-hf-task-d0 $OPTIONS | \
+o2-analysis-hf-candidate-selector-d0 $OPTIONS | \
+o2-analysis-hf-candidate-creator-2prong $OPTIONS | \
 o2-analysis-hf-pid-creator $OPTIONS | \
-o2-analysis-hf-candidate-creator-3prong $OPTIONS | \
+o2-analysis-pid-tpc-base $OPTIONS | \
+o2-analysis-pid-tpc $OPTIONS | \
+o2-analysis-pid-tof-base $OPTIONS | \
+o2-analysis-pid-tof-full $OPTIONS | \
 o2-analysis-timestamp $OPTIONS | \
 o2-analysis-event-selection $OPTIONS | \
 o2-analysis-mccollision-converter $OPTIONS | \

@@ -23,7 +23,7 @@ export JSON_FILE=$MACRO_DIR/dpl-config_skim.json
 export INPUT_FILE_LIST=$FILE_LIST_DIR/fst.$INDEX.list
 export OUTPUT_DIR=$PROJECT_DIR/outputs/$FILE_PATH
 
-export OPTIONS="-b --aod-file @$INPUT_FILE_LIST --configuration json://$JSON_FILE --aod-memory-rate-limit 2000000000 --shm-segment-size 16000000000 --resources-monitoring 2 --aod-writer-keep AOD/HF3PRONG/1"
+export OPTIONS="-b --aod-file @$INPUT_FILE_LIST --configuration json://$JSON_FILE --aod-memory-rate-limit 2000000000 --shm-segment-size 16000000000 --resources-monitoring 2 --aod-writer-keep AOD/HF2PRONG/1,AOD/HF3PRONG/1"
 
 mkdir -p $WORK_DIR/$INDEX
 mkdir -p $OUTPUT_DIR

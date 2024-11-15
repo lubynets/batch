@@ -10,19 +10,18 @@ source /lustre/alice/users/lubynets/.export_tokens.sh
 
 export INDEX=${SLURM_ARRAY_TASK_ID}
 
-PROJECT_DIR=/lustre/alice/users/lubynets/tasklc
+PROJECT_DIR=/lustre/alice/users/lubynets/cresellc
 
 WORK_DIR=$PROJECT_DIR/workdir
 
-MACRO_DIR=$PROJECT_DIR/macro
-INPUT_DIR=/lustre/alice/users/lubynets/skim/outputs
-JSON_FILE=$MACRO_DIR/dpl-config_tasklc.json
-OUTPUT_DIR=$PROJECT_DIR/outputs_nosel
+CONFIG_DIR=$PROJECT_DIR/config
+INPUT_DIR=/lustre/alice/users/lubynets/skim/outputs_3prong
+JSON_FILE=$CONFIG_DIR/dpl-config_cresellc.json
+OUTPUT_DIR=$PROJECT_DIR/outputs/KF
 LOG_DIR=$OUTPUT_DIR/log
 INPUT_FILE=$INPUT_DIR/AnalysisResults_trees.$INDEX.root
 
-# export OPTIONS="-b --configuration json://$JSON_FILE --aod-file $INPUT_FILE --aod-memory-rate-limit 2000000000 --shm-segment-size 16000000000 --resources-monitoring 2 --aod-writer-keep AOD/HFCAND3PBASE/0,AOD/HFCAND3PMCGEN/0,AOD/HFCAND3PMCREC/0,AOD/HFSELLC/0,DYN/HFCAND3PEXT/0"
-export OPTIONS="-b --configuration json://$JSON_FILE --aod-file $INPUT_FILE --aod-memory-rate-limit 2000000000 --shm-segment-size 16000000000 --resources-monitoring 2"
+export OPTIONS="-b --configuration json://$JSON_FILE --aod-file $INPUT_FILE --aod-memory-rate-limit 2000000000 --shm-segment-size 16000000000 --resources-monitoring 2 --aod-writer-keep AOD/HFCAND3PBASE/0,AOD/HFCAND3PMCGEN/0,AOD/HFCAND3PMCREC/0,AOD/HFSELLC/0,DYN/HFCAND3PEXT/0,AOD/HFCANDLCFULL/0,AOD/HFCANDLCLITE/0,AOD/HFCOLLIDLCLITE/0,AOD/HFCANDLCFULLEV/0,AOD/HFCANDLCFULLP/0,AOD/HFCAND3PKF/0"
 
 mkdir -p $WORK_DIR/$INDEX
 mkdir -p $OUTPUT_DIR
