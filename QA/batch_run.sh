@@ -17,36 +17,43 @@ PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
 MACRO_DIR=$PROJECT_DIR/macro
 
-FITTER=KF
-# FITTER=DF
+PRESELECTION=lhc24e3
+# PRESELECTION=relax
 
 SELECTION=noSel; SELECTION_FLAG=0
 # SELECTION=isSel; SELECTION_FLAG=1
 
-INPUT_DIR=/lustre/alice/users/lubynets/cresellc/outputs/$FITTER
+INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/signalOnly/$PRESELECTION
 
-MACRO=mass_qa
+# MACRO=mass_qa
+# MACRO=treeKF_qa
+MACRO=mc_qa
 
-OUTPUT_DIR=$PROJECT_DIR/outputs/$MACRO/$FITTER/$SELECTION
+OUTPUT_DIR=$PROJECT_DIR/outputs/$MACRO/$PRESELECTION/$SELECTION
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
+BATCH_LOG_DIR=$PROJECT_DIR/log
 
 mkdir -p $WORK_DIR/$INDEX
 mkdir -p $OUTPUT_DIR
-mkdir -p $LOG_DIR
+mkdir -p $LOG_DIR/jobs
+mkdir -p $LOG_DIR/out
+mkdir -p $LOG_DIR/error
 
 cd $WORK_DIR/$INDEX
 
 cp $MACRO_DIR/${MACRO}.C ./
 
-root -l -b -q "${MACRO}.C(\"$INPUT_DIR/AnalysisResults_trees.$INDEX.root\", $SELECTION_FLAG)" >& log_${INDEX}.txt # mass_qa
+root -l -b -q "${MACRO}.C(\"$INPUT_DIR/AnalysisResults_trees.$INDEX.root\", $SELECTION_FLAG)" >& log_${INDEX}.txt # mass_qa, treeKF_qa, mc_qa
 
 rm $MACRO.C
 
 mv $MACRO.root $MACRO.$INDEX.root
 
 mv *root $OUTPUT_DIR
-mv log* $LOG_DIR
+mv log* $LOG_DIR/jobs
+mv $BATCH_LOG_DIR/out/$INDEX.out.log $LOG_DIR/out
+mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
 
 cd ..
 rm -r $INDEX
