@@ -24,6 +24,7 @@ OUTPUT_DIR=$PROJECT_DIR/outputs/signalOnly/$SKIM_SELECTION
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 INPUT_FILE=$INPUT_DIR/AnalysisResults_trees.$INDEX.root
+# INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/sim/2024/LHC24e3/0/526641/AOD/001/AnalysisResults_skimmed.small.root
 
 export OPTIONS="-b --configuration json://$JSON_FILE --aod-file $INPUT_FILE --aod-memory-rate-limit 524288000 --shm-segment-size 10200547328 --resources-monitoring 2 --aod-parent-access-level 1 --aod-writer-keep AOD/HFCANDLCLITE/0,AOD/HFCANDLCKF/0,AOD/HFCANDLCMC/0"
 
@@ -51,6 +52,7 @@ o2-analysis-hf-candidate-creator-3prong $OPTIONS | \
 o2-analysis-timestamp $OPTIONS | \
 o2-analysis-event-selection $OPTIONS | \
 o2-analysis-mccollision-converter $OPTIONS | \
+o2-analysis-tracks-extra-v002-converter $OPTIONS | \
 o2-analysis-track-propagation $OPTIONS >& log_$INDEX.txt
 
 EOF

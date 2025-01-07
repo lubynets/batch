@@ -18,17 +18,20 @@ SKIM_SELECTION=lhc24e3
 WORK_DIR=$PROJECT_DIR/workdir
 OUTPUT_DIR=$PROJECT_DIR/outputs/$SKIM_SELECTION
 LOG_DIR=$OUTPUT_DIR/log
-
+BATCH_LOG_DIR=$PROJECT_DIR/log
 MACRO_DIR=$PROJECT_DIR/config
 FILE_LIST_DIR=$PROJECT_DIR/filelists
 JSON_FILE=$MACRO_DIR/dpl-config_skim.$SKIM_SELECTION.json
 INPUT_FILE_LIST=$FILE_LIST_DIR/fst.$INDEX.list
 
-export OPTIONS="-b --aod-file @$INPUT_FILE_LIST --configuration json://$JSON_FILE --aod-memory-rate-limit 524288000 --shm-segment-size 10200547328 --resources-monitoring 2 --aod-writer-keep AOD/HF2PRONG/1,AOD/HF3PRONG/1"
+export OPTIONS="-b --aod-file @$INPUT_FILE_LIST --configuration json://$JSON_FILE --aod-memory-rate-limit 524288000 --shm-segment-size 10200547328 --resources-monitoring 2 --aod-writer-keep AOD/HF2PRONG/1,AOD/HF3PRONG/1,AOD/HFPVREFIT2PRONG/0,AOD/HFPVREFIT3PRONG/0"
 
 mkdir -p $WORK_DIR/$INDEX
 mkdir -p $OUTPUT_DIR
-mkdir -p $LOG_DIR
+mkdir -p $LOG_DIR/config
+mkdir -p $LOG_DIR/job
+mkdir -p $LOG_DIR/out
+mkdir -p $LOG_DIR/error
 
 cd $WORK_DIR/$INDEX
 
@@ -41,6 +44,8 @@ o2-analysis-pid-tpc $OPTIONS | \
 o2-analysis-timestamp $OPTIONS | \
 o2-analysis-trackselection $OPTIONS | \
 o2-analysis-track-propagation $OPTIONS | \
+o2-analysis-event-selection $OPTIONS | \
+o2-analysis-tracks-extra-v002-converter $OPTIONS | \
 o2-analysis-track-to-collision-associator $OPTIONS >& log_$INDEX.txt
 
 EOF
@@ -51,8 +56,10 @@ mv dpl-config.json dpl-config.$INDEX.json
 mv AnalysisResults.root AnalysisResults.$INDEX.root
 mv AnalysisResults_trees.root AnalysisResults_trees.$INDEX.root
 mv *root $OUTPUT_DIR
-mv *json $LOG_DIR
-mv log* $LOG_DIR
+mv *json $LOG_DIR/config
+mv log* $LOG_DIR/job
+mv $BATCH_LOG_DIR/out/$INDEX.out.log $LOG_DIR/out
+mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
 
 cd ..
 rm -r $INDEX
