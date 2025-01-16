@@ -12,19 +12,21 @@ export INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/alice/users/lubynets/skim
 
-SKIM_SELECTION=lhc24e3
+SKIM_SELECTION=lhc22.apass7
+# SKIM_SELECTION=lhc24e3
 # SKIM_SELECTION=relax
 
 WORK_DIR=$PROJECT_DIR/workdir
-OUTPUT_DIR=$PROJECT_DIR/outputs/$SKIM_SELECTION
+OUTPUT_DIR=$PROJECT_DIR/outputs/data/$SKIM_SELECTION
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 MACRO_DIR=$PROJECT_DIR/config
-FILE_LIST_DIR=$PROJECT_DIR/filelists
+FILE_LIST_DIR=$PROJECT_DIR/filelists/data
 JSON_FILE=$MACRO_DIR/dpl-config_skim.$SKIM_SELECTION.json
 INPUT_FILE_LIST=$FILE_LIST_DIR/fst.$INDEX.list
 
-export OPTIONS="-b --aod-file @$INPUT_FILE_LIST --configuration json://$JSON_FILE --aod-memory-rate-limit 524288000 --shm-segment-size 10200547328 --resources-monitoring 2 --aod-writer-keep AOD/HF2PRONG/1,AOD/HF3PRONG/1,AOD/HFPVREFIT2PRONG/0,AOD/HFPVREFIT3PRONG/0"
+export OPTIONS="-b --aod-file @$INPUT_FILE_LIST --configuration json://$JSON_FILE --aod-memory-rate-limit 524288000 --shm-segment-size 10200547328 --resources-monitoring 2 --aod-writer-keep AOD/HF2PRONG/1,AOD/HF3PRONG/1"
+# export OPTIONS="-b --aod-file @$INPUT_FILE_LIST --configuration json://$JSON_FILE --aod-memory-rate-limit 524288000 --shm-segment-size 10200547328 --resources-monitoring 2 --aod-writer-keep AOD/HF2PRONG/1,AOD/HF3PRONG/1,AOD/HFPVREFIT2PRONG/0,AOD/HFPVREFIT3PRONG/0"
 
 mkdir -p $WORK_DIR/$INDEX
 mkdir -p $OUTPUT_DIR

@@ -8,7 +8,7 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/alice/users/$USER/skim/workdir
 
 A_LOW=1
-A_HIGH=1
+A_HIGH=976
 TIME_LIMIT=03:40:00
 
 NOT_COMPLETED=true
