@@ -1,20 +1,19 @@
 #!/bin/bash
-
-LOGDIR=/lustre/alice/users/$USER/CSTlc/log
+LOGDIR=/lustre/alice/users/$USER/ali2atree/log
 mkdir -p $LOGDIR
 mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
-WORK_DIR=/lustre/alice/users/$USER/CSTlc/workdir
+WORK_DIR=/lustre/alice/users/lubynets/ali2atree/workdir
 
 A_LOW=1
 A_HIGH=403
-TIME_LIMIT=23:55:00
+TIME_LIMIT=00:20:00
 
 NOT_COMPLETED=true
 ROUNDS=0
 A_HIGH=$(($A_HIGH+1))
-while [[ $NOT_COMPLETED = true && $ROUNDS < 1 ]]
+while [[ $NOT_COMPLETED = true && $ROUNDS < 5 ]]
 do
 date
 
@@ -56,11 +55,11 @@ done
 if [ $NOT_COMPLETED = true ]
 then
 echo "Array " $A
-sbatch --job-name=CSTlc \
-       --mem 16G \
+sbatch --job-name=ali2atree \
        --wait \
        -t $TIME_LIMIT \
-       --partition long \
+       --mem 16G \
+       --partition main \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \
