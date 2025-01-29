@@ -24,7 +24,7 @@ date
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-FILES_PER_JOB=1
+FILES_PER_JOB=10
 
 PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
@@ -35,7 +35,8 @@ EXE=treeKF_qa
 
 # IO_SUFFIX=signalOnly/lhc24e3 #403
 # IO_SUFFIX=signalOnly/relax #403
-IO_SUFFIX=data/lhc22.apass7 #976
+# IO_SUFFIX=data/lhc22.apass7 #976
+IO_SUFFIX=mc/lhc24e3_tm/sig/noSel #403
 
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX

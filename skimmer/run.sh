@@ -14,7 +14,7 @@ TIME_LIMIT=03:40:00
 NOT_COMPLETED=true
 ROUNDS=0
 A_HIGH=$(($A_HIGH+1))
-while [[ $NOT_COMPLETED = true && $ROUNDS < 5 ]]
+while [[ $NOT_COMPLETED = true && $ROUNDS < 2 ]]
 do
 date
 

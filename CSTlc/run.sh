@@ -8,8 +8,8 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/alice/users/$USER/CSTlc/workdir
 
 A_LOW=1
-A_HIGH=403
-TIME_LIMIT=23:55:00
+A_HIGH=976
+TIME_LIMIT=07:55:00
 
 NOT_COMPLETED=true
 ROUNDS=0
@@ -60,7 +60,7 @@ sbatch --job-name=CSTlc \
        --mem 16G \
        --wait \
        -t $TIME_LIMIT \
-       --partition long \
+       --partition main \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \
