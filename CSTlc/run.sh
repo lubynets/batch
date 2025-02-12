@@ -9,12 +9,14 @@ WORK_DIR=/lustre/alice/users/$USER/CSTlc/workdir
 
 A_LOW=1
 A_HIGH=976
-TIME_LIMIT=07:55:00
+# TIME_LIMIT=12:55:00 PARTITION=long
+TIME_LIMIT=08:00:00 PARTITION=main
+# TIME_LIMIT=00:20:00 PARTITION=debug
 
 NOT_COMPLETED=true
 ROUNDS=0
 A_HIGH=$(($A_HIGH+1))
-while [[ $NOT_COMPLETED = true && $ROUNDS < 1 ]]
+while [[ $NOT_COMPLETED = true && $ROUNDS < 3 ]]
 do
 date
 
@@ -60,7 +62,7 @@ sbatch --job-name=CSTlc \
        --mem 16G \
        --wait \
        -t $TIME_LIMIT \
-       --partition main \
+       --partition $PARTITION \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \

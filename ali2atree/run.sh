@@ -7,7 +7,7 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/alice/users/lubynets/ali2atree/workdir
 
 A_LOW=1
-A_HIGH=976
+A_HIGH=403
 TIME_LIMIT=00:20:00
 
 NOT_COMPLETED=true
@@ -59,7 +59,7 @@ sbatch --job-name=ali2atree \
        --wait \
        -t $TIME_LIMIT \
        --mem 16G \
-       --partition main \
+       --partition long \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \

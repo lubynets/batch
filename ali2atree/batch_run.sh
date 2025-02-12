@@ -15,17 +15,17 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/alice/users/lubynets/ali2atree
 
-MACRO_DIR=$PROJECT_DIR/macro
+EXE_DIR=/lustre/alice/users/lubynets/soft/AnalysisTree/install_master/bin
 
-IO_SUFFIX=data/lhc22.apass7_tm/noSel IS_MC=false # 976
-# IO_SUFFIX=mc/lhc24e3_tm/sig/noSel IS_MC=true # 403
+# IO_SUFFIX=data/lhc22.apass7_tm/noSel IS_MC=false # 976
+IO_SUFFIX=mc/lhc24e3_tm/all/pidTuned IS_MC=true # 403
 # IO_SUFFIX=signalOnly/relax # 403
 
 INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
 
-MACRO=AliceTree2AT.C
+EXE=alicetree2at
 
-OUTPUT_DIR=$PROJECT_DIR/outputs/$IO_SUFFIX
+OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_SUFFIX}
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -38,11 +38,11 @@ mkdir -p $LOG_DIR/error
 
 cd $WORK_DIR/$INDEX
 
-cp $MACRO_DIR/$MACRO ./
+cp $EXE_DIR/$EXE ./
 
-root -l -b -q "$MACRO(\"$INPUT_DIR/AnalysisResults_trees.$INDEX.root\", $IS_MC)" >& log_${INDEX}.txt
+./$EXE $INPUT_DIR/AnalysisResults_trees.$INDEX.root $IS_MC >& log_${INDEX}.txt
 
-rm $MACRO
+rm $EXE
 
 mv AnalysisTree.root AnalysisTree.$INDEX.root
 
