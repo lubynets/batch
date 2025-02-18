@@ -17,25 +17,31 @@ WORK_DIR=$PROJECT_DIR/workdir
 SKIM_SELECTION=lhc22.apass7_tm MC_OR_DATA=data #976
 # SKIM_SELECTION=lhc24e3_tm MC_OR_DATA=mc #403
 
-# SIG_BG=all
-SELECTION=noSel_ML
+SIG_BG=all
+# SELECTION=noSel_ML
 
-# CONSTRAINT=noConstr
+CONSTRAINT=noConstr
 # CONSTRAINT=topoConstr
 # CONSTRAINT=minvConstr
+
+TREES_TO_SAVE=AOD/HFCANDLCLITE/0,AOD/HFCANDLCKF/0,AOD/HFCANDLCFULLEV/0
+
+if [[ $MC_OR_DATA = "mc" ]]; then
+TREES_TO_SAVE=${TREES_TO_SAVE},AOD/HFCANDLCMC/0,AOD/HFCANDLCFULLP/0
+fi
 
 CONFIG_DIR=$PROJECT_DIR/config
 INPUT_DIR=/lustre/alice/users/lubynets/skim/outputs/$MC_OR_DATA/$SKIM_SELECTION
 JSON_FILE=$CONFIG_DIR/dpl-config_CSTlc_$MC_OR_DATA.json
-OUTPUT_DIR=$PROJECT_DIR/outputs/$MC_OR_DATA/$SKIM_SELECTION/$SELECTION
-# OUTPUT_DIR=$PROJECT_DIR/outputs/draft
+# OUTPUT_DIR=$PROJECT_DIR/outputs/$MC_OR_DATA/$SKIM_SELECTION/$SIG_BG/$CONSTRAINT
+OUTPUT_DIR=$PROJECT_DIR/outputs/draft
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
-INPUT_FILE=$INPUT_DIR/AnalysisResults_trees.$INDEX.root
+# INPUT_FILE=$INPUT_DIR/AnalysisResults_trees.$INDEX.root
 # INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/sim/2024/LHC24e3/0/526641/AOD/001/AnalysisResults_skimmed.small.root
-# INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/data/2022/LHC22o/526641/apass7/0630/o2_ctf_run00526641_orbit0206830848_tf0000000001_epn160/001/AO2D.skimmed.small.root
+INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/data/2022/LHC22o/526641/apass7/0630/o2_ctf_run00526641_orbit0206830848_tf0000000001_epn160/001/AO2D.skimmed.small.root
 
-export OPTIONS="-b --configuration json://$JSON_FILE --aod-file $INPUT_FILE --aod-memory-rate-limit 524288000 --shm-segment-size 10200547328 --resources-monitoring 2 --aod-parent-access-level 1 --aod-writer-keep AOD/HFCANDLCLITE/0,AOD/HFCANDLCKF/0,AOD/HFCANDLCMC/0"
+export OPTIONS="-b --configuration json://$JSON_FILE --aod-file $INPUT_FILE --aod-memory-rate-limit 524288000 --shm-segment-size 10200547328 --resources-monitoring 2 --aod-parent-access-level 1 --aod-writer-keep $TREES_TO_SAVE"
 
 mkdir -p $WORK_DIR/$INDEX
 mkdir -p $OUTPUT_DIR

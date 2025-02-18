@@ -13,12 +13,20 @@ source /lustre/alice/users/lubynets/soft/AnalysisTree/install_master/bin/Analysi
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
+N_FILES_TO_BE_PLAINED=30
+
+if [[ $INDEX -lt $(($N_FILES_TO_BE_PLAINED+1)) ]]; then
+IS_DO_PLAIN=true
+else
+IS_DO_PLAIN=false
+fi
+
 PROJECT_DIR=/lustre/alice/users/lubynets/ali2atree
 
 EXE_DIR=/lustre/alice/users/lubynets/soft/AnalysisTree/install_master/bin
 
 # IO_SUFFIX=data/lhc22.apass7_tm/noSel IS_MC=false # 976
-IO_SUFFIX=mc/lhc24e3_tm/all/pidTuned IS_MC=true # 403
+IO_SUFFIX=mc/lhc24e3_tm/all/noConstr IS_MC=true # 403
 # IO_SUFFIX=signalOnly/relax # 403
 
 INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
@@ -40,7 +48,7 @@ cd $WORK_DIR/$INDEX
 
 cp $EXE_DIR/$EXE ./
 
-./$EXE $INPUT_DIR/AnalysisResults_trees.$INDEX.root $IS_MC >& log_${INDEX}.txt
+./$EXE $INPUT_DIR/AnalysisResults_trees.$INDEX.root $IS_MC $IS_DO_PLAIN >& log_${INDEX}.txt
 
 rm $EXE
 

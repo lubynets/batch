@@ -24,23 +24,24 @@ date
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-FILES_PER_JOB=1
+FILES_PER_JOB=10
 
 PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
 EXE_DIR=$SOFT_DIR/bin
 
-# EXE=mc_qa
-EXE=treeKF_qa
+EXE=mc_qa
+# EXE=treeKF_qa
 
 # IO_SUFFIX=signalOnly/lhc24e3 #403
 # IO_SUFFIX=signalOnly/relax #403
-IO_SUFFIX=data/lhc22.apass7_tm/noSel #976
+# IO_SUFFIX=data/lhc22.apass7_tm/noSel #976
 
-# CONSTRAINT=noConstr
+CONSTRAINT=noConstr
 # CONSTRAINT=topoConstr
 # CONSTRAINT=minvConstr
-# IO_SUFFIX=mc/lhc24e3_tm/all/pidTuned #403
+# CONSTRAINT=pidTuned
+IO_SUFFIX=mc/lhc24e3_tm/all/$CONSTRAINT #403
 
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX

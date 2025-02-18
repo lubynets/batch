@@ -7,8 +7,8 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/alice/users/lubynets/QA/workdir
 
 A_LOW=1
-A_HIGH=976
-TIME_LIMIT=01:20:00
+A_HIGH=41
+TIME_LIMIT=02:20:00
 
 NOT_COMPLETED=true
 ROUNDS=0
@@ -58,7 +58,7 @@ echo "Array " $A
 sbatch --job-name=ATQA \
        --wait \
        -t $TIME_LIMIT \
-       --partition new \
+       --partition long \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \
