@@ -12,8 +12,8 @@ export INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/alice/users/lubynets/skim
 
-SKIM_SELECTION=lhc22.apass7_tm MC_OR_DATA=data
-# SKIM_SELECTION=lhc24e3_tm MC_OR_DATA=mc #403
+# SKIM_SELECTION=lhc22.apass7_tm MC_OR_DATA=data
+SKIM_SELECTION=lhc24e3_tm MC_OR_DATA=mc #403
 # SKIM_SELECTION=relax
 
 WORK_DIR=$PROJECT_DIR/workdir

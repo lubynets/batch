@@ -8,7 +8,7 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/alice/users/$USER/skim/workdir
 
 A_LOW=1
-A_HIGH=976
+A_HIGH=403
 TIME_LIMIT=03:40:00
 
 NOT_COMPLETED=true
@@ -60,7 +60,7 @@ sbatch --job-name=Skim \
        --mem 16G \
        --wait \
        -t $TIME_LIMIT \
-       --partition long \
+       --partition main \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \

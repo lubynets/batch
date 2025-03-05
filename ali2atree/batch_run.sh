@@ -25,9 +25,15 @@ PROJECT_DIR=/lustre/alice/users/lubynets/ali2atree
 
 EXE_DIR=/lustre/alice/users/lubynets/soft/AnalysisTree/install_master/bin
 
-# IO_SUFFIX=data/lhc22.apass7_tm/noSel IS_MC=false # 976
-IO_SUFFIX=mc/lhc24e3_tm/all/noConstr IS_MC=true # 403
+# CONSTRAINT=noConstr
+# CONSTRAINT=topoConstr
+# CONSTRAINT=minvConstr
+
+# IO_SUFFIX=data/lhc22.apass7_tm/noSel_ML IS_MC=false # 976
+# IO_SUFFIX=mc/lhc24e3_tm/sig_bgsup100/$CONSTRAINT IS_MC=true # 403
 # IO_SUFFIX=signalOnly/relax # 403
+
+IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr IS_MC=true # 403
 
 INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
 
@@ -53,9 +59,13 @@ cp $EXE_DIR/$EXE ./
 rm $EXE
 
 mv AnalysisTree.root AnalysisTree.$INDEX.root
+mv PlainTree.root PlainTree.$INDEX.root
 
 mv *root $OUTPUT_DIR
 mv log* $LOG_DIR/jobs
+if [ ! -f $LOG_DIR/jobs/$EXE.cpp ]; then
+cp $SOFT_DIR/share/$EXE.cpp $LOG_DIR/jobs
+fi
 mv $BATCH_LOG_DIR/out/$INDEX.out.log $LOG_DIR/out
 mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
 

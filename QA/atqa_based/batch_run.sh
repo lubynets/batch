@@ -24,7 +24,7 @@ date
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-FILES_PER_JOB=10
+FILES_PER_JOB=5
 
 PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
@@ -33,18 +33,16 @@ EXE_DIR=$SOFT_DIR/bin
 EXE=mc_qa
 # EXE=treeKF_qa
 
-# IO_SUFFIX=signalOnly/lhc24e3 #403
-# IO_SUFFIX=signalOnly/relax #403
-# IO_SUFFIX=data/lhc22.apass7_tm/noSel #976
-
-CONSTRAINT=noConstr
+# CONSTRAINT=noConstr
 # CONSTRAINT=topoConstr
 # CONSTRAINT=minvConstr
 # CONSTRAINT=pidTuned
-IO_SUFFIX=mc/lhc24e3_tm/all/$CONSTRAINT #403
+# IO_SUFFIX=mc/lhc24e3_tm/sig_bgsup100/$CONSTRAINT #403
+
+IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr
 
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
-OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX
+OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX/topoAndPidSel
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -79,6 +77,9 @@ mv $EXE.root $EXE.$INDEX.root
 
 mv *root $OUTPUT_DIR
 mv log* $LOG_DIR/jobs
+if [ ! -f $LOG_DIR/jobs/$EXE.cpp ]; then
+cp $SOFT_DIR/share/$EXE.cpp $LOG_DIR/jobs
+fi
 mv $BATCH_LOG_DIR/out/$INDEX.out.log $LOG_DIR/out
 mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
 
