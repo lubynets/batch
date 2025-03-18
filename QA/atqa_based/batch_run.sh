@@ -30,19 +30,15 @@ PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
 EXE_DIR=$SOFT_DIR/bin
 
-EXE=mc_qa
+# EXE=mc_qa
 # EXE=treeKF_qa
+EXE=mass_qa
 
-# CONSTRAINT=noConstr
-# CONSTRAINT=topoConstr
-# CONSTRAINT=minvConstr
-# CONSTRAINT=pidTuned
-# IO_SUFFIX=mc/lhc24e3_tm/sig_bgsup100/$CONSTRAINT #403
-
-IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr
+IO_SUFFIX=mc/lhc24e3/all/noConstr/set1
 
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
-OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX/topoAndPidSel
+EFFMAP_DIR=$PROJECT_DIR/input
+OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -66,7 +62,8 @@ for K in `seq 1 $FILES_PER_JOB`; do
   ls -d $INPUT_DIR/AnalysisTree.$FILE_NUMBER.root >> filelist.list
 done
 
-./$EXE filelist.list >& log_$INDEX.txt
+# ./$EXE filelist.list >& log_$INDEX.txt # mc_qa treeKF_qa
+./$EXE filelist.list $EFFMAP_DIR/efficiency.fine.root hEffPromptT >& log_$INDEX.txt # mass_qa
 
 echo
 echo "Exe done"
