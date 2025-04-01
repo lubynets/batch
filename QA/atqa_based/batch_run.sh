@@ -34,7 +34,8 @@ EXE_DIR=$SOFT_DIR/bin
 # EXE=treeKF_qa
 EXE=mass_qa
 
-IO_SUFFIX=mc/lhc24e3/all/noConstr/set1
+# IO_SUFFIX=data/lhc22.apass7/noConstr/set1 EFFMAP_TYPE=Full # 976
+IO_SUFFIX=mc/lhc24e3/all/noConstr/set1 EFFMAP_TYPE=I #403
 
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 EFFMAP_DIR=$PROJECT_DIR/input
@@ -63,7 +64,7 @@ for K in `seq 1 $FILES_PER_JOB`; do
 done
 
 # ./$EXE filelist.list >& log_$INDEX.txt # mc_qa treeKF_qa
-./$EXE filelist.list $EFFMAP_DIR/efficiency.fine.root hEffPromptT >& log_$INDEX.txt # mass_qa
+./$EXE filelist.list $EFFMAP_DIR/efficiency.fine.$EFFMAP_TYPE.root hEffPromptT >& log_$INDEX.txt # mass_qa
 
 echo
 echo "Exe done"

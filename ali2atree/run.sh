@@ -7,7 +7,7 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/alice/users/lubynets/ali2atree/workdir
 
 A_LOW=1
-A_HIGH=403
+A_HIGH=1
 TIME_LIMIT=00:20:00
 
 NOT_COMPLETED=true

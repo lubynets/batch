@@ -13,7 +13,7 @@ source /lustre/alice/users/lubynets/soft/AnalysisTree/install_master/bin/Analysi
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-N_FILES_TO_BE_PLAINED=1
+N_FILES_TO_BE_PLAINED=1000
 
 if [[ $INDEX -lt $(($N_FILES_TO_BE_PLAINED+1)) ]]; then
 IS_DO_PLAIN=true
@@ -25,15 +25,8 @@ PROJECT_DIR=/lustre/alice/users/lubynets/ali2atree
 
 EXE_DIR=/lustre/alice/users/lubynets/soft/AnalysisTree/install_master/bin
 
-# CONSTRAINT=noConstr
-# CONSTRAINT=topoConstr
-# CONSTRAINT=minvConstr
-
-# IO_SUFFIX=data/lhc22.apass7_tm/noSel_ML IS_MC=false # 976
-# IO_SUFFIX=mc/lhc24e3_tm/sig_bgsup100/$CONSTRAINT IS_MC=true # 403
-# IO_SUFFIX=signalOnly/relax # 403
-
-IO_SUFFIX=mc/lhc24e3/all/noConstr/set1 IS_MC=true # 403
+# IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr IS_MC=true # 403
+IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel IS_MC=false #976
 
 INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
 
