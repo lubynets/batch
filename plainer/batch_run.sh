@@ -15,26 +15,18 @@ source $SOFT_DIR/bin/AnalysisTreeConfig.sh
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-N_FILES_TO_BE_PLAINED=1000
-
-if [[ $INDEX -lt $(($N_FILES_TO_BE_PLAINED+1)) ]]; then
-IS_DO_PLAIN=true
-else
-IS_DO_PLAIN=false
-fi
-
-PROJECT_DIR=/lustre/alice/users/lubynets/ali2atree
+PROJECT_DIR=/lustre/alice/users/lubynets/plainer
 
 EXE_DIR=$SOFT_DIR/bin
 
-# IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr IS_MC=true # 403
-IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel IS_MC=false #976
+# IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr # 403
+IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel #976
 
-INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
+INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 
-EXE=alicetree2at
+EXE=plainer
 
-OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_SUFFIX}
+OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_SUFFIX}/hiPt
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -49,11 +41,10 @@ cd $WORK_DIR/$INDEX
 
 cp $EXE_DIR/$EXE ./
 
-./$EXE $INPUT_DIR/AnalysisResults_trees.$INDEX.root $IS_MC $IS_DO_PLAIN >& log_${INDEX}.txt
+./$EXE $INPUT_DIR/AnalysisTree.$INDEX.root >& log_${INDEX}.txt
 
 rm $EXE
 
-mv AnalysisTree.root AnalysisTree.$INDEX.root
 mv PlainTree.root PlainTree.$INDEX.root
 
 mv *root $OUTPUT_DIR

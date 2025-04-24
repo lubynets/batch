@@ -1,14 +1,14 @@
 #!/bin/bash
-LOGDIR=/lustre/alice/users/$USER/QA/log
+LOGDIR=/lustre/alice/users/$USER/plainer/log
 mkdir -p $LOGDIR
 mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
-WORK_DIR=/lustre/alice/users/lubynets/QA/workdir
+WORK_DIR=/lustre/alice/users/lubynets/plainer/workdir
 
 A_LOW=1
-A_HIGH=98
-TIME_LIMIT=02:20:00
+A_HIGH=976
+TIME_LIMIT=00:20:00
 
 NOT_COMPLETED=true
 ROUNDS=0
@@ -55,9 +55,10 @@ done
 if [ $NOT_COMPLETED = true ]
 then
 echo "Array " $A
-sbatch --job-name=ATQA \
+sbatch --job-name=plainer \
        --wait \
        -t $TIME_LIMIT \
+       --mem 16G \
        --partition main \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
