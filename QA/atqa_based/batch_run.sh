@@ -33,14 +33,15 @@ EXE_DIR=$SOFT_DIR/bin
 # EXE=mc_qa
 # EXE=treeKF_qa
 # EXE=mass_qa
-EXE=varCorr_qa
+# EXE=varCorr_qa
+EXE=bdt_qa
 
 IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel EFFMAP_TYPE=Full MC_OR_DATA=data # 976
 # IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr EFFMAP_TYPE=I MC_OR_DATA=mc #403
 
-INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
+INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_atree/$IO_SUFFIX
 EFFMAP_DIR=$PROJECT_DIR/input
-OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX/reasonable
+OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -66,7 +67,7 @@ done
 
 # ./$EXE filelist.list >& log_$INDEX.txt # mc_qa treeKF_qa
 # ./$EXE filelist.list $EFFMAP_DIR/efficiency.fine.$EFFMAP_TYPE.root hEffPromptT >& log_$INDEX.txt # mass_qa
-./$EXE filelist.list $MC_OR_DATA >& log_$INDEX.txt # varCorr_qa
+./$EXE filelist.list $MC_OR_DATA >& log_$INDEX.txt # varCorr_qa bdt_qa
 
 echo
 echo "Exe done"
