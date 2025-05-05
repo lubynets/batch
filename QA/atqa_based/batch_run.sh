@@ -24,7 +24,7 @@ date
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-FILES_PER_JOB=10
+FILES_PER_JOB=1
 
 PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
@@ -32,15 +32,14 @@ EXE_DIR=$SOFT_DIR/bin
 
 # EXE=mc_qa
 # EXE=treeKF_qa
-# EXE=mass_qa
+EXE=mass_qa
 # EXE=varCorr_qa
-EXE=bdt_qa
+# EXE=bdt_qa
 
-IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel EFFMAP_TYPE=Full MC_OR_DATA=data # 976
-# IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr EFFMAP_TYPE=I MC_OR_DATA=mc #403
+IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel/all MC_OR_DATA=data # 976
+# IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr MC_OR_DATA=mc #403
 
 INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_atree/$IO_SUFFIX
-EFFMAP_DIR=$PROJECT_DIR/input
 OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
@@ -66,8 +65,7 @@ for K in `seq 1 $FILES_PER_JOB`; do
 done
 
 # ./$EXE filelist.list >& log_$INDEX.txt # mc_qa treeKF_qa
-# ./$EXE filelist.list $EFFMAP_DIR/efficiency.fine.$EFFMAP_TYPE.root hEffPromptT >& log_$INDEX.txt # mass_qa
-./$EXE filelist.list $MC_OR_DATA >& log_$INDEX.txt # varCorr_qa bdt_qa
+./$EXE filelist.list $MC_OR_DATA >& log_$INDEX.txt # varCorr_qa bdt_qa mass_qa
 
 echo
 echo "Exe done"

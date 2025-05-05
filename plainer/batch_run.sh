@@ -26,7 +26,7 @@ INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 
 EXE=plainer
 
-OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_SUFFIX}/hiPt
+OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_SUFFIX}/sidebands/hiPt
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log

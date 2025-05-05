@@ -20,7 +20,7 @@ PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 EXE_DIR=$SOFT_DIR/bin
 
 # IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr # 403
-IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel #976
+IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel/all #976
 
 INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_apply/$IO_SUFFIX
 
