@@ -10,11 +10,11 @@ export INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
-IO_PREFIX=data/lhc22.apass7/all/noConstr/noSel/all # 976
+IO_PREFIX=data/lhc22.apass7/all/noConstr/noSel/sidebands # 976
 # IO_PREFIX=mc/lhc24e3/sig_bgsup100/noConstr # 403
 
 export INPUT_DIR=/lustre/alice/users/lubynets/plainer/outputs/$IO_PREFIX
-export MODEL_DIR=/lustre/alice/users/lubynets/bdt/outputs_train/reasonableCuts
+export MODEL_DIR=/lustre/alice/users/lubynets/bdt/outputs_train/thirdTry
 
 export WORK_DIR=$PROJECT_DIR/workdir
 OUTPUT_DIR=$PROJECT_DIR/outputs_apply/$IO_PREFIX
@@ -44,7 +44,7 @@ source /usr/local/install/bin/thisroot.sh
 python3 $MACRO_DIR/apply_BDT_to_data.py --config-file-sel $CONFIG_DIR/config.train_selection.yaml \
                                         --input-file $INPUT_DIR/PlainTree.$INDEX.root \
                                         --tree-name pTree \
-                                        --model-file $MODEL_DIR/$IPT/model/BDTmodel_pT_${PT_LO}_${PT_HI}_v1.pkl \
+                                        --model-file $MODEL_DIR/model/$IPT/BDTmodel_pT_${PT_LO}_${PT_HI}_v1.pkl \
                                         --output-directory $WORK_DIR/$INDEX \
                                         --pT-interval ${PT_LO} ${PT_HI} >& log_pt_${IPT}.$INDEX.txt
 
@@ -62,6 +62,9 @@ done
 cd ..
 rm -r $INDEX
 
+if [ ! -f $WORK_DIR/env.txt ]; then
+echo "$LOG_DIR" > $WORK_DIR/env.txt
+fi
 
 echo
 echo "Bash script finished successfully"

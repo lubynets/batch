@@ -26,7 +26,7 @@ INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 
 EXE=plainer
 
-OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_SUFFIX}/sidebands/hiPt
+OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_SUFFIX}/all
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -61,6 +61,10 @@ rm -r $INDEX
 mkdir -p $WORK_DIR/success
 cd $WORK_DIR/success
 touch index_${INDEX}
+
+if [ ! -f $WORK_DIR/env.txt ]; then
+echo "$LOG_DIR" > $WORK_DIR/env.txt
+fi
 
 echo
 echo "Bash script finished successfully"

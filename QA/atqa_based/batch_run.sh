@@ -24,7 +24,7 @@ date
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-FILES_PER_JOB=1
+FILES_PER_JOB=10
 
 PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
@@ -88,6 +88,10 @@ rm -r $INDEX
 mkdir -p $WORK_DIR/success
 cd $WORK_DIR/success
 touch index_${INDEX}
+
+if [ ! -f $WORK_DIR/env.txt ]; then
+echo "$LOG_DIR" > $WORK_DIR/env.txt
+fi
 
 echo
 echo "Bash script finished successfully"

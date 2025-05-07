@@ -67,3 +67,20 @@ sbatch --job-name=plainer \
 fi
 ROUNDS=$(($ROUNDS+1))
 done
+
+OUTPUT_LOG_DIR=$(cat $WORK_DIR/env.txt)
+
+cd $OUTPUT_LOG_DIR/error
+tar -czf err.tar.gz *.log
+
+cd $OUTPUT_LOG_DIR/out
+tar -czf out.tar.gz *.log
+
+cd $OUTPUT_LOG_DIR/jobs
+tar -czf jobs.tar.gz *.txt
+
+cd $OUTPUT_LOG_DIR
+mv */*tar.gz .
+mv jobs/*cpp .
+
+rm -r error out jobs

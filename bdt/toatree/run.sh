@@ -1,10 +1,18 @@
 #!/bin/bash
-LOGDIR=/lustre/alice/users/$USER/bdt/log
-mkdir -p $LOGDIR
-mkdir -p $LOGDIR/out
-mkdir -p $LOGDIR/error
+export PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
-WORK_DIR=/lustre/alice/users/lubynets/bdt/workdir
+export BATCH_LOG_DIR=$PROJECT_DIR/log
+
+mkdir -p $BATCH_LOG_DIR/out
+mkdir -p $BATCH_LOG_DIR/error
+
+export WORK_DIR=/lustre/alice/users/lubynets/bdt/workdir
+
+BATCH_DIR=$PWD
+
+if [ -f $WORKDIR/env.txt ]; then
+rm $WORKDIR/env.txt
+fi
 
 A_LOW=1
 A_HIGH=976
@@ -59,11 +67,34 @@ sbatch --job-name=bdt2atree \
        --wait \
        -t $TIME_LIMIT \
        --mem 16G \
-       --partition main \
-       --output=$LOGDIR/out/%a.out.log \
-       --error=$LOGDIR/error/%a.err.log \
+       --partition long \
+       --output=$BATCH_LOG_DIR/out/%a.out.log \
+       --error=$BATCH_LOG_DIR/error/%a.err.log \
        -a $A \
        -- $PWD/batch_run.sh
 fi
 ROUNDS=$(($ROUNDS+1))
 done
+
+OUTPUT_LOG_DIR=$(cat $WORK_DIR/env.txt)
+
+cd $OUTPUT_LOG_DIR/error
+tar -czf err.tar.gz *.log
+rm *log
+
+cd $OUTPUT_LOG_DIR/out
+tar -czf out.tar.gz *.log
+rm *log
+
+cd $OUTPUT_LOG_DIR/jobs
+tar -czf jobs.tar.gz *.txt
+rm *txt
+
+cd $OUTPUT_LOG_DIR
+mv */*tar.gz .
+mv jobs/*cpp .
+
+cp $BATCH_DIR/*sh .
+
+rm -r error out jobs
+

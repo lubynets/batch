@@ -15,27 +15,23 @@ source $SOFT_DIR/bin/AnalysisTreeConfig.sh
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-PROJECT_DIR=/lustre/alice/users/lubynets/bdt
-
 EXE_DIR=$SOFT_DIR/bin
 
 # IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr # 403
-IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel/all #976
+IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel/sidebands #976
 
 INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_apply/$IO_SUFFIX
 
 EXE=genconfiller
 
 OUTPUT_DIR=$PROJECT_DIR/outputs_atree/${IO_SUFFIX}
-WORK_DIR=$PROJECT_DIR/workdir
-LOG_DIR=$OUTPUT_DIR/log
-BATCH_LOG_DIR=$PROJECT_DIR/log
+OUT_LOG_DIR=$OUTPUT_DIR/log
 
 mkdir -p $WORK_DIR/$INDEX
 mkdir -p $OUTPUT_DIR
-mkdir -p $LOG_DIR/jobs
-mkdir -p $LOG_DIR/out
-mkdir -p $LOG_DIR/error
+mkdir -p $OUT_LOG_DIR/jobs
+mkdir -p $OUT_LOG_DIR/out
+mkdir -p $OUT_LOG_DIR/error
 
 cd $WORK_DIR/$INDEX
 
@@ -56,15 +52,19 @@ rm $EXE
 mv AnalysisTree.root AnalysisTree.$INDEX.root
 
 mv *root $OUTPUT_DIR
-mv log* $LOG_DIR/jobs
-if [ ! -f $LOG_DIR/jobs/$EXE.cpp ]; then
-cp $SOFT_DIR/share/$EXE.cpp $LOG_DIR/jobs
+mv log* $OUT_LOG_DIR/jobs
+if [ ! -f $OUT_LOG_DIR/jobs/$EXE.cpp ]; then
+  cp $SOFT_DIR/share/$EXE.cpp $OUT_LOG_DIR/jobs
 fi
-mv $BATCH_LOG_DIR/out/$INDEX.out.log $LOG_DIR/out
-mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
+mv $BATCH_LOG_DIR/out/$INDEX.out.log $OUT_LOG_DIR/out
+mv $BATCH_LOG_DIR/error/$INDEX.err.log $OUT_LOG_DIR/error
 
 cd ..
 rm -r $INDEX
+
+if [ ! -f $WORK_DIR/env.txt ]; then
+echo "$OUT_LOG_DIR" > $WORK_DIR/env.txt
+fi
 
 mkdir -p $WORK_DIR/success
 cd $WORK_DIR/success

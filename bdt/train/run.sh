@@ -7,7 +7,7 @@ mkdir -p $LOGDIR/error
 
 WORK_DIR=/lustre/alice/users/$USER/bdt/workdir
 
-A_LOW=1
+A_LOW=5
 A_HIGH=5
 
 # TIME_LIMIT=12:55:00 PARTITION=long
