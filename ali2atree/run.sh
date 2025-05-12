@@ -1,14 +1,21 @@
 #!/bin/bash
-LOGDIR=/lustre/alice/users/$USER/ali2atree/log
+export PROJECT_DIR=/lustre/alice/users/lubynets/ali2atree
+LOGDIR=$PROJECT_DIR/log
 mkdir -p $LOGDIR
 mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
-WORK_DIR=/lustre/alice/users/lubynets/ali2atree/workdir
+WORK_DIR=$PROJECT_DIR/workdir
+
+BATCH_DIR=$PWD
 
 A_LOW=1
-A_HIGH=976
+A_HIGH=403
 TIME_LIMIT=00:20:00
+
+if [ -f $WORK_DIR/env.txt ]; then
+rm $WORK_DIR/env.txt
+fi
 
 NOT_COMPLETED=true
 ROUNDS=0
@@ -67,3 +74,23 @@ sbatch --job-name=ali2atree \
 fi
 ROUNDS=$(($ROUNDS+1))
 done
+
+OUTPUT_LOG_DIR=$(cat $WORK_DIR/env.txt)
+
+cd $OUTPUT_LOG_DIR/error
+tar -czf err.tar.gz *.log
+
+cd $OUTPUT_LOG_DIR/out
+tar -czf out.tar.gz *.log
+
+cd $OUTPUT_LOG_DIR/jobs
+tar -czf jobs.tar.gz *.txt
+
+cd $OUTPUT_LOG_DIR
+mv */*tar.gz .
+mv jobs/*cpp .
+
+cp $BATCH_DIR/*sh .
+chmod -x *sh
+
+rm -r error out jobs

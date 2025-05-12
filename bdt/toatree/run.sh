@@ -6,7 +6,7 @@ export BATCH_LOG_DIR=$PROJECT_DIR/log
 mkdir -p $BATCH_LOG_DIR/out
 mkdir -p $BATCH_LOG_DIR/error
 
-export WORK_DIR=/lustre/alice/users/lubynets/bdt/workdir
+export WORK_DIR=$PROJECT_DIR/workdir
 
 BATCH_DIR=$PWD
 
@@ -15,7 +15,7 @@ rm $WORKDIR/env.txt
 fi
 
 A_LOW=1
-A_HIGH=976
+A_HIGH=403
 TIME_LIMIT=00:20:00
 
 NOT_COMPLETED=true
@@ -95,6 +95,7 @@ mv */*tar.gz .
 mv jobs/*cpp .
 
 cp $BATCH_DIR/*sh .
+chmod -x *sh
 
 rm -r error out jobs
 

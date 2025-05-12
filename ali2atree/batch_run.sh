@@ -15,7 +15,7 @@ source $SOFT_DIR/bin/AnalysisTreeConfig.sh
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-N_FILES_TO_BE_PLAINED=1000
+N_FILES_TO_BE_PLAINED=0
 
 if [[ $INDEX -lt $(($N_FILES_TO_BE_PLAINED+1)) ]]; then
 IS_DO_PLAIN=true
@@ -23,12 +23,10 @@ else
 IS_DO_PLAIN=false
 fi
 
-PROJECT_DIR=/lustre/alice/users/lubynets/ali2atree
-
 EXE_DIR=$SOFT_DIR/bin
 
-# IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr IS_MC=true # 403
-IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel IS_MC=false #976
+IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr IS_MC=true # 403
+# IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel IS_MC=false #976
 
 INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
 
@@ -70,6 +68,10 @@ rm -r $INDEX
 mkdir -p $WORK_DIR/success
 cd $WORK_DIR/success
 touch index_${INDEX}
+
+if [ ! -f $WORK_DIR/env.txt ]; then
+echo "$LOG_DIR" > $WORK_DIR/env.txt
+fi
 
 echo
 echo "Bash script finished successfully"

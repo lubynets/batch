@@ -24,7 +24,7 @@ date
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-FILES_PER_JOB=10
+FILES_PER_JOB=3
 
 PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
@@ -36,7 +36,9 @@ EXE=mass_qa
 # EXE=varCorr_qa
 # EXE=bdt_qa
 
-IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel/all MC_OR_DATA=data # 976
+MODEL_NAME=moreMoreVars
+
+IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel/all/$MODEL_NAME MC_OR_DATA=data # 976
 # IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr MC_OR_DATA=mc #403
 
 INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_atree/$IO_SUFFIX

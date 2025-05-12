@@ -10,14 +10,16 @@ export INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
-IO_PREFIX=data/lhc22.apass7/all/noConstr/noSel/sidebands # 976
-# IO_PREFIX=mc/lhc24e3/sig_bgsup100/noConstr # 403
+# IO_PREFIX=data/lhc22.apass7/all/noConstr/noSel/all # 976
+IO_PREFIX=mc/lhc24e3/sig_bgsup100/noConstr # 403
+
+MODEL_NAME=moreMoreVars
 
 export INPUT_DIR=/lustre/alice/users/lubynets/plainer/outputs/$IO_PREFIX
-export MODEL_DIR=/lustre/alice/users/lubynets/bdt/outputs_train/thirdTry
+export MODEL_DIR=/lustre/alice/users/lubynets/bdt/outputs_train/$MODEL_NAME
 
 export WORK_DIR=$PROJECT_DIR/workdir
-OUTPUT_DIR=$PROJECT_DIR/outputs_apply/$IO_PREFIX
+OUTPUT_DIR=$PROJECT_DIR/outputs_apply/$IO_PREFIX/$MODEL_NAME
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 

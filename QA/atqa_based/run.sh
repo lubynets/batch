@@ -7,7 +7,7 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/alice/users/lubynets/QA/workdir
 
 A_LOW=1
-A_HIGH=98
+A_HIGH=326
 TIME_LIMIT=02:20:00
 
 if [ -f $WORK_DIR/env.txt ]; then
