@@ -18,7 +18,6 @@ WORK_DIR=$PROJECT_DIR/workdir
 RUN_MODE=greatRun
 
 # SKIM_SELECTION=lhc22.apass7 MC_OR_DATA=data #976
-# SKIM_SELECTION=lhc24e3_tm MC_OR_DATA=mc #403
 SKIM_SELECTION=lhc24e3 MC_OR_DATA=mc #403
 
 SIG_BG=all
@@ -40,7 +39,7 @@ INPUT_DIR=/lustre/alice/users/lubynets/skim/outputs/$MC_OR_DATA/$SKIM_SELECTION
 JSON_FILE=$CONFIG_DIR/dpl-config_CSTlc_$MC_OR_DATA.json
 if [[ $RUN_MODE = "greatRun" ]]; then
   INPUT_FILE=$INPUT_DIR/AnalysisResults_trees.$INDEX.root
-  OUTPUT_DIR=$PROJECT_DIR/outputs/$MC_OR_DATA/$SKIM_SELECTION/$SIG_BG/$CONSTRAINT/set1_1
+  OUTPUT_DIR=$PROJECT_DIR/outputs/$MC_OR_DATA/$SKIM_SELECTION/$SIG_BG/$CONSTRAINT/KfMl
 elif [[ $RUN_MODE = "smallTest" ]]; then
   if [[ $MC_OR_DATA = "mc" ]]; then
     INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/sim/2024/LHC24e3/0/526641/AOD/001/AnalysisResults_skimmed.small.root
@@ -102,6 +101,10 @@ cd $WORK_DIR/success
 if [ -f $OUTPUT_DIR/AnalysisResults_trees.$INDEX.root ]
 then
 touch index_${INDEX}
+fi
+
+if [ ! -f $WORK_DIR/env.txt ]; then
+echo "$LOG_DIR" > $WORK_DIR/env.txt
 fi
 
 echo

@@ -65,7 +65,7 @@ sbatch --job-name=plainer \
        --wait \
        -t $TIME_LIMIT \
        --mem 16G \
-       --partition long \
+       --partition main \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \

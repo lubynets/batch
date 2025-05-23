@@ -11,9 +11,9 @@ export INDEX=${SLURM_ARRAY_TASK_ID}
 PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
 # IO_PREFIX=data/lhc22.apass7/all/noConstr/noSel/all # 976
-IO_PREFIX=mc/lhc24e3/sig_bgsup100/noConstr # 403
+IO_PREFIX=mc/lhc24e3/all/noConstr/KfMl # 403
 
-MODEL_NAME=moreMoreVars
+MODEL_NAME=onnx
 
 export INPUT_DIR=/lustre/alice/users/lubynets/plainer/outputs/$IO_PREFIX
 export MODEL_DIR=/lustre/alice/users/lubynets/bdt/outputs_train/$MODEL_NAME

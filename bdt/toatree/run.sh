@@ -15,7 +15,7 @@ rm $WORKDIR/env.txt
 fi
 
 A_LOW=1
-A_HIGH=403
+A_HIGH=2
 TIME_LIMIT=00:20:00
 
 NOT_COMPLETED=true
