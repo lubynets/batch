@@ -9,7 +9,7 @@ WORK_DIR=/lustre/alice/users/lubynets/plainer/workdir
 BATCH_DIR=$PWD
 
 A_LOW=1
-A_HIGH=976
+A_HIGH=2
 TIME_LIMIT=00:20:00
 
 if [ -f $WORK_DIR/env.txt ]; then

@@ -11,7 +11,7 @@ export INDEX=${SLURM_ARRAY_TASK_ID}
 PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
 WORK_DIR=$PROJECT_DIR/workdir
-OUTPUT_DIR=$PROJECT_DIR/outputs_train/bz
+OUTPUT_DIR=$PROJECT_DIR/outputs_train/moreMoreVarsWoPid
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
@@ -49,8 +49,8 @@ cd $WORK_DIR/$INDEX
 apptainer shell /lustre/alice/users/lubynets/singularities/bdt.sif << \EOF
 source /usr/local/install/bin/thisroot.sh
 
-python3 $MACRO_DIR/train_multi_class_BDT.py --config-file $CONFIG_DIR/config.train.bz.yaml \
-                                            --config-file-sel $CONFIG_DIR/config.train_selection.bz.yaml \
+python3 $MACRO_DIR/train_multi_class_BDT.py --config-file $CONFIG_DIR/config.train.yaml \
+                                            --config-file-sel $CONFIG_DIR/config.train_selection.yaml \
                                             --input-files-mc-path $INPUT_DIR_MC/PlainTree \
                                             --input-files-mc-range $INPUT_FILES_MC_FROM $INPUT_FILES_MC_TO \
                                             --input-files-data-path $INPUT_DIR_DATA/PlainTree \

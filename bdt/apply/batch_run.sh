@@ -8,30 +8,28 @@ START_TIME=$SECONDS
 
 export INDEX=${SLURM_ARRAY_TASK_ID}
 
-PROJECT_DIR=/lustre/alice/users/lubynets/bdt
+
+MODEL_NAME=moreMoreVarsWoPid
 
 # IO_PREFIX=data/lhc22.apass7/all/noConstr/noSel/all # 976
-IO_PREFIX=mc/lhc24e3/all/noConstr/KfMl # 403
-
-MODEL_NAME=onnx
+IO_PREFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME # 403
 
 export INPUT_DIR=/lustre/alice/users/lubynets/plainer/outputs/$IO_PREFIX
-export MODEL_DIR=/lustre/alice/users/lubynets/bdt/outputs_train/$MODEL_NAME
+export MODEL_DIR=$PROJECT_DIR/outputs_train/$MODEL_NAME
 
-export WORK_DIR=$PROJECT_DIR/workdir
-OUTPUT_DIR=$PROJECT_DIR/outputs_apply/$IO_PREFIX/$MODEL_NAME
+OUTPUT_DIR=$PROJECT_DIR/outputs_apply/$IO_PREFIX
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
 export CONFIG_DIR=$PROJECT_DIR/config
 export MACRO_DIR=$PROJECT_DIR/macro
 
-mkdir -p $WORK_DIR/$INDEX
+mkdir -p $WORKDIR/$INDEX
 mkdir -p $LOG_DIR/jobs
 mkdir -p $LOG_DIR/out
 mkdir -p $LOG_DIR/error
 
-cd $WORK_DIR/$INDEX
+cd $WORKDIR/$INDEX
 
 PT_RANGES=('0' '2' '5' '8' '12' '20')
 
@@ -47,7 +45,7 @@ python3 $MACRO_DIR/apply_BDT_to_data.py --config-file-sel $CONFIG_DIR/config.tra
                                         --input-file $INPUT_DIR/PlainTree.$INDEX.root \
                                         --tree-name pTree \
                                         --model-file $MODEL_DIR/model/$IPT/BDTmodel_pT_${PT_LO}_${PT_HI}_v1.pkl \
-                                        --output-directory $WORK_DIR/$INDEX \
+                                        --output-directory $WORKDIR/$INDEX \
                                         --pT-interval ${PT_LO} ${PT_HI} >& log_pt_${IPT}.$INDEX.txt
 
 EOF
@@ -64,8 +62,8 @@ done
 cd ..
 rm -r $INDEX
 
-if [ ! -f $WORK_DIR/env.txt ]; then
-echo "$LOG_DIR" > $WORK_DIR/env.txt
+if [ ! -f $WORKDIR/env.txt ]; then
+echo "$LOG_DIR" > $WORKDIR/env.txt
 fi
 
 echo

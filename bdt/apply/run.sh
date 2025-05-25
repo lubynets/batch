@@ -5,7 +5,8 @@ mkdir -p $LOGDIR
 mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
-WORKDIR=/lustre/alice/users/$USER/bdt/workdir
+export PROJECT_DIR=/lustre/alice/users/lubynets/bdt
+export WORKDIR=$PROJECT_DIR/workdir
 if [ -f $WORKDIR/env.txt ]; then
 rm $WORKDIR/env.txt
 fi
