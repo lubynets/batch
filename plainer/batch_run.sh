@@ -19,7 +19,7 @@ PROJECT_DIR=/lustre/alice/users/lubynets/plainer
 
 EXE_DIR=$SOFT_DIR/bin
 
-IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVarsWoPid # 403
+IO_SUFFIX=mc/lhc24e3/all/noConstr/mod$INDEX # 403
 # IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel #976
 
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX

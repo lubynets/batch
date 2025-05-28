@@ -14,8 +14,8 @@ PROJECT_DIR=/lustre/alice/users/lubynets/CSTlc
 
 WORK_DIR=$PROJECT_DIR/workdir
 
-# RUN_MODE=smallTest
-RUN_MODE=greatRun
+RUN_MODE=smallTest
+# RUN_MODE=greatRun
 
 # SKIM_SELECTION=lhc22.apass7 MC_OR_DATA=data #976
 SKIM_SELECTION=lhc24e3 MC_OR_DATA=mc #403
@@ -36,10 +36,11 @@ fi
 
 CONFIG_DIR=$PROJECT_DIR/config
 INPUT_DIR=/lustre/alice/users/lubynets/skim/outputs/$MC_OR_DATA/$SKIM_SELECTION
-JSON_FILE=$CONFIG_DIR/dpl-config_CSTlc_$MC_OR_DATA.json
+JSON_FILE=$CONFIG_DIR/dpl-config_CSTlc_$MC_OR_DATA.$INDEX.json
 if [[ $RUN_MODE = "greatRun" ]]; then
-  INPUT_FILE=$INPUT_DIR/AnalysisResults_trees.$INDEX.root
-  OUTPUT_DIR=$PROJECT_DIR/outputs/$MC_OR_DATA/$SKIM_SELECTION/$SIG_BG/$CONSTRAINT/moreMoreVarsWoPid
+#   INPUT_FILE=$INPUT_DIR/AnalysisResults_trees.1.root
+  INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/sim/2024/LHC24e3/0/526641/AOD/001/AnalysisResults_skimmed.root
+  OUTPUT_DIR=$PROJECT_DIR/outputs/$MC_OR_DATA/$SKIM_SELECTION/$SIG_BG/$CONSTRAINT/mod$INDEX
 elif [[ $RUN_MODE = "smallTest" ]]; then
   if [[ $MC_OR_DATA = "mc" ]]; then
     INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/sim/2024/LHC24e3/0/526641/AOD/001/AnalysisResults_skimmed.small.root

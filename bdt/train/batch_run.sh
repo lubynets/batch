@@ -8,10 +8,15 @@ START_TIME=$SECONDS
 
 export INDEX=${SLURM_ARRAY_TASK_ID}
 
+NMODELS=5
+
+export PT_NUM=$(($(($(($INDEX-1))/$NMODELS))+1))
+export MODEL_NUM=$(($(($(($INDEX-1))%$NMODELS))+1))
+
 PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
 WORK_DIR=$PROJECT_DIR/workdir
-OUTPUT_DIR=$PROJECT_DIR/outputs_train/moreMoreVarsWoPid
+OUTPUT_DIR=$PROJECT_DIR/outputs_train/mod5$MODEL_NUM
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
@@ -22,7 +27,7 @@ export INPUT_DIR_MC=/lustre/alice/users/lubynets/plainer/outputs/mc/lhc24e3/sig_
 export INPUT_FILES_MC_FROM=1
 export INPUT_FILES_MC_TO=403
 export INPUT_FILES_DATA_FROM=1
-if [[ $INDEX < 3 ]]; then
+if [[ $PT_NUM < 3 ]]; then
 export INPUT_DIR_DATA=/lustre/alice/users/lubynets/plainer/outputs/data/lhc22.apass7/all/noConstr/noSel/sidebands/loPt
 export INPUT_FILES_DATA_TO=50
 else
@@ -30,12 +35,12 @@ export INPUT_DIR_DATA=/lustre/alice/users/lubynets/plainer/outputs/data/lhc22.ap
 export INPUT_FILES_DATA_TO=976
 fi
 
-export MODEL_DIR=$OUTPUT_DIR/model/$INDEX
-export OUT_DIR=$OUTPUT_DIR/out/$INDEX
+export MODEL_DIR=$OUTPUT_DIR/model/$PT_NUM
+export OUT_DIR=$OUTPUT_DIR/out/$PT_NUM
 
 PT_RANGES=('0' '2' '5' '8' '12' '20')
-export PT_LO=${PT_RANGES[$(($INDEX-1))]}
-export PT_HI=${PT_RANGES[$INDEX]}
+export PT_LO=${PT_RANGES[$(($PT_NUM-1))]}
+export PT_HI=${PT_RANGES[$PT_NUM]}
 
 mkdir -p $WORK_DIR/$INDEX
 mkdir -p $MODEL_DIR
@@ -49,8 +54,8 @@ cd $WORK_DIR/$INDEX
 apptainer shell /lustre/alice/users/lubynets/singularities/bdt.sif << \EOF
 source /usr/local/install/bin/thisroot.sh
 
-python3 $MACRO_DIR/train_multi_class_BDT.py --config-file $CONFIG_DIR/config.train.yaml \
-                                            --config-file-sel $CONFIG_DIR/config.train_selection.yaml \
+python3 $MACRO_DIR/train_multi_class_BDT.py --config-file $CONFIG_DIR/config.train.$MODEL_NUM.yaml \
+                                            --config-file-sel $CONFIG_DIR/config.train_selection.$MODEL_NUM.yaml \
                                             --input-files-mc-path $INPUT_DIR_MC/PlainTree \
                                             --input-files-mc-range $INPUT_FILES_MC_FROM $INPUT_FILES_MC_TO \
                                             --input-files-data-path $INPUT_DIR_DATA/PlainTree \

@@ -10,7 +10,7 @@ WORK_DIR=$PROJECT_DIR/workdir
 BATCH_DIR=$PWD
 
 A_LOW=1
-A_HIGH=2
+A_HIGH=5
 TIME_LIMIT=00:20:00
 
 if [ -f $WORK_DIR/env.txt ]; then
@@ -66,7 +66,7 @@ sbatch --job-name=ali2atree \
        --wait \
        -t $TIME_LIMIT \
        --mem 16G \
-       --partition main \
+       --partition long \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \

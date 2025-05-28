@@ -17,7 +17,7 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 
 EXE_DIR=$SOFT_DIR/bin
 
-MODEL_NAME=moreMoreVarsWoPid
+MODEL_NAME=mod$INDEX
 IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME # 403
 # IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel/all #976
 
