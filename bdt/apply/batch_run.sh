@@ -41,7 +41,7 @@ apptainer shell /lustre/alice/users/lubynets/singularities/bdt.sif << \EOF
 source /usr/local/install/bin/thisroot.sh
 
 python3 $MACRO_DIR/apply_BDT_to_data.py --config-file $CONFIG_DIR/config.train.$INDEX.yaml \
-                                        --config-file-sel $CONFIG_DIR/config.train_selection.$INDEX.yaml \
+                                        --config-file-sel $CONFIG_DIR/config.train_selection.1.yaml \
                                         --input-file $INPUT_DIR/PlainTree.$INDEX.root \
                                         --tree-name pTree \
                                         --model-file $MODEL_DIR/model/$IPT/BDTmodel_pT_${PT_LO}_${PT_HI}_v1.pkl \

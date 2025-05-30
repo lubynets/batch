@@ -14,8 +14,8 @@ if [ -f $WORKDIR/env.txt ]; then
 rm $WORKDIR/env.txt
 fi
 
-A_LOW=1
-A_HIGH=5
+A_LOW=11
+A_HIGH=14
 TIME_LIMIT=00:20:00
 
 NOT_COMPLETED=true

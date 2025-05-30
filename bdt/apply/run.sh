@@ -11,8 +11,8 @@ if [ -f $WORKDIR/env.txt ]; then
 rm $WORKDIR/env.txt
 fi
 
-A_LOW=1
-A_HIGH=5
+A_LOW=11
+A_HIGH=14
 
 TIME_LIMIT=12:55:00 PARTITION=long
 # TIME_LIMIT=08:00:00 PARTITION=main

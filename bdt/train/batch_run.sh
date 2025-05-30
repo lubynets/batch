@@ -8,7 +8,7 @@ START_TIME=$SECONDS
 
 export INDEX=${SLURM_ARRAY_TASK_ID}
 
-NMODELS=5
+NMODELS=4
 
 export PT_NUM=$(($(($(($INDEX-1))/$NMODELS))+1))
 export MODEL_NUM=$(($(($(($INDEX-1))%$NMODELS))+1))
@@ -16,7 +16,7 @@ export MODEL_NUM=$(($(($(($INDEX-1))%$NMODELS))+1))
 PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
 WORK_DIR=$PROJECT_DIR/workdir
-OUTPUT_DIR=$PROJECT_DIR/outputs_train/mod5$MODEL_NUM
+OUTPUT_DIR=$PROJECT_DIR/outputs_train/mod1$MODEL_NUM
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
@@ -54,8 +54,8 @@ cd $WORK_DIR/$INDEX
 apptainer shell /lustre/alice/users/lubynets/singularities/bdt.sif << \EOF
 source /usr/local/install/bin/thisroot.sh
 
-python3 $MACRO_DIR/train_multi_class_BDT.py --config-file $CONFIG_DIR/config.train.$MODEL_NUM.yaml \
-                                            --config-file-sel $CONFIG_DIR/config.train_selection.$MODEL_NUM.yaml \
+python3 $MACRO_DIR/train_multi_class_BDT.py --config-file $CONFIG_DIR/config.train.1$MODEL_NUM.yaml \
+                                            --config-file-sel $CONFIG_DIR/config.train_selection.1.yaml \
                                             --input-files-mc-path $INPUT_DIR_MC/PlainTree \
                                             --input-files-mc-range $INPUT_FILES_MC_FROM $INPUT_FILES_MC_TO \
                                             --input-files-data-path $INPUT_DIR_DATA/PlainTree \

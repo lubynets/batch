@@ -9,8 +9,8 @@ WORK_DIR=$PROJECT_DIR/workdir
 
 BATCH_DIR=$PWD
 
-A_LOW=1
-A_HIGH=5
+A_LOW=11
+A_HIGH=14
 TIME_LIMIT=00:20:00
 
 if [ -f $WORK_DIR/env.txt ]; then
