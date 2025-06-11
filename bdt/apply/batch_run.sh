@@ -9,12 +9,15 @@ START_TIME=$SECONDS
 export INDEX=${SLURM_ARRAY_TASK_ID}
 
 
-MODEL_NAME=moreMoreVarsWoPid
+MODEL_NAME=moreMoreVars
 
-# IO_PREFIX=data/lhc22.apass7/all/noConstr/noSel/all # 976
-IO_PREFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME # 403
+IO_PREFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME # 976
+# IO_PREFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME # 403
 
-export INPUT_DIR=/lustre/alice/users/lubynets/plainer/outputs/$IO_PREFIX
+TREES_DIR=plainer
+# TREES_DIR=ali2atree
+
+export INPUT_DIR=/lustre/alice/users/lubynets/$TREES_DIR/outputs/$IO_PREFIX
 export MODEL_DIR=$PROJECT_DIR/outputs_train/$MODEL_NAME
 
 OUTPUT_DIR=$PROJECT_DIR/outputs_apply/$IO_PREFIX
@@ -41,7 +44,8 @@ export PT_HI=${PT_RANGES[$IPT]}
 apptainer shell /lustre/alice/users/lubynets/singularities/bdt.sif << \EOF
 source /usr/local/install/bin/thisroot.sh
 
-python3 $MACRO_DIR/apply_BDT_to_data.py --config-file-sel $CONFIG_DIR/config.train_selection.yaml \
+python3 $MACRO_DIR/apply_BDT_to_data.py --config-file $CONFIG_DIR/config.train.yaml \
+                                        --config-file-sel $CONFIG_DIR/config.train_selection.yaml \
                                         --input-file $INPUT_DIR/PlainTree.$INDEX.root \
                                         --tree-name pTree \
                                         --model-file $MODEL_DIR/model/$IPT/BDTmodel_pT_${PT_LO}_${PT_HI}_v1.pkl \

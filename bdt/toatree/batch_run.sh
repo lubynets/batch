@@ -9,7 +9,7 @@ START_TIME=$SECONDS
 gcc --version
 cc --version
 
-SOFT_DIR=/lustre/alice/users/lubynets/soft/AnalysisTree/install_master
+SOFT_DIR=/lustre/alice/users/lubynets/soft/AnalysisTree/install_master_vae25
 
 source $SOFT_DIR/bin/AnalysisTreeConfig.sh
 
@@ -17,9 +17,10 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 
 EXE_DIR=$SOFT_DIR/bin
 
-MODEL_NAME=moreMoreVarsWoPid
-IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME # 403
-# IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel/all #976
+MODEL_NAME=moreMoreVars
+
+# IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME # 403
+IO_SUFFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME #976
 
 INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_apply/$IO_SUFFIX
 
