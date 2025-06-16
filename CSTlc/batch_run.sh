@@ -17,8 +17,8 @@ WORK_DIR=$PROJECT_DIR/workdir
 # RUN_MODE=smallTest
 RUN_MODE=greatRun
 
-SKIM_SELECTION=lhc22.apass7 MC_OR_DATA=data #976
-# SKIM_SELECTION=lhc24e3 MC_OR_DATA=mc #403
+# SKIM_SELECTION=lhc22.apass7 MC_OR_DATA=data #976
+SKIM_SELECTION=lhc24e3 MC_OR_DATA=mc #403
 
 SIG_BG=all
 # SIG_BG=sig_bgsup100
@@ -42,7 +42,7 @@ if [[ $RUN_MODE = "greatRun" ]]; then
   OUTPUT_DIR=$PROJECT_DIR/outputs/$MC_OR_DATA/$SKIM_SELECTION/$SIG_BG/$CONSTRAINT/moreMoreVars
 elif [[ $RUN_MODE = "smallTest" ]]; then
   if [[ $MC_OR_DATA = "mc" ]]; then
-    INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/sim/2024/LHC24e3/0/526641/AOD/001/AnalysisResults_skimmed.small.root
+    INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/sim/2024/LHC24e3/0/526641/AOD/001/AnalysisResults_skimmed.root
   else
     INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/data/2022/LHC22o/526641/apass7/0630/o2_ctf_run00526641_orbit0206830848_tf0000000001_epn160/001/AO2D.skimmed.small.root
   fi

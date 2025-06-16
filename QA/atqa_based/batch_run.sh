@@ -13,7 +13,7 @@ gcc --version
 cc --version
 
 ATQA_DIR=AnalysisTreeQA
-SOFT_DIR=/lustre/alice/users/lubynets/soft/$ATQA_DIR/install
+SOFT_DIR=/lustre/alice/users/lubynets/soft/$ATQA_DIR/install_vae25
 source $SOFT_DIR/bin/AnalysisTreeQAConfig.sh
 
 echo
@@ -24,7 +24,7 @@ date
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-FILES_PER_JOB=3
+FILES_PER_JOB=5
 
 PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
@@ -32,16 +32,17 @@ EXE_DIR=$SOFT_DIR/bin
 
 # EXE=mc_qa
 # EXE=treeKF_qa
-EXE=mass_qa
+# EXE=mass_qa
 # EXE=varCorr_qa
 # EXE=bdt_qa
+EXE=yield_lifetime_qa
 
 MODEL_NAME=moreMoreVars
 
-IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel/all/$MODEL_NAME MC_OR_DATA=data # 976
-# IO_SUFFIX=mc/lhc24e3/sig_bgsup100/noConstr MC_OR_DATA=mc #403
+# IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel/all/$MODEL_NAME MC_OR_DATA=data # 976
+IO_SUFFIX=mc/lhc24e3/all/noConstr/backup_moreMoreVars MC_OR_DATA=mc #403
 
-INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_atree/$IO_SUFFIX
+INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
@@ -66,8 +67,8 @@ for K in `seq 1 $FILES_PER_JOB`; do
   ls -d $INPUT_DIR/AnalysisTree.$FILE_NUMBER.root >> filelist.list
 done
 
-# ./$EXE filelist.list >& log_$INDEX.txt # mc_qa treeKF_qa
-./$EXE filelist.list $MC_OR_DATA >& log_$INDEX.txt # varCorr_qa bdt_qa mass_qa
+./$EXE filelist.list >& log_$INDEX.txt # mc_qa treeKF_qa yield_lifetime_qa
+# ./$EXE filelist.list $MC_OR_DATA >& log_$INDEX.txt # varCorr_qa bdt_qa mass_qa
 
 echo
 echo "Exe done"

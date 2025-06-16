@@ -10,7 +10,7 @@ WORK_DIR=$PROJECT_DIR/workdir
 BATCH_DIR=$PWD
 
 A_LOW=1
-A_HIGH=2
+A_HIGH=976
 TIME_LIMIT=00:20:00
 
 if [ -f $WORK_DIR/env.txt ]; then
@@ -75,6 +75,11 @@ fi
 ROUNDS=$(($ROUNDS+1))
 done
 
+echo
+date
+echo "Jobs are done"
+echo
+
 OUTPUT_LOG_DIR=$(cat $WORK_DIR/env.txt)
 
 cd $OUTPUT_LOG_DIR/error
@@ -94,3 +99,8 @@ cp $BATCH_DIR/*sh .
 chmod -x *sh
 
 rm -r error out jobs
+
+echo
+date
+echo "Logs are archived. Finish."
+echo
