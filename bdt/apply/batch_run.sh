@@ -11,8 +11,8 @@ export INDEX=${SLURM_ARRAY_TASK_ID}
 
 MODEL_NAME=moreMoreVars
 
-IO_PREFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME # 976
-# IO_PREFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME # 403
+# IO_PREFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME # 976
+IO_PREFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME # 403
 
 # IO_PREFIX=HL/mc/HF_LHC24e3_All # 1
 

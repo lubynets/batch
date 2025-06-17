@@ -1,4 +1,6 @@
 #!/bin/bash
+source /lustre/alice/users/lubynets/batch/Helper.sh
+
 export PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
 export BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -10,12 +12,10 @@ export WORK_DIR=$PROJECT_DIR/workdir
 
 BATCH_DIR=$PWD
 
-if [ -f $WORKDIR/env.txt ]; then
-rm $WORKDIR/env.txt
-fi
+RM $WORKDIR/env.txt
 
 A_LOW=1
-A_HIGH=1
+A_HIGH=403
 TIME_LIMIT=00:20:00
 
 NOT_COMPLETED=true
@@ -26,39 +26,11 @@ do
 date
 
 NOT_COMPLETED=false
-A=
 
-for X in `seq $A_LOW $A_HIGH`
-do
-if [[ ! -f $WORK_DIR/success/index_${X} && ! $X = $A_HIGH ]]
-then
+A=$(CreateJobsArray $A_LOW $A_HIGH $WORK_DIR/success)
+if [ ! -z $A ]; then
 NOT_COMPLETED=true
-if [ -z $START_INTERVAL ]
-then
-START_INTERVAL=$X
 fi
-FINISH_INTERVAL=$X
-else
-if [ $START_INTERVAL = $FINISH_INTERVAL ]
-then
-INTERVAL=$START_INTERVAL
-else
-INTERVAL=$START_INTERVAL-$FINISH_INTERVAL
-fi
-if ! [ -z $INTERVAL ]
-then
-if [ -z $A ]
-then
-A=$INTERVAL
-else
-A=$A,$INTERVAL
-fi
-fi
-START_INTERVAL=
-FINISH_INTERVAL=
-INTERVAL=
-fi
-done
 
 if [ $NOT_COMPLETED = true ]
 then
@@ -67,7 +39,7 @@ sbatch --job-name=bdt2atree \
        --wait \
        -t $TIME_LIMIT \
        --mem 16G \
-       --partition long \
+       --partition main \
        --output=$BATCH_LOG_DIR/out/%a.out.log \
        --error=$BATCH_LOG_DIR/error/%a.err.log \
        -a $A \

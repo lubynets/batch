@@ -19,10 +19,10 @@ EXE_DIR=$SOFT_DIR/bin
 
 MODEL_NAME=moreMoreVars
 
-# IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME # 403
+IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME # 403
 # IO_SUFFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME #976
 
-IO_SUFFIX=HL/mc/HF_LHC24e3_All # 1
+# IO_SUFFIX=HL/mc/HF_LHC24e3_All # 1
 
 INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_apply/$IO_SUFFIX
 
@@ -41,9 +41,7 @@ cd $WORK_DIR/$INDEX
 
 cp $EXE_DIR/$EXE ./
 
-if [ -f filelist.list ]; then
-  rm filelist.list
-fi
+RM filelist.list
 
 for IPT in `seq 1 5`; do
   ls -d $INPUT_DIR/pt_$IPT/appliedBdt.pt_$IPT.$INDEX.root >> filelist.list
@@ -57,9 +55,7 @@ mv AnalysisTree.root AnalysisTree.$INDEX.root
 
 mv *root $OUTPUT_DIR
 mv log* $OUT_LOG_DIR/jobs
-if [ ! -f $OUT_LOG_DIR/jobs/$EXE.cpp ]; then
-  cp $SOFT_DIR/share/$EXE.cpp $OUT_LOG_DIR/jobs
-fi
+CP cp $SOFT_DIR/share $EXE.cpp $OUT_LOG_DIR/jobs
 mv $BATCH_LOG_DIR/out/$INDEX.out.log $OUT_LOG_DIR/out
 mv $BATCH_LOG_DIR/error/$INDEX.err.log $OUT_LOG_DIR/error
 

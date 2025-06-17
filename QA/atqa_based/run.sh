@@ -1,4 +1,6 @@
 #!/bin/bash
+source /lustre/alice/users/lubynets/batch/Helper.sh
+
 LOGDIR=/lustre/alice/users/$USER/QA/log
 mkdir -p $LOGDIR
 mkdir -p $LOGDIR/out
@@ -10,9 +12,7 @@ A_LOW=1
 A_HIGH=81
 TIME_LIMIT=02:20:00
 
-if [ -f $WORK_DIR/env.txt ]; then
-rm $WORK_DIR/env.txt
-fi
+RM $WORK_DIR/env.txt
 
 NOT_COMPLETED=true
 ROUNDS=0
@@ -22,39 +22,11 @@ do
 date
 
 NOT_COMPLETED=false
-A=
 
-for X in `seq $A_LOW $A_HIGH`
-do
-if [[ ! -f $WORK_DIR/success/index_${X} && ! $X = $A_HIGH ]]
-then
+A=$(CreateJobsArray $A_LOW $A_HIGH $WORK_DIR/success)
+if [ ! -z $A ]; then
 NOT_COMPLETED=true
-if [ -z $START_INTERVAL ]
-then
-START_INTERVAL=$X
 fi
-FINISH_INTERVAL=$X
-else
-if [ $START_INTERVAL = $FINISH_INTERVAL ]
-then
-INTERVAL=$START_INTERVAL
-else
-INTERVAL=$START_INTERVAL-$FINISH_INTERVAL
-fi
-if ! [ -z $INTERVAL ]
-then
-if [ -z $A ]
-then
-A=$INTERVAL
-else
-A=$A,$INTERVAL
-fi
-fi
-START_INTERVAL=
-FINISH_INTERVAL=
-INTERVAL=
-fi
-done
 
 if [ $NOT_COMPLETED = true ]
 then

@@ -40,7 +40,7 @@ EXE=yield_lifetime_qa
 MODEL_NAME=moreMoreVars
 
 # IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel/all/$MODEL_NAME MC_OR_DATA=data # 976
-IO_SUFFIX=mc/lhc24e3/all/noConstr/backup_moreMoreVars MC_OR_DATA=mc #403
+IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVars MC_OR_DATA=mc #403
 
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX
@@ -79,9 +79,7 @@ mv $EXE.root $EXE.$INDEX.root
 
 mv *root $OUTPUT_DIR
 mv log* $LOG_DIR/jobs
-if [ ! -f $LOG_DIR/jobs/$EXE.cpp ]; then
-cp $SOFT_DIR/share/$EXE.cpp $LOG_DIR/jobs
-fi
+CP $SOFT_DIR/share $EXE.cpp $LOG_DIR/jobs
 mv $BATCH_LOG_DIR/out/$INDEX.out.log $LOG_DIR/out
 mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
 

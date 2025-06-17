@@ -25,8 +25,8 @@ fi
 
 EXE_DIR=$SOFT_DIR/bin
 
-# IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVars IS_MC=true # 403
-IO_SUFFIX=data/lhc22.apass7/all/noConstr/moreMoreVars IS_MC=false #976
+IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVars IS_MC=true # 403
+# IO_SUFFIX=data/lhc22.apass7/all/noConstr/moreMoreVars IS_MC=false #976
 
 INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
 
@@ -56,9 +56,7 @@ mv PlainTree.root PlainTree.$INDEX.root
 
 mv *root $OUTPUT_DIR
 mv log* $LOG_DIR/jobs
-if [ ! -f $LOG_DIR/jobs/$EXE.cpp ]; then
-cp $SOFT_DIR/share/$EXE.cpp $LOG_DIR/jobs
-fi
+CP $SOFT_DIR/share $EXE.cpp $LOG_DIR/jobs
 mv $BATCH_LOG_DIR/out/$INDEX.out.log $LOG_DIR/out
 mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
 
