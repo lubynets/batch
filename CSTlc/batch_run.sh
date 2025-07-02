@@ -14,8 +14,8 @@ PROJECT_DIR=/lustre/alice/users/lubynets/CSTlc
 
 WORK_DIR=$PROJECT_DIR/workdir
 
-# RUN_MODE=smallTest
-RUN_MODE=greatRun
+RUN_MODE=smallTest
+# RUN_MODE=greatRun
 
 # SKIM_SELECTION=lhc22.apass7 MC_OR_DATA=data #976
 SKIM_SELECTION=lhc24e3 MC_OR_DATA=mc #403

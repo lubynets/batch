@@ -25,8 +25,10 @@ fi
 
 EXE_DIR=$SOFT_DIR/bin
 
-IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVars IS_MC=true # 403
+# IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVars IS_MC=true # 403
 # IO_SUFFIX=data/lhc22.apass7/all/noConstr/moreMoreVars IS_MC=false #976
+
+IO_SUFFIX=HL/data/HF_LHC22o_pass7_minBias_small_2P3PDstar IS_MC=false #1
 
 INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
 

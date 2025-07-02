@@ -32,16 +32,17 @@ EXE_DIR=$SOFT_DIR/bin
 
 # EXE=mc_qa
 # EXE=treeKF_qa
-# EXE=mass_qa
+EXE=mass_qa
 # EXE=varCorr_qa
 # EXE=bdt_qa
-EXE=yield_lifetime_qa
+# EXE=yield_lifetime_qa
 
 MODEL_NAME=moreMoreVars
 
-# IO_SUFFIX=data/lhc22.apass7/all/noConstr/noSel/all/$MODEL_NAME MC_OR_DATA=data # 976
-IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVars MC_OR_DATA=mc #403
+IO_SUFFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME MC_OR_DATA=data # 976
+# IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME MC_OR_DATA=mc #403
 
+# INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_atree/$IO_SUFFIX
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX
 WORK_DIR=$PROJECT_DIR/workdir
@@ -58,17 +59,20 @@ cd $WORK_DIR/$INDEX
 
 cp $EXE_DIR/$EXE ./
 
-if [ -f "filelist.list" ]; then
-  rm filelist.list
-fi
+RM filelist.list
 
 for K in `seq 1 $FILES_PER_JOB`; do
   FILE_NUMBER=$(($(($FILES_PER_JOB*$(($INDEX-1))))+$K))
   ls -d $INPUT_DIR/AnalysisTree.$FILE_NUMBER.root >> filelist.list
 done
 
-./$EXE filelist.list >& log_$INDEX.txt # mc_qa treeKF_qa yield_lifetime_qa
-# ./$EXE filelist.list $MC_OR_DATA >& log_$INDEX.txt # varCorr_qa bdt_qa mass_qa
+if [[ $EXE == "treeKF_qa" || $EXE == "yield_lifetime_qa" ]]; then
+ARGS="filelist.list"  # mc_qa treeKF_qa yield_lifetime_qa
+elif [[ $EXE == "varCorr_qa" || $EXE == "bdt_qa" || $EXE == "mass_qa" ]]; then
+ARGS="filelist.list $MC_OR_DATA" # varCorr_qa bdt_qa mass_qa
+fi
+
+./$EXE $ARGS >& log_$INDEX.txt
 
 echo
 echo "Exe done"
