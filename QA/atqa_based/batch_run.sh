@@ -28,8 +28,6 @@ FILES_PER_JOB=5
 
 PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
-EXE_DIR=$SOFT_DIR/bin
-
 # EXE=mc_qa
 # EXE=treeKF_qa
 EXE=mass_qa
@@ -41,10 +39,11 @@ MODEL_NAME=moreMoreVars
 
 IO_SUFFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME MC_OR_DATA=data # 976
 # IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME MC_OR_DATA=mc #403
+# IO_SUFFIX=HL/mc/HF_LHC24g5_All/446293 #37
 
 # INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_atree/$IO_SUFFIX
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
-OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX
+OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX/pTwise
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -56,8 +55,6 @@ mkdir -p $LOG_DIR/out
 mkdir -p $LOG_DIR/error
 
 cd $WORK_DIR/$INDEX
-
-cp $EXE_DIR/$EXE ./
 
 RM filelist.list
 
@@ -72,13 +69,13 @@ elif [[ $EXE == "varCorr_qa" || $EXE == "bdt_qa" || $EXE == "mass_qa" ]]; then
 ARGS="filelist.list $MC_OR_DATA" # varCorr_qa bdt_qa mass_qa
 fi
 
-./$EXE $ARGS >& log_$INDEX.txt
+$EXE $ARGS >& log_$INDEX.txt
 
 echo
 echo "Exe done"
 date
 
-rm $EXE filelist.list
+rm filelist.list
 mv $EXE.root $EXE.$INDEX.root
 
 mv *root $OUTPUT_DIR
