@@ -19,14 +19,15 @@ PROJECT_DIR=/lustre/alice/users/lubynets/plainer
 
 EXE_DIR=$SOFT_DIR/bin
 
-IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVars # 403
+# IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVars # 403
 # IO_SUFFIX=data/lhc22.apass7/all/noConstr/moreMoreVars #976
+IO_SUFFIX=HL/mc/HF_LHC24g5_All/471558
 
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 
 EXE=plainer
 
-OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_SUFFIX}/
+OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_SUFFIX}
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -39,11 +40,7 @@ mkdir -p $LOG_DIR/error
 
 cd $WORK_DIR/$INDEX
 
-cp $EXE_DIR/$EXE ./
-
-./$EXE $INPUT_DIR/AnalysisTree.$INDEX.root >& log_${INDEX}.txt
-
-rm $EXE
+$EXE $INPUT_DIR/AnalysisTree.$INDEX.root >& log_${INDEX}.txt
 
 mv PlainTree.root PlainTree.$INDEX.root
 

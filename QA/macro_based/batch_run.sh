@@ -9,7 +9,7 @@ START_TIME=$SECONDS
 gcc --version
 cc --version
 
-source /lustre/alice/users/lubynets/soft/root/install_6.32_cpp17/bin/thisroot.sh
+source /lustre/alice/users/lubynets/soft/root/install_6.32_cpp17_vae25/bin/thisroot.sh
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
@@ -17,19 +17,16 @@ PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
 MACRO_DIR=$PROJECT_DIR/macro
 
-PRESELECTION=lhc24e3
-# PRESELECTION=relax
+IO_PREFIX=alice/data/2023/LHC23zzo/545210/apass5/2020
 
-SELECTION=noSel; SELECTION_FLAG=0
-# SELECTION=isSel; SELECTION_FLAG=1
-
-INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/signalOnly/$PRESELECTION
+INPUT_DIR=/lustre/alice/users/lubynets/tpc/outputs/$IO_PREFIX
 
 # MACRO=mass_qa
 # MACRO=treeKF_qa
-MACRO=mc_qa
+# MACRO=mc_qa
+MACRO=tpc_qa
 
-OUTPUT_DIR=$PROJECT_DIR/outputs/$MACRO/$PRESELECTION/$SELECTION
+OUTPUT_DIR=$PROJECT_DIR/outputs/$MACRO/$IO_PREFIX
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -44,7 +41,8 @@ cd $WORK_DIR/$INDEX
 
 cp $MACRO_DIR/${MACRO}.C ./
 
-root -l -b -q "${MACRO}.C(\"$INPUT_DIR/AnalysisResults_trees.$INDEX.root\", $SELECTION_FLAG)" >& log_${INDEX}.txt # mass_qa, treeKF_qa, mc_qa
+# root -l -b -q "${MACRO}.C(\"$INPUT_DIR/AnalysisResults_trees.$INDEX.root\", $SELECTION_FLAG)" >& log_${INDEX}.txt # mass_qa, treeKF_qa, mc_qa
+root -l -b -q "${MACRO}.C(\"$INPUT_DIR/AO2D.$INDEX.root\")" >& log_${INDEX}.txt # tpc_qa
 
 rm $MACRO.C
 

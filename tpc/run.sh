@@ -1,27 +1,27 @@
 #!/bin/bash
 source /lustre/alice/users/lubynets/batch/Helper.sh
 
-LOGDIR=/lustre/alice/users/$USER/plainer/log
+LOGDIR=/lustre/alice/users/$USER/tpc/log
 mkdir -p $LOGDIR
 mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
-WORK_DIR=/lustre/alice/users/lubynets/plainer/workdir
+WORK_DIR=/lustre/alice/users/$USER/tpc/workdir
 
 BATCH_DIR=$PWD
 
 A_LOW=1
-A_HIGH=79
-TIME_LIMIT=00:20:00
+A_HIGH=1180
+# TIME_LIMIT=12:55:00 PARTITION=long
+TIME_LIMIT=08:00:00 PARTITION=main
+# TIME_LIMIT=00:20:00 PARTITION=debug
 
-if [ -f $WORK_DIR/env.txt ]; then
-rm $WORK_DIR/env.txt
-fi
+RM $WORK_DIR/env.txt
 
 NOT_COMPLETED=true
 ROUNDS=0
 A_HIGH=$(($A_HIGH+1))
-while [[ $NOT_COMPLETED = true && $ROUNDS < 5 ]]
+while [[ $NOT_COMPLETED = true && $ROUNDS < 1 ]]
 do
 date
 
@@ -35,11 +35,11 @@ fi
 if [ $NOT_COMPLETED = true ]
 then
 echo "Array " $A
-sbatch --job-name=plainer \
+sbatch --job-name=tpc \
+       --mem 16G \
        --wait \
        -t $TIME_LIMIT \
-       --mem 16G \
-       --partition main \
+       --partition $PARTITION \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \
@@ -47,11 +47,6 @@ sbatch --job-name=plainer \
 fi
 ROUNDS=$(($ROUNDS+1))
 done
-
-echo
-date
-echo "Jobs are done"
-echo
 
 OUTPUT_LOG_DIR=$(cat $WORK_DIR/env.txt)
 
@@ -63,17 +58,12 @@ tar -czf out.tar.gz *.log
 
 cd $OUTPUT_LOG_DIR/jobs
 tar -czf jobs.tar.gz *.txt
+tar -czf jsons.tar.gz *.json
 
 cd $OUTPUT_LOG_DIR
 mv */*tar.gz .
-mv jobs/*cpp .
 
 cp $BATCH_DIR/*sh .
 chmod -x *sh
 
 rm -r error out jobs
-
-echo
-date
-echo "Logs are archived. Finish."
-echo

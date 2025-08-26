@@ -24,7 +24,7 @@ date
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-FILES_PER_JOB=5
+FILES_PER_JOB=1
 
 PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
@@ -35,15 +35,17 @@ EXE=mass_qa
 # EXE=bdt_qa
 # EXE=yield_lifetime_qa
 
-MODEL_NAME=moreMoreVars
-
-IO_SUFFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME MC_OR_DATA=data # 976
+# MODEL_NAME=moreMoreVars
+# IO_SUFFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME MC_OR_DATA=data # 976
 # IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME MC_OR_DATA=mc #403
-# IO_SUFFIX=HL/mc/HF_LHC24g5_All/446293 #37
+
+IO_SUFFIX=HL/data/HF_LHC22o_pass7_minBias_2P3PDstar/474011 MC_OR_DATA=data
+
+WEIGHTS_FILE=/lustre/alice/users/lubynets/QA/input/ptWeight.root
 
 # INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_atree/$IO_SUFFIX
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
-OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX/pTwise
+OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -63,10 +65,12 @@ for K in `seq 1 $FILES_PER_JOB`; do
   ls -d $INPUT_DIR/AnalysisTree.$FILE_NUMBER.root >> filelist.list
 done
 
-if [[ $EXE == "treeKF_qa" || $EXE == "yield_lifetime_qa" ]]; then
-ARGS="filelist.list"  # mc_qa treeKF_qa yield_lifetime_qa
+if [[ $EXE == "treeKF_qa" ]]; then
+ARGS="filelist.list"  # mc_qa treeKF_qa
 elif [[ $EXE == "varCorr_qa" || $EXE == "bdt_qa" || $EXE == "mass_qa" ]]; then
 ARGS="filelist.list $MC_OR_DATA" # varCorr_qa bdt_qa mass_qa
+elif [[ $EXE == "yield_lifetime_qa" ]]; then
+ARGS="filelist.list $WEIGHTS_FILE" # yield_lifetime_qa
 fi
 
 $EXE $ARGS >& log_$INDEX.txt

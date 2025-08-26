@@ -10,7 +10,7 @@ WORK_DIR=/lustre/alice/users/lubynets/QA/workdir
 
 A_LOW=1
 # A_HIGH=1
-A_HIGH=196
+A_HIGH=13
 TIME_LIMIT=02:20:00
 
 RM $WORK_DIR/env.txt
@@ -33,6 +33,7 @@ if [ $NOT_COMPLETED = true ]
 then
 echo "Array " $A
 sbatch --job-name=ATQA \
+       --mem 16G \
        --wait \
        -t $TIME_LIMIT \
        --partition main \

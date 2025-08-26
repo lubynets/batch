@@ -11,23 +11,23 @@ export INDEX=${SLURM_ARRAY_TASK_ID}
 PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
 WORK_DIR=$PROJECT_DIR/workdir
-OUTPUT_DIR=$PROJECT_DIR/outputs_train/moreMoreVarsWoPid
+OUTPUT_DIR=$PROJECT_DIR/outputs_train/HL2
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
 export CONFIG_DIR=$PROJECT_DIR/config
 export MACRO_DIR=$PROJECT_DIR/macro
 
-export INPUT_DIR_MC=/lustre/alice/users/lubynets/plainer/outputs/mc/lhc24e3/sig_bgsup100/noConstr
+export INPUT_DIR_MC=/lustre/alice/users/lubynets/plainer/outputs/HL/mc/HF_LHC24g5_All/471558
 export INPUT_FILES_MC_FROM=1
-export INPUT_FILES_MC_TO=403
+export INPUT_FILES_MC_TO=79
 export INPUT_FILES_DATA_FROM=1
 if [[ $INDEX < 3 ]]; then
-export INPUT_DIR_DATA=/lustre/alice/users/lubynets/plainer/outputs/data/lhc22.apass7/all/noConstr/noSel/sidebands/loPt
+export INPUT_DIR_DATA=/lustre/alice/users/lubynets/plainer/outputs/HL/data/HF_LHC22o_pass7_minBias_small_2P3PDstar/458836/loPt
 export INPUT_FILES_DATA_TO=50
 else
-export INPUT_DIR_DATA=/lustre/alice/users/lubynets/plainer/outputs/data/lhc22.apass7/all/noConstr/noSel/sidebands/hiPt
-export INPUT_FILES_DATA_TO=976
+export INPUT_DIR_DATA=/lustre/alice/users/lubynets/plainer/outputs/HL/data/HF_LHC22o_pass7_minBias_small_2P3PDstar/458836/hiPt
+export INPUT_FILES_DATA_TO=956
 fi
 
 export MODEL_DIR=$OUTPUT_DIR/model/$INDEX
