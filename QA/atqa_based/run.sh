@@ -10,7 +10,7 @@ WORK_DIR=/lustre/alice/users/lubynets/QA/workdir
 
 A_LOW=1
 # A_HIGH=1
-A_HIGH=13
+A_HIGH=100
 TIME_LIMIT=02:20:00
 
 RM $WORK_DIR/env.txt
@@ -36,7 +36,7 @@ sbatch --job-name=ATQA \
        --mem 16G \
        --wait \
        -t $TIME_LIMIT \
-       --partition main \
+       --partition long \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \

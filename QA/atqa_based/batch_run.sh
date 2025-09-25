@@ -30,16 +30,16 @@ PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
 # EXE=mc_qa
 # EXE=treeKF_qa
-EXE=mass_qa
+# EXE=mass_qa
 # EXE=varCorr_qa
 # EXE=bdt_qa
-# EXE=yield_lifetime_qa
+EXE=yield_lifetime_qa
 
-# MODEL_NAME=moreMoreVars
+MODEL_NAME=moreMoreVars
 # IO_SUFFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME MC_OR_DATA=data # 976
-# IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME MC_OR_DATA=mc #403
+IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME MC_OR_DATA=mc #403
 
-IO_SUFFIX=HL/data/HF_LHC22o_pass7_minBias_2P3PDstar/474011 MC_OR_DATA=data
+# IO_SUFFIX=HL/data/HF_LHC22o_pass7_minBias_2P3PDstar/474011 MC_OR_DATA=data
 
 WEIGHTS_FILE=/lustre/alice/users/lubynets/QA/input/ptWeight.root
 
