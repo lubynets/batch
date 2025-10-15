@@ -11,29 +11,29 @@ export INDEX=${SLURM_ARRAY_TASK_ID}
 PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
 WORK_DIR=$PROJECT_DIR/workdir
-OUTPUT_DIR=$PROJECT_DIR/outputs_train/HL2
+OUTPUT_DIR=$PROJECT_DIR/outputs_train/HL3
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
 export CONFIG_DIR=$PROJECT_DIR/config
 export MACRO_DIR=$PROJECT_DIR/macro
 
-export INPUT_DIR_MC=/lustre/alice/users/lubynets/plainer/outputs/HL/mc/HF_LHC24g5_All/471558
+export INPUT_DIR_MC=/lustre/alice/users/lubynets/plainer/outputs/HL/mc/HF_LHC24h1b_All/515935
 export INPUT_FILES_MC_FROM=1
-export INPUT_FILES_MC_TO=79
+export INPUT_FILES_MC_TO=518
 export INPUT_FILES_DATA_FROM=1
 if [[ $INDEX < 3 ]]; then
-export INPUT_DIR_DATA=/lustre/alice/users/lubynets/plainer/outputs/HL/data/HF_LHC22o_pass7_minBias_small_2P3PDstar/458836/loPt
-export INPUT_FILES_DATA_TO=50
+export INPUT_DIR_DATA=/lustre/alice/users/lubynets/plainer/outputs/HL/data/HF_LHC23_pass4_Thin_small_2P3PDstar/515291
+export INPUT_FILES_DATA_TO=1131
 else
-export INPUT_DIR_DATA=/lustre/alice/users/lubynets/plainer/outputs/HL/data/HF_LHC22o_pass7_minBias_small_2P3PDstar/458836/hiPt
-export INPUT_FILES_DATA_TO=956
+export INPUT_DIR_DATA=/lustre/alice/users/lubynets/plainer/outputs/HL/data/HF_LHC23_pass4_Thin_small_2P3PDstar/515291
+export INPUT_FILES_DATA_TO=1131
 fi
 
 export MODEL_DIR=$OUTPUT_DIR/model/$INDEX
 export OUT_DIR=$OUTPUT_DIR/out/$INDEX
 
-PT_RANGES=('0' '2' '5' '8' '12' '20')
+PT_RANGES=('1' '3' '5' '8' '12' '20')
 export PT_LO=${PT_RANGES[$(($INDEX-1))]}
 export PT_HI=${PT_RANGES[$INDEX]}
 

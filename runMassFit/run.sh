@@ -10,7 +10,7 @@ WORK_DIR=/lustre/alice/users/lubynets/QA/workdir
 
 A_LOW=1
 A_HIGH=100
-TIME_LIMIT=00:10:00
+TIME_LIMIT=00:12:00
 
 NOT_COMPLETED=true
 ROUNDS=0

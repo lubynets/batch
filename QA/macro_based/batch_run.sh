@@ -17,9 +17,11 @@ PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
 MACRO_DIR=$PROJECT_DIR/macro
 
-IO_PREFIX=alice/data/2023/LHC23zzo/545210/apass5/2020_set4
+# IO_PREFIX=alice/data/2023/LHC23zzo/545210/apass5/2020/tofCut
+IO_PREFIX=HL/mc/HF_LHC24h1b_All/522675
 
-INPUT_DIR=/lustre/alice/users/lubynets/tpc/outputs/$IO_PREFIX
+# INPUT_DIR=/lustre/alice/users/lubynets/tpc/outputs/$IO_PREFIX
+INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_PREFIX
 
 FILE_LIST_DIR=/lustre/alice/users/lubynets/skim/filelists/mc
 INPUT_FILE_LIST=$FILE_LIST_DIR/fst.$INDEX.list
@@ -28,9 +30,10 @@ INPUT_FILE_LIST=$FILE_LIST_DIR/fst.$INDEX.list
 # MACRO=treeKF_qa
 # MACRO=mc_qa
 # MACRO=tpc_qa
-MACRO=ptLb
+# MACRO=ptLb
+MACRO=corrBkgLc
 
-OUTPUT_DIR=$PROJECT_DIR/outputs/$MACRO
+OUTPUT_DIR=$PROJECT_DIR/outputs/$MACRO/$IO_PREFIX
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -45,9 +48,15 @@ cd $WORK_DIR/$INDEX
 
 cp $MACRO_DIR/${MACRO}.C ./
 
-# root -l -b -q "${MACRO}.C(\"$INPUT_DIR/AnalysisResults_trees.$INDEX.root\", $SELECTION_FLAG)" >& log_${INDEX}.txt # mass_qa, treeKF_qa, mc_qa
-# root -l -b -q "${MACRO}.C(\"$INPUT_DIR/AO2D.$INDEX.root\")" >& log_${INDEX}.txt # tpc_qa
-root -l -b -q "${MACRO}.C(\"$INPUT_FILE_LIST\")" >& log_${INDEX}.txt #ptLb
+if [[ $MACRO == "mass_qa" || $MACRO == "treeKF_qa" || $MACRO == "mc_qa" ]]; then
+  root -l -b -q "${MACRO}.C(\"$INPUT_DIR/AnalysisResults_trees.$INDEX.root\", $SELECTION_FLAG)" >& log_${INDEX}.txt # mass_qa, treeKF_qa, mc_qa
+elif [[ $MACRO == "tpc_qa" ]]; then
+  root -l -b -q "${MACRO}.C(\"$INPUT_DIR/AO2D.$INDEX.root\")" >& log_${INDEX}.txt # tpc_qa
+elif [[ $MACRO == "ptLb" ]]; then
+  root -l -b -q "${MACRO}.C(\"$INPUT_FILE_LIST\")" >& log_${INDEX}.txt # ptLb
+elif [[ $MACRO == "corrBkgLc" ]]; then
+  root -l -b -q "${MACRO}.C(\"$INPUT_DIR/localAO2DList.txt:${INDEX}\")" >& log_${INDEX}.txt # corrBkgLc
+fi
 
 rm $MACRO.C
 

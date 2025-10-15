@@ -26,9 +26,9 @@ fi
 IS_HAS_EVENT_INFO=false
 
 # IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVars IS_MC=true # 403
-IO_SUFFIX=data/lhc22.apass7/all/noConstr/moreMoreVars IS_MC=false #976
+# IO_SUFFIX=data/lhc22.apass7/all/noConstr/moreMoreVars IS_MC=false #976
 
-# IO_SUFFIX=HL/data/HF_LHC22o_pass7_minBias_2P3PDstar/474011 IS_MC=false
+IO_SUFFIX=HL/mc/HF_LHC24h1b_All/515935 IS_MC=true
 
 INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
 
@@ -47,8 +47,8 @@ mkdir -p $LOG_DIR/error
 
 cd $WORK_DIR/$INDEX
 
-$EXE $INPUT_DIR/AnalysisResults_trees.$INDEX.root $IS_MC $IS_HAS_EVENT_INFO $IS_DO_PLAIN >& log_${INDEX}.txt # not unmerged Hyperloop
-# $EXE $INPUT_DIR/localAO2DList.txt:$INDEX $IS_MC $IS_HAS_EVENT_INFO $IS_DO_PLAIN >& log_${INDEX}.txt
+# $EXE $INPUT_DIR/AnalysisResults_trees.$INDEX.root $IS_MC $IS_HAS_EVENT_INFO $IS_DO_PLAIN >& log_${INDEX}.txt # not unmerged Hyperloop
+$EXE $INPUT_DIR/localAO2DList.txt:$INDEX $IS_MC $IS_HAS_EVENT_INFO $IS_DO_PLAIN >& log_${INDEX}.txt
 
 mv AnalysisTree.root AnalysisTree.$INDEX.root
 mv PlainTree.root PlainTree.$INDEX.root

@@ -15,6 +15,7 @@ cc --version
 ATQA_DIR=AnalysisTreeQA
 SOFT_DIR=/lustre/alice/users/lubynets/soft/$ATQA_DIR/install_vae25
 source $SOFT_DIR/bin/AnalysisTreeQAConfig.sh
+source /lustre/alice/users/lubynets/soft/qa2/bin/.config.sh
 
 echo
 echo "Environment variables are set"
@@ -33,18 +34,20 @@ PROJECT_DIR=/lustre/alice/users/lubynets/QA
 # EXE=mass_qa
 # EXE=varCorr_qa
 # EXE=bdt_qa
-EXE=yield_lifetime_qa
+# EXE=yield_lifetime_qa
+EXE=mass_bdt_qa_thn
 
-MODEL_NAME=moreMoreVars
+# MODEL_NAME=moreMoreVars
 # IO_SUFFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME MC_OR_DATA=data # 976
-IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME MC_OR_DATA=mc #403
+# IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME MC_OR_DATA=mc #403
 
-# IO_SUFFIX=HL/data/HF_LHC22o_pass7_minBias_2P3PDstar/474011 MC_OR_DATA=data
+IO_SUFFIX=HL/data/HF_LHC23_pass4_Thin_2P3PDstar/522578 MC_OR_DATA=data
 
 WEIGHTS_FILE=/lustre/alice/users/lubynets/QA/input/ptWeight.root
 
 # INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_atree/$IO_SUFFIX
-INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
+INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
+FILELIST=$INPUT_DIR/localAnalysisResultsList.txt
 OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
@@ -66,11 +69,13 @@ for K in `seq 1 $FILES_PER_JOB`; do
 done
 
 if [[ $EXE == "treeKF_qa" ]]; then
-ARGS="filelist.list"  # mc_qa treeKF_qa
+  ARGS="filelist.list"  # mc_qa treeKF_qa
 elif [[ $EXE == "varCorr_qa" || $EXE == "bdt_qa" || $EXE == "mass_qa" ]]; then
-ARGS="filelist.list $MC_OR_DATA" # varCorr_qa bdt_qa mass_qa
+  ARGS="filelist.list $MC_OR_DATA" # varCorr_qa bdt_qa mass_qa
 elif [[ $EXE == "yield_lifetime_qa" ]]; then
-ARGS="filelist.list $WEIGHTS_FILE" # yield_lifetime_qa
+  ARGS="filelist.list $WEIGHTS_FILE" # yield_lifetime_qa
+elif [[ $EXE == "mass_bdt_qa_thn" ]]; then
+  ARGS="${FILELIST}:$INDEX" # mass_bdt_qa_thn
 fi
 
 $EXE $ARGS >& log_$INDEX.txt

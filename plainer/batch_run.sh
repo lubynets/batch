@@ -21,7 +21,10 @@ EXE_DIR=$SOFT_DIR/bin
 
 # IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVars # 403
 # IO_SUFFIX=data/lhc22.apass7/all/noConstr/moreMoreVars #976
-IO_SUFFIX=HL/mc/HF_LHC24g5_All/471558
+
+
+# IO_SUFFIX=HL/mc/HF_LHC24h1b_All/515935
+IO_SUFFIX=HL/data/HF_LHC23_pass4_Thin_small_2P3PDstar/515291
 
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 

@@ -16,7 +16,7 @@ IO_PREFIX=alice/data/2023/LHC23zzo/545210/apass5/2020
 
 WORK_DIR=$PROJECT_DIR/workdir
 CONFIG_DIR=$PROJECT_DIR/config
-OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_PREFIX}_wofiltered
+OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_PREFIX}/tofCut/default
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
@@ -28,18 +28,6 @@ mkdir -p $LOG_DIR/error
 
 cd $WORK_DIR/$INDEX
 
-# Adding o2-analysis-pid-tof-merge
-# Adding o2-analysis-ft0-corrected-table
-# Adding o2-analysis-pid-tpc-qa
-# Adding o2-analysis-dq-v0-selector
-# Adding o2-analysis-multcenttable
-# Adding o2-analysis-event-selection-service
-# Adding o2-analysis-lf-propagationservice
-# Adding o2-analysis-pid-tpc-skimscreation
-# Adding o2-analysis-pid-tpc-service
-# Adding o2-analysis-trackselection
-
-# export INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/$IO_PREFIX/AO2D.$INDEX.root
 export INPUT_FILE=@/lustre/alice/users/lubynets/ao2ds/$IO_PREFIX/filelists/fst.$INDEX.list
 export CONFIG_FILE=$CONFIG_DIR/configuration.json
 export OUTPUT_DIRECTOR_FILE=$CONFIG_DIR/OutputDirector.json
@@ -47,19 +35,16 @@ export OUTPUT_DIRECTOR_FILE=$CONFIG_DIR/OutputDirector.json
 apptainer shell -B /lustre -B /scratch /lustre/alice/containers/singularity_base_o2compatibility.sif << \EOF
 alienv -w /scratch/alice/lubynets/alice2/sw enter O2Physics::latest
 
-o2-analysis-pid-tpc-skimscreation -b --configuration json://$CONFIG_FILE | \
-o2-analysis-dq-v0-selector -b --configuration json://$CONFIG_FILE | \
-o2-analysis-multiplicity-table -b --configuration json://$CONFIG_FILE | \
-o2-analysis-trackselection -b --configuration json://$CONFIG_FILE | \
 o2-analysis-pid-tof-merge -b --configuration json://$CONFIG_FILE | \
-o2-analysis-pid-tpc -b --configuration json://$CONFIG_FILE | \
-o2-analysis-lf-strangenessbuilder -b --configuration json://$CONFIG_FILE | \
-o2-analysis-event-selection -b --configuration json://$CONFIG_FILE | \
-o2-analysis-track-propagation -b --configuration json://$CONFIG_FILE | \
 o2-analysis-ft0-corrected-table -b --configuration json://$CONFIG_FILE | \
-o2-analysis-pid-tpc-base -b --configuration json://$CONFIG_FILE | \
-o2-analysis-occ-table-producer -b --configuration json://$CONFIG_FILE | \
-o2-analysis-timestamp -b --configuration json://$CONFIG_FILE \
+o2-analysis-pid-tpc-qa -b --configuration json://$CONFIG_FILE | \
+o2-analysis-dq-v0-selector -b --configuration json://$CONFIG_FILE | \
+o2-analysis-multcenttable -b --configuration json://$CONFIG_FILE | \
+o2-analysis-event-selection-service -b --configuration json://$CONFIG_FILE | \
+o2-analysis-propagationservice -b --configuration json://$CONFIG_FILE | \
+o2-analysis-pid-tpc-skimscreation -b --configuration json://$CONFIG_FILE | \
+o2-analysis-pid-tpc-service -b --configuration json://$CONFIG_FILE | \
+o2-analysis-trackselection -b --configuration json://$CONFIG_FILE \
 --aod-file $INPUT_FILE \
 --aod-writer-json $OUTPUT_DIRECTOR_FILE >& log_$INDEX.txt
 

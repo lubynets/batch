@@ -14,8 +14,9 @@ PROJECT_DIR=/lustre/alice/users/lubynets/CSTlc
 
 WORK_DIR=$PROJECT_DIR/workdir
 
-# RUN_MODE=smallTest
-RUN_MODE=greatRun
+RUN_MODE=smallTest VERY_SMALL=small.
+# RUN_MODE=smallTest VERY_SMALL=""
+# RUN_MODE=greatRun
 
 SKIM_SELECTION=lhc22.apass7 MC_OR_DATA=data #976
 # SKIM_SELECTION=lhc24e3 MC_OR_DATA=mc #403
@@ -39,14 +40,14 @@ INPUT_DIR=/lustre/alice/users/lubynets/skim/outputs/$MC_OR_DATA/$SKIM_SELECTION
 JSON_FILE=$CONFIG_DIR/dpl-config_CSTlc_$MC_OR_DATA.json
 if [[ $RUN_MODE = "greatRun" ]]; then
   INPUT_FILE=$INPUT_DIR/AnalysisResults_trees.$INDEX.root
-  OUTPUT_DIR=$PROJECT_DIR/outputs/$MC_OR_DATA/$SKIM_SELECTION/$SIG_BG/$CONSTRAINT/moreMoreVars_refactor3
+  OUTPUT_DIR=$PROJECT_DIR/outputs/$MC_OR_DATA/$SKIM_SELECTION/$SIG_BG/$CONSTRAINT/moreMoreVars_refactor5
 elif [[ $RUN_MODE = "smallTest" ]]; then
   if [[ $MC_OR_DATA = "mc" ]]; then
-    INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/sim/2024/LHC24e3/0/526641/AOD/001/AnalysisResults_skimmed.small.root
+    INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/sim/2024/LHC24e3/0/526641/AOD/001/AnalysisResults_skimmed.${VERY_SMALL}root
   else
-    INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/data/2022/LHC22o/526641/apass7/0630/o2_ctf_run00526641_orbit0206830848_tf0000000001_epn160/001/AO2D.skimmed.small.root
+    INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/data/2022/LHC22o/526641/apass7/0630/o2_ctf_run00526641_orbit0206830848_tf0000000001_epn160/001/AO2D.skimmed.${VERY_SMALL}root
   fi
-OUTPUT_DIR=$PROJECT_DIR/outputs/draft
+OUTPUT_DIR=$PROJECT_DIR/outputs/draft_${MC_OR_DATA}
 fi
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -66,7 +67,7 @@ alienv -w /scratch/alice/lubynets/alice/sw enter O2Physics::latest
 
 o2-analysis-hf-task-lc $OPTIONS | \
 # o2-analysis-hf-tree-creator-lc-to-p-k-pi $OPTIONS | \
-o2-analysis-multcenttable $OPTIONS | \
+# o2-analysis-multcenttable $OPTIONS | \
 o2-analysis-hf-candidate-selector-lc $OPTIONS | \
 o2-analysis-pid-tpc $OPTIONS | \
 o2-analysis-pid-tpc-base $OPTIONS | \
