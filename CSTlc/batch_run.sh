@@ -14,12 +14,12 @@ PROJECT_DIR=/lustre/alice/users/lubynets/CSTlc
 
 WORK_DIR=$PROJECT_DIR/workdir
 
-RUN_MODE=smallTest VERY_SMALL=small.
-# RUN_MODE=smallTest VERY_SMALL=""
+# RUN_MODE=smallTest VERY_SMALL=small.
+RUN_MODE=smallTest VERY_SMALL=""
 # RUN_MODE=greatRun
 
-SKIM_SELECTION=lhc22.apass7 MC_OR_DATA=data #976
-# SKIM_SELECTION=lhc24e3 MC_OR_DATA=mc #403
+# SKIM_SELECTION=lhc22.apass7 MC_OR_DATA=data #976
+SKIM_SELECTION=lhc24e3 MC_OR_DATA=mc #403
 
 SIG_BG=all
 # SIG_BG=sig_bgsup100
@@ -65,21 +65,20 @@ cd $WORK_DIR/$INDEX
 apptainer shell -B /lustre -B /scratch /lustre/alice/containers/singularity_base_o2compatibility.sif << \EOF
 alienv -w /scratch/alice/lubynets/alice/sw enter O2Physics::latest
 
-o2-analysis-hf-task-lc $OPTIONS | \
-# o2-analysis-hf-tree-creator-lc-to-p-k-pi $OPTIONS | \
-# o2-analysis-multcenttable $OPTIONS | \
+o2-analysis-hf-tree-creator-lc-to-p-k-pi $OPTIONS | \
 o2-analysis-hf-candidate-selector-lc $OPTIONS | \
-o2-analysis-pid-tpc $OPTIONS | \
-o2-analysis-pid-tpc-base $OPTIONS | \
-o2-analysis-pid-tof-full $OPTIONS | \
-o2-analysis-pid-tof-base $OPTIONS | \
-o2-analysis-hf-pid-creator $OPTIONS | \
+o2-analysis-multcenttable $OPTIONS | \
+o2-analysis-hf-task-mc-gen-pt-rap-shapes $OPTIONS | \
+o2-analysis-hf-task-lc $OPTIONS | \
 o2-analysis-hf-candidate-creator-3prong $OPTIONS | \
-o2-analysis-timestamp $OPTIONS | \
-o2-analysis-event-selection $OPTIONS | \
+o2-analysis-hf-pid-creator $OPTIONS | \
+o2-analysis-pid-tof-merge $OPTIONS | \
 o2-analysis-mccollision-converter $OPTIONS | \
 o2-analysis-tracks-extra-v002-converter $OPTIONS | \
-o2-analysis-track-propagation $OPTIONS >& log_$INDEX.txt
+o2-analysis-event-selection-service $OPTIONS | \
+o2-analysis-pid-tpc-service $OPTIONS | \
+o2-analysis-propagationservice $OPTIONS | \
+o2-analysis-ft0-corrected-table $OPTIONS >& log_$INDEX.txt
 
 EOF
 # EOF to trigger the end of the singularity command

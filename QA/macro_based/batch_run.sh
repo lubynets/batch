@@ -17,7 +17,7 @@ PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
 MACRO_DIR=$PROJECT_DIR/macro
 
-# IO_PREFIX=alice/data/2023/LHC23zzo/545210/apass5/2020/tofCut
+# IO_PREFIX=alice/data/2023/LHC23zzo/545210/apass5/2020/refactor/258c989
 IO_PREFIX=HL/mc/HF_LHC24h1b_All/522675
 
 # INPUT_DIR=/lustre/alice/users/lubynets/tpc/outputs/$IO_PREFIX
@@ -55,7 +55,7 @@ elif [[ $MACRO == "tpc_qa" ]]; then
 elif [[ $MACRO == "ptLb" ]]; then
   root -l -b -q "${MACRO}.C(\"$INPUT_FILE_LIST\")" >& log_${INDEX}.txt # ptLb
 elif [[ $MACRO == "corrBkgLc" ]]; then
-  root -l -b -q "${MACRO}.C(\"$INPUT_DIR/localAO2DList.txt:${INDEX}\")" >& log_${INDEX}.txt # corrBkgLc
+  root -l -b -q "${MACRO}.C(\"$INPUT_DIR/localAO2DList.txt\", 1, ${INDEX})" >& log_${INDEX}.txt # corrBkgLc
 fi
 
 rm $MACRO.C
@@ -64,6 +64,7 @@ mv $MACRO.root $MACRO.$INDEX.root
 
 mv *root $OUTPUT_DIR
 mv log* $LOG_DIR/jobs
+CP $MACRO_DIR ${MACRO}.C $LOG_DIR/jobs
 mv $BATCH_LOG_DIR/out/$INDEX.out.log $LOG_DIR/out
 mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
 

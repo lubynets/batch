@@ -11,12 +11,10 @@ WORK_DIR=/lustre/alice/users/lubynets/plainer/workdir
 BATCH_DIR=$PWD
 
 A_LOW=1
-A_HIGH=1131
+A_HIGH=1
 TIME_LIMIT=00:20:00
 
-if [ -f $WORK_DIR/env.txt ]; then
-rm $WORK_DIR/env.txt
-fi
+RM $WORK_DIR/env.txt ]
 
 NOT_COMPLETED=true
 ROUNDS=0
@@ -39,7 +37,7 @@ sbatch --job-name=plainer \
        --wait \
        -t $TIME_LIMIT \
        --mem 16G \
-       --partition long \
+       --partition main \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \

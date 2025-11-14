@@ -9,12 +9,12 @@ START_TIME=$SECONDS
 export INDEX=${SLURM_ARRAY_TASK_ID}
 
 
-MODEL_NAME=HL1
+MODEL_NAME=HL3
 
 # IO_PREFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME # 976
 # IO_PREFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME # 403
 
-IO_PREFIX=HL/data/HF_LHC22o_pass7_minBias_small_2P3PDstar/465659 # 1
+IO_PREFIX=HL/data/HF_LHC23_pass4_Thin_small_2P3PDstar/515291_allData # 1
 
 TREES_DIR=plainer
 # TREES_DIR=ali2atree
@@ -36,7 +36,7 @@ mkdir -p $LOG_DIR/error
 
 cd $WORK_DIR/$INDEX
 
-PT_RANGES=('0' '2' '5' '8' '12' '20')
+PT_RANGES=('1' '3' '5' '8' '12' '20')
 
 for ((IPT = 1; IPT < ${#PT_RANGES[@]}; IPT++)); do
 export IPT

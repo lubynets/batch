@@ -16,7 +16,7 @@ IO_PREFIX=alice/data/2023/LHC23zzo/545210/apass5/2020
 
 WORK_DIR=$PROJECT_DIR/workdir
 CONFIG_DIR=$PROJECT_DIR/config
-OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_PREFIX}/tofCut/default
+OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_PREFIX}/refactor/258c989
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
@@ -35,6 +35,7 @@ export OUTPUT_DIRECTOR_FILE=$CONFIG_DIR/OutputDirector.json
 apptainer shell -B /lustre -B /scratch /lustre/alice/containers/singularity_base_o2compatibility.sif << \EOF
 alienv -w /scratch/alice/lubynets/alice2/sw enter O2Physics::latest
 
+o2-analysis-lf-strangenesstofpid -b --configuration json://$CONFIG_FILE | \
 o2-analysis-pid-tof-merge -b --configuration json://$CONFIG_FILE | \
 o2-analysis-ft0-corrected-table -b --configuration json://$CONFIG_FILE | \
 o2-analysis-pid-tpc-qa -b --configuration json://$CONFIG_FILE | \

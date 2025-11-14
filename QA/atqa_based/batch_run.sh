@@ -36,12 +36,13 @@ PROJECT_DIR=/lustre/alice/users/lubynets/QA
 # EXE=bdt_qa
 # EXE=yield_lifetime_qa
 EXE=mass_bdt_qa_thn
+# EXE=yield_lifetime_qa_thn
 
 # MODEL_NAME=moreMoreVars
 # IO_SUFFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME MC_OR_DATA=data # 976
 # IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME MC_OR_DATA=mc #403
 
-IO_SUFFIX=HL/data/HF_LHC23_pass4_Thin_2P3PDstar/522578 MC_OR_DATA=data
+IO_SUFFIX=HL/mc/HF_LHC24h1b_All/522675 MC_OR_DATA=mc
 
 WEIGHTS_FILE=/lustre/alice/users/lubynets/QA/input/ptWeight.root
 
@@ -76,6 +77,8 @@ elif [[ $EXE == "yield_lifetime_qa" ]]; then
   ARGS="filelist.list $WEIGHTS_FILE" # yield_lifetime_qa
 elif [[ $EXE == "mass_bdt_qa_thn" ]]; then
   ARGS="${FILELIST}:$INDEX" # mass_bdt_qa_thn
+elif [[ $EXE == "yield_lifetime_qa_thn" ]]; then
+  ARGS="${FILELIST}:$INDEX $WEIGHTS_FILE" # yield_lifetime_qa_thn
 fi
 
 $EXE $ARGS >& log_$INDEX.txt

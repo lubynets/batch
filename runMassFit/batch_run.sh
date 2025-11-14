@@ -17,7 +17,7 @@ PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
 MACRO_DIR=$PROJECT_DIR/macro
 
-OUTPUT_DIR=$PROJECT_DIR/outputs/runMassFit/HL/data/HF_LHC23_pass4_Thin_2P3PDstar/522578/fixMS
+OUTPUT_DIR=$PROJECT_DIR/outputs/runMassFit/HL/data/HF_LHC23_pass4_Thin_2P3PDstar/522578/doubleGaus/preFit
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -56,17 +56,18 @@ done
 mv mInvFit.*pdf ./mInvFit
 mv mInvFit_Residuals*pdf ./mInvFit_Residuals
 mv RawYields_Lc*root ./RawYields_Lc
-tar rf RawYields_Lc.$INDEX.tar ./RawYields_Lc/RawYields_Lc.*
-if [ "$INDEX" -ne 1 ]; then
-rm -r mInvFit mInvFit_Residuals configs RawYields_Lc
-fi
+cd ..
+tar rf RawYields_Lc.$INDEX.tar $INDEX/RawYields_Lc/RawYields_Lc.*
+cd -
 
 mv log* $LOG_DIR/jobs
 mv $BATCH_LOG_DIR/out/$INDEX.out.log $LOG_DIR/out
 mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
 
 cd ..
-mv $INDEX $OUTPUT_DIR
+if [ "$INDEX" -eq 1 ]; then
+  mv $INDEX $OUTPUT_DIR
+fi
 mv RawYields_Lc.$INDEX.tar $OUTPUT_DIR
 
 mkdir -p $WORK_DIR/success

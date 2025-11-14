@@ -10,7 +10,9 @@ WORK_DIR=/lustre/alice/users/lubynets/QA/workdir
 
 A_LOW=1
 A_HIGH=440
-TIME_LIMIT=01:20:00
+
+# PARTITION=debug TIME_LIMIT=00:20:00
+PARTITION=main TIME_LIMIT=00:20:00
 
 NOT_COMPLETED=true
 ROUNDS=0
@@ -32,7 +34,7 @@ echo "Array " $A
 sbatch --job-name=MacroQA \
        --wait \
        -t $TIME_LIMIT \
-       --partition main \
+       --partition $PARTITION \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \

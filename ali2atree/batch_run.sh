@@ -28,7 +28,7 @@ IS_HAS_EVENT_INFO=false
 # IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVars IS_MC=true # 403
 # IO_SUFFIX=data/lhc22.apass7/all/noConstr/moreMoreVars IS_MC=false #976
 
-IO_SUFFIX=HL/mc/HF_LHC24h1b_All/515935 IS_MC=true
+IO_SUFFIX=HL/mc/HF_LHC24h1b_All/522675 IS_MC=true
 
 INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
 
