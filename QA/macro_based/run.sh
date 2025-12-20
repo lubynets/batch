@@ -9,7 +9,7 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/alice/users/lubynets/QA/workdir
 
 A_LOW=1
-A_HIGH=440
+A_HIGH=433
 
 # PARTITION=debug TIME_LIMIT=00:20:00
 PARTITION=main TIME_LIMIT=00:20:00

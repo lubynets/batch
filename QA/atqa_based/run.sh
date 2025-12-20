@@ -2,15 +2,20 @@
 source /lustre/alice/users/lubynets/batch/Helper.sh
 
 LOGDIR=/lustre/alice/users/$USER/QA/log
+# LOGDIR=/tmp/$USER/QA/log
 mkdir -p $LOGDIR
 mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
+# WORK_DIR=/tmp/lubynets/QA/workdir
 WORK_DIR=/lustre/alice/users/lubynets/QA/workdir
 
 A_LOW=1
-A_HIGH=440
+A_HIGH=2
 TIME_LIMIT=02:20:00
+
+# IS_ARCHIVE_LOGS=true
+IS_ARCHIVE_LOGS=false
 
 RM $WORK_DIR/env.txt
 
@@ -35,7 +40,7 @@ sbatch --job-name=ATQA \
        --mem 16G \
        --wait \
        -t $TIME_LIMIT \
-       --partition main \
+       --partition long \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \
@@ -46,17 +51,39 @@ done
 
 OUTPUT_LOG_DIR=$(cat $WORK_DIR/env.txt)
 
-cd $OUTPUT_LOG_DIR/error
-tar -czf err.tar.gz *.log
+echo "OUTPUT_LOG_DIR = "$OUTPUT_LOG_DIR
+echo "WORK_DIR = "$WORK_DIR
 
-cd $OUTPUT_LOG_DIR/out
-tar -czf out.tar.gz *.log
+if [[ $IS_ARCHIVE_LOGS = true ]]; then
+  cd $LOGDIR/out
+  tar -czf out.tar.gz *.log
 
-cd $OUTPUT_LOG_DIR/jobs
-tar -czf jobs.tar.gz *.txt
+  cd $LOGDIR/error
+  tar -czf err.tar.gz *.log
 
-cd $OUTPUT_LOG_DIR
-mv */*tar.gz .
-mv jobs/*cpp .
+  cd ..
 
-rm -r error out jobs
+  mv */*tar.gz $OUTPUT_LOG_DIR
+
+  cd $OUTPUT_LOG_DIR/jobs
+  tar -czf jobs.tar.gz *.txt
+else
+  cd $LOGDIR
+  mv out $OUTPUT_LOG_DIR
+  mv error $OUTPUT_LOG_DIR
+fi
+
+# cd $OUTPUT_LOG_DIR/error
+# tar -czf err.tar.gz *.log
+#
+# cd $OUTPUT_LOG_DIR/out
+# tar -czf out.tar.gz *.log
+
+# cd $OUTPUT_LOG_DIR/jobs
+# tar -czf jobs.tar.gz *.txt
+#
+# cd $OUTPUT_LOG_DIR
+# mv */*tar.gz .
+# mv jobs/*cpp .
+#
+# rm -r error out jobs

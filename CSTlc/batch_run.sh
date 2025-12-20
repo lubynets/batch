@@ -63,22 +63,37 @@ mkdir -p $LOG_DIR/error
 cd $WORK_DIR/$INDEX
 
 apptainer shell -B /lustre -B /scratch /lustre/alice/containers/singularity_base_o2compatibility.sif << \EOF
-alienv -w /scratch/alice/lubynets/alice/sw enter O2Physics::latest
+alienv -w /scratch/alice/lubynets/alice2/sw enter O2Physics::latest
 
-o2-analysis-hf-tree-creator-lc-to-p-k-pi $OPTIONS | \
-o2-analysis-hf-candidate-selector-lc $OPTIONS | \
-o2-analysis-multcenttable $OPTIONS | \
-o2-analysis-hf-task-mc-gen-pt-rap-shapes $OPTIONS | \
-o2-analysis-hf-task-lc $OPTIONS | \
-o2-analysis-hf-candidate-creator-3prong $OPTIONS | \
 o2-analysis-hf-pid-creator $OPTIONS | \
 o2-analysis-pid-tof-merge $OPTIONS | \
 o2-analysis-mccollision-converter $OPTIONS | \
+o2-analysis-ft0-corrected-table $OPTIONS | \
 o2-analysis-tracks-extra-v002-converter $OPTIONS | \
+o2-analysis-hf-candidate-creator-3prong $OPTIONS | \
+o2-analysis-hf-candidate-selector-lc $OPTIONS | \
+# o2-analysis-hf-tree-creator-lc-to-p-k-pi $OPTIONS | \
+o2-analysis-multcenttable $OPTIONS | \
 o2-analysis-event-selection-service $OPTIONS | \
 o2-analysis-pid-tpc-service $OPTIONS | \
 o2-analysis-propagationservice $OPTIONS | \
-o2-analysis-ft0-corrected-table $OPTIONS >& log_$INDEX.txt
+o2-analysis-hf-task-mc-gen-pt-rap-shapes $OPTIONS | \
+o2-analysis-hf-task-lc $OPTIONS >& log_$INDEX.txt
+
+# o2-analysis-hf-tree-creator-lc-to-p-k-pi $OPTIONS | \
+# o2-analysis-hf-candidate-selector-lc $OPTIONS | \
+# o2-analysis-multcenttable $OPTIONS | \
+# o2-analysis-hf-task-mc-gen-pt-rap-shapes $OPTIONS | \
+# o2-analysis-hf-task-lc $OPTIONS | \
+# o2-analysis-hf-candidate-creator-3prong $OPTIONS | \
+# o2-analysis-hf-pid-creator $OPTIONS | \
+# o2-analysis-pid-tof-merge $OPTIONS | \
+# o2-analysis-mccollision-converter $OPTIONS | \
+# o2-analysis-tracks-extra-v002-converter $OPTIONS | \
+# o2-analysis-event-selection-service $OPTIONS | \
+# o2-analysis-pid-tpc-service $OPTIONS | \
+# o2-analysis-propagationservice $OPTIONS | \
+# o2-analysis-ft0-corrected-table $OPTIONS >& log_$INDEX.txt
 
 EOF
 # EOF to trigger the end of the singularity command

@@ -11,7 +11,7 @@ WORK_DIR=/lustre/alice/users/lubynets/plainer/workdir
 BATCH_DIR=$PWD
 
 A_LOW=1
-A_HIGH=1
+A_HIGH=1131
 TIME_LIMIT=00:20:00
 
 RM $WORK_DIR/env.txt ]

@@ -1,21 +1,22 @@
 #!/bin/bash
+START_TIME=$SECONDS
 
 echo
 echo "Bash script started"
 echo "LD_LIBRARY_PATH="$LD_LIBRARY_PATH
 echo "ROOT_INCLUDE_PATH="$ROOT_INCLUDE_PATH
+echo "HOSTNAME="$HOSTNAME
 date
-
-START_TIME=$SECONDS
 
 g++ --version
 gcc --version
 cc --version
 
 ATQA_DIR=AnalysisTreeQA
-SOFT_DIR=/lustre/alice/users/lubynets/soft/$ATQA_DIR/install_vae25
-source $SOFT_DIR/bin/AnalysisTreeQAConfig.sh
-source /lustre/alice/users/lubynets/soft/qa2/bin/.config.sh
+SOFT_DIR_AT=/lustre/alice/users/lubynets/soft/$ATQA_DIR/install_vae25
+source $SOFT_DIR_AT/bin/AnalysisTreeQAConfig.sh
+SOFT_DIR_QA2=/lustre/alice/users/lubynets/soft/qa2
+source $SOFT_DIR_QA2/bin/qa2Config.sh
 
 echo
 echo "Environment variables are set"
@@ -27,7 +28,10 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 
 FILES_PER_JOB=1
 
-PROJECT_DIR=/lustre/alice/users/lubynets/QA
+PROJECT_DIR_LUSTRE=/lustre/alice/users/lubynets/QA
+
+# PROJECT_DIR_TMP=/tmp/lubynets/QA
+PROJECT_DIR_TMP=$PROJECT_DIR_LUSTRE
 
 # EXE=mc_qa
 # EXE=treeKF_qa
@@ -38,36 +42,35 @@ PROJECT_DIR=/lustre/alice/users/lubynets/QA
 EXE=mass_bdt_qa_thn
 # EXE=yield_lifetime_qa_thn
 
-# MODEL_NAME=moreMoreVars
-# IO_SUFFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME MC_OR_DATA=data # 976
-# IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME MC_OR_DATA=mc #403
-
-IO_SUFFIX=HL/mc/HF_LHC24h1b_All/522675 MC_OR_DATA=mc
+IO_SUFFIX=HL/data/HF_LHC23_pass4_Thin_2P3PDstar/574294 MC_OR_DATA=data
 
 WEIGHTS_FILE=/lustre/alice/users/lubynets/QA/input/ptWeight.root
 
-# INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_atree/$IO_SUFFIX
 INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
 FILELIST=$INPUT_DIR/localAnalysisResultsList.txt
-OUTPUT_DIR=$PROJECT_DIR/outputs/$EXE/$IO_SUFFIX
-WORK_DIR=$PROJECT_DIR/workdir
+# OUTPUT_DIR=$PROJECT_DIR_LUSTRE/outputs/$EXE/$IO_SUFFIX/ctbin1/BGwise
+OUTPUT_DIR=$PROJECT_DIR_LUSTRE/outputs/$EXE/draft
+WORK_DIR_LUSTRE=$PROJECT_DIR_LUSTRE/workdir
+WORK_DIR_TMP=$PROJECT_DIR_TMP/workdir
 LOG_DIR=$OUTPUT_DIR/log
-BATCH_LOG_DIR=$PROJECT_DIR/log
+BATCH_LOG_DIR=$PROJECT_DIR_TMP/log
 
-mkdir -p $WORK_DIR/$INDEX
+mkdir -p $WORK_DIR_TMP/$INDEX
 mkdir -p $OUTPUT_DIR
 mkdir -p $LOG_DIR/jobs
-mkdir -p $LOG_DIR/out
-mkdir -p $LOG_DIR/error
+# mkdir -p $LOG_DIR/out
+# mkdir -p $LOG_DIR/error
 
-cd $WORK_DIR/$INDEX
+cd $WORK_DIR_TMP/$INDEX
 
 RM filelist.list
 
-for K in `seq 1 $FILES_PER_JOB`; do
-  FILE_NUMBER=$(($(($FILES_PER_JOB*$(($INDEX-1))))+$K))
-  ls -d $INPUT_DIR/AnalysisTree.$FILE_NUMBER.root >> filelist.list
-done
+if [[ $EXE == "treeKF_qa" || $EXE == "varCorr_qa" || $EXE == "bdt_qa" || $EXE == "mass_qa" || $EXE == "yield_lifetime_qa" ]]; then
+  for K in `seq 1 $FILES_PER_JOB`; do
+    FILE_NUMBER=$(($(($FILES_PER_JOB*$(($INDEX-1))))+$K))
+    ls -d $INPUT_DIR/AnalysisTree.$FILE_NUMBER.root >> filelist.list
+  done
+fi
 
 if [[ $EXE == "treeKF_qa" ]]; then
   ARGS="filelist.list"  # mc_qa treeKF_qa
@@ -76,36 +79,46 @@ elif [[ $EXE == "varCorr_qa" || $EXE == "bdt_qa" || $EXE == "mass_qa" ]]; then
 elif [[ $EXE == "yield_lifetime_qa" ]]; then
   ARGS="filelist.list $WEIGHTS_FILE" # yield_lifetime_qa
 elif [[ $EXE == "mass_bdt_qa_thn" ]]; then
-  ARGS="${FILELIST}:$INDEX" # mass_bdt_qa_thn
+  ARGS="${FILELIST}:$INDEX 0" # mass_bdt_qa_thn
 elif [[ $EXE == "yield_lifetime_qa_thn" ]]; then
   ARGS="${FILELIST}:$INDEX $WEIGHTS_FILE" # yield_lifetime_qa_thn
 fi
+
+echo
+echo "Exe start"
+date
+EXE_START_TIME=$SECONDS
 
 $EXE $ARGS >& log_$INDEX.txt
 
 echo
 echo "Exe done"
 date
+EXE_FINISH_TIME=$SECONDS
 
-rm filelist.list
+RM filelist.list
 mv $EXE.root $EXE.$INDEX.root
 
 mv *root $OUTPUT_DIR
 mv log* $LOG_DIR/jobs
-CP $SOFT_DIR/share $EXE.cpp $LOG_DIR/jobs
+CP $SOFT_DIR_AT/share $EXE.cpp $LOG_DIR/jobs
+CP $SOFT_DIR_QA2/share $EXE.cpp $LOG_DIR/jobs
 mv $BATCH_LOG_DIR/out/$INDEX.out.log $LOG_DIR/out
 mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
 
 cd ..
 rm -r $INDEX
 
-mkdir -p $WORK_DIR/success
-cd $WORK_DIR/success
+mkdir -p $WORK_DIR_LUSTRE/success
+cd $WORK_DIR_LUSTRE/success
 touch index_${INDEX}
 
-if [ ! -f $WORK_DIR/env.txt ]; then
-echo "$LOG_DIR" > $WORK_DIR/env.txt
+echo "Before env.txt"
+if [ ! -f $WORK_DIR_TMP/env.txt ]; then
+echo "Created env.txt in $WORK_DIR_TMP"
+echo "$LOG_DIR" > $WORK_DIR_TMP/env.txt
 fi
+echo "After env.txt"
 
 echo
 echo "Bash script finished successfully"
@@ -113,4 +126,5 @@ date
 
 FINISH_TIME=$SECONDS
 echo
-echo "elapsed time " $(($(($FINISH_TIME-$START_TIME))/60)) "m " $(($(($FINISH_TIME-$START_TIME))%60)) "s"
+echo "Exe run elapsed time " $(($(($EXE_FINISH_TIME-$EXE_START_TIME))/60)) "m " $(($(($EXE_FINISH_TIME-$EXE_START_TIME))%60)) "s"
+echo "Bash script elapsed time " $(($(($FINISH_TIME-$START_TIME))/60)) "m " $(($(($FINISH_TIME-$START_TIME))%60)) "s"
