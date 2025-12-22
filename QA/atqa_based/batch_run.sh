@@ -1,6 +1,12 @@
 #!/bin/bash
 START_TIME=$SECONDS
 
+WHERE_TO_RUN=${1}
+if [[ "$WHERE_TO_RUN" != "lustre" && "$WHERE_TO_RUN" != "tmp_jobonly" && "$WHERE_TO_RUN" != "tmp_jobandinput" ]]; then
+  echo "WHERE_TO_RUN = "$WHERE_TO_RUN ", while it must be lustre, tmp_jobonly or tmp_jobandinput"
+  exit
+fi
+
 echo
 echo "Bash script started"
 echo "LD_LIBRARY_PATH="$LD_LIBRARY_PATH
@@ -30,8 +36,11 @@ FILES_PER_JOB=1
 
 PROJECT_DIR_LUSTRE=/lustre/alice/users/lubynets/QA
 
-# PROJECT_DIR_TMP=/tmp/lubynets/QA
-PROJECT_DIR_TMP=$PROJECT_DIR_LUSTRE
+if [[ "$WHERE_TO_RUN" == "lustre" ]]; then
+  PROJECT_DIR_TMP=$PROJECT_DIR_LUSTRE
+else
+  PROJECT_DIR_TMP=/tmp/lubynets/QA
+fi
 
 # EXE=mc_qa
 # EXE=treeKF_qa
@@ -55,11 +64,10 @@ WORK_DIR_TMP=$PROJECT_DIR_TMP/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR_TMP/log
 
+RM $WORK_DIR_TMP/$INDEX
 mkdir -p $WORK_DIR_TMP/$INDEX
 mkdir -p $OUTPUT_DIR
 mkdir -p $LOG_DIR/jobs
-# mkdir -p $LOG_DIR/out
-# mkdir -p $LOG_DIR/error
 
 cd $WORK_DIR_TMP/$INDEX
 
@@ -79,7 +87,12 @@ elif [[ $EXE == "varCorr_qa" || $EXE == "bdt_qa" || $EXE == "mass_qa" ]]; then
 elif [[ $EXE == "yield_lifetime_qa" ]]; then
   ARGS="filelist.list $WEIGHTS_FILE" # yield_lifetime_qa
 elif [[ $EXE == "mass_bdt_qa_thn" ]]; then
-  ARGS="${FILELIST}:$INDEX 0" # mass_bdt_qa_thn
+  INPUT_FILE=$(ReadNthLine $FILELIST $INDEX)
+  if [[ "$WHERE_TO_RUN" == "tmp_jobandinput" ]]; then
+    cp $INPUT_FILE .
+    INPUT_FILE=$(basename $INPUT_FILE)
+  fi
+  ARGS="$INPUT_FILE 0" # mass_bdt_qa_thn
 elif [[ $EXE == "yield_lifetime_qa_thn" ]]; then
   ARGS="${FILELIST}:$INDEX $WEIGHTS_FILE" # yield_lifetime_qa_thn
 fi
@@ -99,12 +112,10 @@ EXE_FINISH_TIME=$SECONDS
 RM filelist.list
 mv $EXE.root $EXE.$INDEX.root
 
-mv *root $OUTPUT_DIR
+mv $EXE.$INDEX.root $OUTPUT_DIR
 mv log* $LOG_DIR/jobs
-CP $SOFT_DIR_AT/share $EXE.cpp $LOG_DIR/jobs
-CP $SOFT_DIR_QA2/share $EXE.cpp $LOG_DIR/jobs
-mv $BATCH_LOG_DIR/out/$INDEX.out.log $LOG_DIR/out
-mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
+CP $SOFT_DIR_AT/share $EXE.cpp $LOG_DIR
+CP $SOFT_DIR_QA2/share $EXE.cpp $LOG_DIR
 
 cd ..
 rm -r $INDEX
@@ -114,9 +125,9 @@ cd $WORK_DIR_LUSTRE/success
 touch index_${INDEX}
 
 echo "Before env.txt"
-if [ ! -f $WORK_DIR_TMP/env.txt ]; then
-echo "Created env.txt in $WORK_DIR_TMP"
-echo "$LOG_DIR" > $WORK_DIR_TMP/env.txt
+if [ ! -f $WORK_DIR_LUSTRE/env.txt ]; then
+echo "Created env.txt in $WORK_DIR_LUSTRE"
+echo "$LOG_DIR" > $WORK_DIR_LUSTRE/env.txt
 fi
 echo "After env.txt"
 
