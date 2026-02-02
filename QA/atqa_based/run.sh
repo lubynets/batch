@@ -6,13 +6,18 @@
 WHERE_TO_RUN=tmp_jobandinput
 
 A_LOW=1
-A_HIGH=2
-TIME_LIMIT=00:20:00 PARTITION=debug
+A_HIGH=276
+# TIME_LIMIT=00:20:00 PARTITION=debug
+# TIME_LIMIT=00:50:00 PARTITION=main
+TIME_LIMIT=00:50:00 PARTITION=long
 
-# IS_ARCHIVE_LOGS=true
-IS_ARCHIVE_LOGS=false
+IS_ARCHIVE_LOGS=true
+# IS_ARCHIVE_LOGS=false
 
 #####################################################################
+if [[ $PARTITION == "debug" ]]; then
+  A_HIGH=2
+fi
 
 source /lustre/alice/users/lubynets/batch/Helper.sh
 

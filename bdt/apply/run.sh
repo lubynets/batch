@@ -15,7 +15,7 @@ BATCH_DIR=$PWD
 RM $WORKDIR/env.txt
 
 A_LOW=1
-A_HIGH=1
+A_HIGH=1131
 TIME_LIMIT=00:20:00
 
 NOT_COMPLETED=true
@@ -39,7 +39,7 @@ sbatch --job-name=bdt2atree \
        --wait \
        -t $TIME_LIMIT \
        --mem 32G \
-       --partition main \
+       --partition long \
        --output=$BATCH_LOG_DIR/out/%a.out.log \
        --error=$BATCH_LOG_DIR/error/%a.err.log \
        -a $A \

@@ -17,12 +17,9 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 
 EXE_DIR=$SOFT_DIR/bin
 
-MODEL_NAME=moreMoreVars
+MODEL_NAME=HL3_ctwise
 
-# IO_SUFFIX=mc/lhc24e3/all/noConstr/$MODEL_NAME # 403
-# IO_SUFFIX=data/lhc22.apass7/all/noConstr/$MODEL_NAME #976
-
-IO_SUFFIX=HL/data/HF_LHC23_pass4_Thin_small_2P3PDstar/515291_allData # 1
+IO_SUFFIX=HL/data/HF_LHC23_pass4_Thin_small_2P3PDstar/515291_allData/$MODEL_NAME
 
 INPUT_DIR=/lustre/alice/users/lubynets/bdt/outputs_apply/$IO_SUFFIX
 
@@ -42,7 +39,7 @@ cd $WORK_DIR/$INDEX
 RM filelist.list
 
 for IPT in `seq 1 5`; do
-  ls -d $INPUT_DIR/pt_$IPT/appliedBdt.pt_$IPT.$INDEX.root >> filelist.list
+  ls -d $INPUT_DIR/ct_$IPT/appliedBdt.ct_$IPT.$INDEX.root >> filelist.list
 done
 
 $EXE filelist.list >& log_${INDEX}.txt

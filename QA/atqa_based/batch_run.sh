@@ -48,21 +48,24 @@ fi
 # EXE=varCorr_qa
 # EXE=bdt_qa
 # EXE=yield_lifetime_qa
-EXE=mass_bdt_qa_thn
+# EXE=mass_bdt_qa_thn
 # EXE=yield_lifetime_qa_thn
+EXE=corrBg_qa
 
-IO_SUFFIX=HL/data/HF_LHC23_pass4_Thin_2P3PDstar/574294 MC_OR_DATA=data
+IO_SUFFIX=HL/mc/HF_LHC24h1b_All/595984 MC_OR_DATA=mc
 
 WEIGHTS_FILE=/lustre/alice/users/lubynets/QA/input/ptWeight.root
 
-INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
+INPUT_DIR_PREFIX=ali2atree
+# INPUT_DIR_PREFIX=CSTlc
+
+INPUT_DIR=/lustre/alice/users/lubynets/$INPUT_DIR_PREFIX/outputs/$IO_SUFFIX
 FILELIST=$INPUT_DIR/localAnalysisResultsList.txt
-# OUTPUT_DIR=$PROJECT_DIR_LUSTRE/outputs/$EXE/$IO_SUFFIX/ctbin1/BGwise
-OUTPUT_DIR=$PROJECT_DIR_LUSTRE/outputs/$EXE/draft
+OUTPUT_DIR=$PROJECT_DIR_LUSTRE/outputs/$EXE/$IO_SUFFIX/ctbin3
+# OUTPUT_DIR=$PROJECT_DIR_LUSTRE/outputs/$EXE/draft
 WORK_DIR_LUSTRE=$PROJECT_DIR_LUSTRE/workdir
 WORK_DIR_TMP=$PROJECT_DIR_TMP/workdir
 LOG_DIR=$OUTPUT_DIR/log
-BATCH_LOG_DIR=$PROJECT_DIR_TMP/log
 
 RM $WORK_DIR_TMP/$INDEX
 mkdir -p $WORK_DIR_TMP/$INDEX
@@ -73,15 +76,15 @@ cd $WORK_DIR_TMP/$INDEX
 
 RM filelist.list
 
-if [[ $EXE == "treeKF_qa" || $EXE == "varCorr_qa" || $EXE == "bdt_qa" || $EXE == "mass_qa" || $EXE == "yield_lifetime_qa" ]]; then
+if [[ $EXE == "treeKF_qa" || $EXE == "varCorr_qa" || $EXE == "bdt_qa" || $EXE == "mass_qa" || $EXE == "yield_lifetime_qa" || $EXE == "corrBg_qa" ]]; then
   for K in `seq 1 $FILES_PER_JOB`; do
     FILE_NUMBER=$(($(($FILES_PER_JOB*$(($INDEX-1))))+$K))
     ls -d $INPUT_DIR/AnalysisTree.$FILE_NUMBER.root >> filelist.list
   done
 fi
 
-if [[ $EXE == "treeKF_qa" ]]; then
-  ARGS="filelist.list"  # mc_qa treeKF_qa
+if [[ $EXE == "treeKF_qa" || $EXE == "corrBg_qa" ]]; then
+  ARGS="filelist.list"  # mc_qa treeKF_qa corrBg_qa
 elif [[ $EXE == "varCorr_qa" || $EXE == "bdt_qa" || $EXE == "mass_qa" ]]; then
   ARGS="filelist.list $MC_OR_DATA" # varCorr_qa bdt_qa mass_qa
 elif [[ $EXE == "yield_lifetime_qa" ]]; then
@@ -110,9 +113,8 @@ date
 EXE_FINISH_TIME=$SECONDS
 
 RM filelist.list
-mv $EXE.root $EXE.$INDEX.root
+mv $EXE.root $OUTPUT_DIR/$EXE.$INDEX.root
 
-mv $EXE.$INDEX.root $OUTPUT_DIR
 mv log* $LOG_DIR/jobs
 CP $SOFT_DIR_AT/share $EXE.cpp $LOG_DIR
 CP $SOFT_DIR_QA2/share $EXE.cpp $LOG_DIR

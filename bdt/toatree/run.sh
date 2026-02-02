@@ -15,8 +15,14 @@ BATCH_DIR=$PWD
 RM $WORKDIR/env.txt
 
 A_LOW=1
-A_HIGH=1
-TIME_LIMIT=00:20:00
+A_HIGH=1131
+# TIME_LIMIT=00:20:00 PARTITION=debug
+# TIME_LIMIT=01:20:00 PARTITION=main
+TIME_LIMIT=01:20:00 PARTITION=long
+
+if [[ $PARTITION == "debug" ]]; then
+  A_HIGH=2
+fi
 
 NOT_COMPLETED=true
 ROUNDS=0
@@ -39,7 +45,7 @@ sbatch --job-name=bdt2atree \
        --wait \
        -t $TIME_LIMIT \
        --mem 16G \
-       --partition main \
+       --partition $PARTITION \
        --output=$BATCH_LOG_DIR/out/%a.out.log \
        --error=$BATCH_LOG_DIR/error/%a.err.log \
        -a $A \
