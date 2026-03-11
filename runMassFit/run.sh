@@ -1,18 +1,18 @@
 #!/bin/bash
 source /lustre/alice/users/lubynets/batch/Helper.sh
 
-LOGDIR=/lustre/alice/users/$USER/QA/log
+LOGDIR=/lustre/alice/users/$USER/runMassFit/log
 mkdir -p $LOGDIR
 mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
-WORK_DIR=/lustre/alice/users/lubynets/QA/workdir
+WORK_DIR=/lustre/alice/users/lubynets/runMassFit/workdir
 
 A_LOW=1
 A_HIGH=100
-# TIME_LIMIT=00:20:00 PARTITION=debug
+TIME_LIMIT=00:20:00 PARTITION=debug
 # TIME_LIMIT=01:20:00 PARTITION=main
-TIME_LIMIT=00:25:00 PARTITION=long
+# TIME_LIMIT=01:30:00 PARTITION=long
 
 if [[ $PARTITION == "debug" ]]; then
   A_HIGH=2
@@ -35,7 +35,7 @@ fi
 if [ $NOT_COMPLETED = true ]
 then
 echo "Array " $A
-sbatch --job-name=MacroQA \
+sbatch --job-name=massFit \
        --wait \
        -t $TIME_LIMIT \
        --partition $PARTITION \

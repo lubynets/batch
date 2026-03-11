@@ -48,20 +48,20 @@ fi
 # EXE=varCorr_qa
 # EXE=bdt_qa
 # EXE=yield_lifetime_qa
-# EXE=mass_bdt_qa_thn
+EXE=mass_bdt_qa_thn
 # EXE=yield_lifetime_qa_thn
-EXE=corrBg_qa
+# EXE=corrBg_qa
 
-IO_SUFFIX=HL/mc/HF_LHC24h1b_All/595984 MC_OR_DATA=mc
+IO_SUFFIX=HL/data/HF_LHC23_pass4_Thin_2P3PDstar/574294 MC_OR_DATA=data
 
 WEIGHTS_FILE=/lustre/alice/users/lubynets/QA/input/ptWeight.root
 
-INPUT_DIR_PREFIX=ali2atree
-# INPUT_DIR_PREFIX=CSTlc
+# INPUT_DIR_PREFIX=ali2atree
+INPUT_DIR_PREFIX=CSTlc
 
 INPUT_DIR=/lustre/alice/users/lubynets/$INPUT_DIR_PREFIX/outputs/$IO_SUFFIX
 FILELIST=$INPUT_DIR/localAnalysisResultsList.txt
-OUTPUT_DIR=$PROJECT_DIR_LUSTRE/outputs/$EXE/$IO_SUFFIX/ctbin3
+OUTPUT_DIR=$PROJECT_DIR_LUSTRE/outputs/$EXE/$IO_SUFFIX/ctbin4/2NPWise
 # OUTPUT_DIR=$PROJECT_DIR_LUSTRE/outputs/$EXE/draft
 WORK_DIR_LUSTRE=$PROJECT_DIR_LUSTRE/workdir
 WORK_DIR_TMP=$PROJECT_DIR_TMP/workdir
