@@ -16,7 +16,7 @@ IO_PREFIX=alice/data/2023/LHC23zzo/545210/apass5/2020
 
 WORK_DIR=$PROJECT_DIR/workdir
 CONFIG_DIR=$PROJECT_DIR/config
-OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_PREFIX}/refactor/258c989
+OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_PREFIX}/def
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
@@ -29,16 +29,17 @@ mkdir -p $LOG_DIR/error
 cd $WORK_DIR/$INDEX
 
 export INPUT_FILE=@/lustre/alice/users/lubynets/ao2ds/$IO_PREFIX/filelists/fst.$INDEX.list
+# export INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/alice/data/2023/LHC23zzo/545210/apass5/2020/o2_ctf_run00545210_orbit0038587168_tf0000321466_epn014/001/AO2D.root
+# export INPUT_FILE=/lustre/alice/users/lubynets/ao2ds/tpc/AO2D.lite.root
 export CONFIG_FILE=$CONFIG_DIR/configuration.json
 export OUTPUT_DIRECTOR_FILE=$CONFIG_DIR/OutputDirector.json
 
 apptainer shell -B /lustre -B /scratch /lustre/alice/containers/singularity_base_o2compatibility.sif << \EOF
-alienv -w /scratch/alice/lubynets/alice2/sw enter O2Physics::latest
+alienv -w /scratch/alice/lubynets/alice/sw enter O2Physics::latest
 
 o2-analysis-lf-strangenesstofpid -b --configuration json://$CONFIG_FILE | \
 o2-analysis-pid-tof-merge -b --configuration json://$CONFIG_FILE | \
 o2-analysis-ft0-corrected-table -b --configuration json://$CONFIG_FILE | \
-o2-analysis-pid-tpc-qa -b --configuration json://$CONFIG_FILE | \
 o2-analysis-dq-v0-selector -b --configuration json://$CONFIG_FILE | \
 o2-analysis-multcenttable -b --configuration json://$CONFIG_FILE | \
 o2-analysis-event-selection-service -b --configuration json://$CONFIG_FILE | \
@@ -47,6 +48,7 @@ o2-analysis-pid-tpc-skimscreation -b --configuration json://$CONFIG_FILE | \
 o2-analysis-pid-tpc-service -b --configuration json://$CONFIG_FILE | \
 o2-analysis-trackselection -b --configuration json://$CONFIG_FILE \
 --aod-file $INPUT_FILE \
+--shm-segment-size 16000000000 \
 --aod-writer-json $OUTPUT_DIRECTOR_FILE >& log_$INDEX.txt
 
 EOF

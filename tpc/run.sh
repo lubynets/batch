@@ -12,9 +12,9 @@ BATCH_DIR=$PWD
 
 A_LOW=1
 A_HIGH=197
-#A_HIGH=1
+# A_HIGH=1
 # TIME_LIMIT=03:00:00 PARTITION=long
-TIME_LIMIT=02:00:00 PARTITION=main
+TIME_LIMIT=02:00:00 PARTITION=main,long
 # TIME_LIMIT=00:20:00 PARTITION=debug
 
 RM $WORK_DIR/env.txt
@@ -22,7 +22,7 @@ RM $WORK_DIR/env.txt
 NOT_COMPLETED=true
 ROUNDS=0
 A_HIGH=$(($A_HIGH+1))
-while [[ $NOT_COMPLETED = true && $ROUNDS < 3 ]]
+while [[ $NOT_COMPLETED = true && $ROUNDS < 1 ]]
 do
 date
 
