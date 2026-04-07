@@ -16,10 +16,6 @@ INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/alice/users/lubynets/runMassFit
 
-if [[ -f $PROJECT_DIR/workdir/success/index_${INDEX} ]]; then
-  exit
-fi
-
 CONFIG_DIR=$PROJECT_DIR/config
 
 # IO_PREFIX=HL/mc/HF_LHC24h1b_All/576378
@@ -73,13 +69,9 @@ OUTPUT_DIR=$PROJECT_DIR/outputs/$IO_PREFIX/ctbin2/syst/lera_$lera/rira_$rira/ref
 # fi
 
 WORK_DIR=$PROJECT_DIR/workdir
-LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
 mkdir -p $WORK_DIR/$INDEX
-mkdir -p $LOG_DIR/jobs
-mkdir -p $LOG_DIR/out
-mkdir -p $LOG_DIR/error
 
 cd $WORK_DIR/$INDEX
 
@@ -124,15 +116,12 @@ for i_trial in `seq $trial_from $trial_to`; do
     rm -r $i_trial/$score
   done
 
-  tar rf RawYields_Lc.$i_trial.tar --transform="s|RawYields_Lc|$i_trial/RawYields_Lc|" RawYields_Lc/RawYields_Lc.*trial${i_trial}.root
+  tar rf RawYields_Lc.$i_trial.tar --transform="s|RawYields_Lc|$i_trial/RawYields_Lc|" --transform="s|trial${i_trial}.||" RawYields_Lc/RawYields_Lc.*trial${i_trial}.root
   mv RawYields_Lc.$i_trial.tar $OUTPUT_DIR
   cd ..
 
 echo "finish processing trial = $i_trial"
 done
-
-tar -uf "$OUTPUT_DIR/out.log.tar" -C "$BATCH_LOG_DIR/out" "$INDEX.out.log"
-tar -uf "$OUTPUT_DIR/error.log.tar" -C "$BATCH_LOG_DIR/error" "$INDEX.err.log"
 
 cd $OUTPUT_DIR
 rm -r mInvFit mInvFit_Residuals mInvFit_Ratios configs log
@@ -149,4 +138,5 @@ FINISH_TIME=$SECONDS
 echo
 echo "elapsed time " $(($(($FINISH_TIME-$START_TIME))/60)) "m " $(($(($FINISH_TIME-$START_TIME))%60)) "s"
 
-#--transform="s|^$INDEX/$i_trial|$i_trial|"
+tar -uf "$OUTPUT_DIR/out.log.tar" -C "$BATCH_LOG_DIR/out" "$INDEX.out.log"
+tar -uf "$OUTPUT_DIR/error.log.tar" -C "$BATCH_LOG_DIR/error" "$INDEX.err.log"
