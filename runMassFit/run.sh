@@ -9,9 +9,9 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/alice/users/lubynets/runMassFit/workdir
 
 A_LOW=1
-A_HIGH=100
+A_HIGH=160
 # TIME_LIMIT=00:20:00 PARTITION=debug
-TIME_LIMIT=00:15:00 PARTITION=main,long
+TIME_LIMIT=01:30:00 PARTITION=main,long
 
 if [[ $PARTITION == "debug" ]]; then
   A_HIGH=2
@@ -20,8 +20,7 @@ fi
 NOT_COMPLETED=true
 ROUNDS=0
 A_HIGH=$(($A_HIGH+1))
-while [[ $NOT_COMPLETED = true && $ROUNDS < 5 ]]
-do
+while [[ $NOT_COMPLETED = true && $ROUNDS < 3 ]]; do
 date
 
 NOT_COMPLETED=false
@@ -34,6 +33,7 @@ fi
 if [ $NOT_COMPLETED = true ]
 then
 echo "Array " $A
+
 sbatch --job-name=massFit \
        --wait \
        -t $TIME_LIMIT \
@@ -42,6 +42,7 @@ sbatch --job-name=massFit \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \
        -- $PWD/batch_run.sh $PARTITION
+
 fi
 ROUNDS=$(($ROUNDS+1))
 done
