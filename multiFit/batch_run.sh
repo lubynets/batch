@@ -14,7 +14,7 @@ source /lustre/alice/users/lubynets/soft/qa2_m25/bin/qa2Config.sh
 INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/alice/users/lubynets/syst/multiFit
-INPUT_DIR=/lustre/alice/users/lubynets/runMassFit/outputs/HL/data/HF_LHC23_pass4_Thin_2P3PDstar/574294/ctbin2/syst
+INPUT_DIR=/lustre/alice/users/lubynets/runMassFit/outputs/HL/data/HF_LHC23_pass4_Thin_2P3PDstar/574294/ctbin2/syst_small_2
 WORK_DIR=/tmp/lubynets/multiFit
 OUTPUT_DIR=$PROJECT_DIR/rawy
 

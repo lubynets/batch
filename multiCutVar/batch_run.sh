@@ -71,7 +71,7 @@ source /usr/local/install/bin/thisroot.sh
 $PROJECT_DIR/$EXE_NAME $CONFIG_TEMPLATE $dirPath/RawYields_Lc $hist
 
 for ICT in `seq $CT_LO $CT_HI`; do
-  python3 $O2PHYSICS_DIR/PWGHF/D2H/Macros/compute_fraction_cutvar.py config_cutvar_ct${ICT}.json >& log_$INDEX.txt
+  python3 $O2PHYSICS_DIR/PWGHF/D2H/Macros/compute_fraction_cutvar.py config_cutvar_ct${ICT}.json >> log_$INDEX.txt 2>&1
 done
 
 /u/lubynets/macros_on_git_m25/qa2/postscripts/mergeIndividualCutVarOutputs.sh $CT_LO $CT_HI
