@@ -14,11 +14,11 @@ OUTPUT_DIR=$PROJECT_DIR/outputs
 export EXE_NAME=configCutVarWriter
 export CONFIG_TEMPLATE=config_cutvar.json
 
-LEFT_RANGES=(2.12 2.14) # 2.16 2.18)
-RIGHT_RANGES=(2.42 2.40) # 2.38 2.36)
-REBIN_FACTORS=(1 2) # 4 6 8)
-BG_FUNCTIONS=(2 5)
-HISTO_STRATEGIES=("hRawYieldsSignal" "hRawYieldsSignalCounted")
+LEFT_RANGES=(2.12 2.14 2.16 2.18) # 4
+RIGHT_RANGES=(2.42 2.40 2.38 2.36) # 4
+REBIN_FACTORS=(1 2 4 6 8 10) # 6
+BG_FUNCTIONS=(2 5) # 2
+HISTO_STRATEGIES=("hRawYieldsSignal" "hRawYieldsSignalCounted") # 2
 
 export CT_LO=1
 export CT_HI=6
@@ -74,7 +74,7 @@ for ICT in `seq $CT_LO $CT_HI`; do
   python3 $O2PHYSICS_DIR/PWGHF/D2H/Macros/compute_fraction_cutvar.py config_cutvar_ct${ICT}.json >> log_$INDEX.txt 2>&1
 done
 
-/u/lubynets/macros_on_git_m25/qa2/postscripts/mergeIndividualCutVarOutputs.sh $CT_LO $CT_HI
+$PROJECT_DIR/mergeIndividualCutVarOutputs.sh $CT_LO $CT_HI >> log_$INDEX.txt 2>&1
 
 EOF
 # EOF to trigger the end of the singularity command

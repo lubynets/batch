@@ -14,14 +14,14 @@ source /lustre/alice/users/lubynets/soft/qa2_m25/bin/qa2Config.sh
 INDEX=${SLURM_ARRAY_TASK_ID}
 
 PROJECT_DIR=/lustre/alice/users/lubynets/syst/multiFit
-INPUT_DIR=/lustre/alice/users/lubynets/runMassFit/outputs/HL/data/HF_LHC23_pass4_Thin_2P3PDstar/574294/ctbin2/syst_small_2
+INPUT_DIR=/lustre/alice/users/lubynets/runMassFit/outputs/HL/data/HF_LHC23_pass4_Thin_2P3PDstar/574294/ctbin2/syst
 WORK_DIR=/tmp/lubynets/multiFit
 OUTPUT_DIR=$PROJECT_DIR/rawy
 
-LEFT_RANGES=(2.12 2.14) # 2.16 2.18)
-RIGHT_RANGES=(2.42 2.40) # 2.38 2.36)
-REBIN_FACTORS=(1 2) # 4 6 8)
-BG_FUNCTIONS=(2 5)
+LEFT_RANGES=(2.12 2.14 2.16 2.18) # 4
+RIGHT_RANGES=(2.42 2.40 2.38 2.36) # 4
+REBIN_FACTORS=(1 2 4 6 8 10) # 6
+BG_FUNCTIONS=(2 5) # 2
 N_TRIALS=100
 
 ########## decode multidimensional indices from one-dimensional ############
@@ -64,8 +64,12 @@ cd ..
 multifit_qa >& log_${INDEX}.txt
 mv log*txt $OUTPUT_DIR/log
 
-cp -r smooth/RawYields_Lc $OUTPUT_DIR/$dirPath
-cp -r hTrials $OUTPUT_DIR/$dirPath
+mv smooth/RawYields_Lc $OUTPUT_DIR/$dirPath
+cd hTrials
+tar -rf hTrials.tar h*
+mv hTrials.tar $OUTPUT_DIR/$dirPath
+cd ..
+rm -r hTrials
 
 echo
 echo "Bash script finished successfully"

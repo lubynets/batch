@@ -7,6 +7,8 @@ hostname
 
 START_TIME=$SECONDS
 
+## Variables, related to Grid tokens and those, which are used inside the apptainer shell (between the two EOF keywords) must be declared with export
+## Other variables can be declared without export
 export JALIEN_TOKEN_CERT=/lustre/alice/users/$USER/token/tokencert_${UID}.pem
 export JALIEN_TOKEN_KEY=/lustre/alice/users/$USER/token/tokenkey_${UID}.pem
 export alien_CLOSE_SE=ALICE::CERN::OCDB
@@ -15,6 +17,8 @@ unset http_proxy https_proxy
 
 export INDEX=${SLURM_ARRAY_TASK_ID}
 
+## Set the trees which you want to save in the AnalysisResults_trees.root file. The Zdc tree is added as an example for illustrative purposes. Optimize the list of trees to be saved acoording to the needs of your analysis.
+## You may consider uncommenting the next line, but keep in mind that the execution time will increase dramatically.
 # export TREES_TO_SAVE=AOD/TRACK/0,AOD/COLLISION/1,AOD/TRACKEXTRA/2,AOD/TRACKDCA/0,AOD/pidTPCFullPr/0,AOD/pidTPCFullPi/0,AOD/pidTPCFullKa/0,AOD/pidTOFFullPr/0,AOD/pidTOFFullPi/0,AOD/pidTOFFullKa/0,AOD/pidTOFbeta/0,AOD/TOFEvTime/0,AOD/TOFSignal/0,AOD/SPZDC/0
 export TREES_TO_SAVE=AOD/SPZDC/0
 
@@ -39,7 +43,7 @@ export INPUT_FILE=@/$FILELIST_DIR/filelist.$INDEX.list
 export CONFIG_FILE=$CONFIG_DIR/configuration.json
 
 apptainer shell -B /lustre -B /scratch /lustre/alice/containers/singularity_base_o2compatibility.sif << \EOF
-alienv -w /scratch/alice/lubynets/alice/sw enter O2Physics::latest
+alienv -w /scratch/alice/akonings/alice/sw enter O2Physics::latest
 
 o2-analysis-pid-tof-merge -b --configuration json://$CONFIG_FILE | \
 o2-analysis-ft0-corrected-table -b --configuration json://$CONFIG_FILE | \
