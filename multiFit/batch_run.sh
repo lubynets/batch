@@ -18,9 +18,9 @@ INPUT_DIR=/lustre/alice/users/lubynets/runMassFit/outputs/HL/data/HF_LHC23_pass4
 WORK_DIR=/tmp/lubynets/multiFit
 OUTPUT_DIR=$PROJECT_DIR/rawy
 
-LEFT_RANGES=(2.12 2.14 2.16 2.18) # 4
-RIGHT_RANGES=(2.42 2.40 2.38 2.36) # 4
-REBIN_FACTORS=(1 2 4 6 8 10) # 6
+LEFT_RANGES=(2.12 2.13 2.14 2.15 2.16 2.17 2.18) # 7
+RIGHT_RANGES=(2.42 2.41 2.40 2.39 2.38 2.37 2.36) # 7
+REBIN_FACTORS=(1 2 3 4 5 6 8 10) # 8
 BG_FUNCTIONS=(2 5) # 2
 N_TRIALS=100
 

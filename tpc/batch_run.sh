@@ -16,7 +16,7 @@ IO_PREFIX=alice/data/2023/LHC23zzo/545210/apass5/2020
 
 WORK_DIR=$PROJECT_DIR/workdir
 CONFIG_DIR=$PROJECT_DIR/config
-OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_PREFIX}/def
+OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_PREFIX}/dev/CBT_hadronPID.checkZdc_true.treatLimitedAcceptanceAsBad_true
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 

@@ -18,8 +18,8 @@ RUN_MODE=smallTest VERY_SMALL=small.
 # RUN_MODE=smallTest VERY_SMALL=""
 # RUN_MODE=greatRun
 
-SKIM_SELECTION=lhc22.apass7 MC_OR_DATA=data #976
-# SKIM_SELECTION=lhc24e3 MC_OR_DATA=mc #403
+# SKIM_SELECTION=lhc22.apass7 MC_OR_DATA=data #976
+SKIM_SELECTION=lhc24e3 MC_OR_DATA=mc #403
 
 SIG_BG=all
 # SIG_BG=sig_bgsup100
