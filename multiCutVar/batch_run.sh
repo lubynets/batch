@@ -79,6 +79,11 @@ $PROJECT_DIR/mergeIndividualCutVarOutputs.sh $CT_LO $CT_HI >> log_$INDEX.txt 2>&
 EOF
 # EOF to trigger the end of the singularity command
 
+rm $CONFIG_TEMPLATE
+rm *_CutVarLc.merged.pdf
+tar -czf config.tar.gz config_cutvar_ct*.json
+rm config_cutvar_ct*.json
+
 echo
 echo "Bash script finished successfully"
 date

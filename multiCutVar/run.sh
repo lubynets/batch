@@ -6,7 +6,7 @@ mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error
 
 A_LOW=1
-A_HIGH=2
+A_HIGH=1568
 # TIME_LIMIT=00:20:00 PARTITION=debug
 TIME_LIMIT=01:30:00 PARTITION=main,long
 

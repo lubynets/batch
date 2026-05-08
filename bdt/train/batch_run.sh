@@ -11,7 +11,7 @@ export INDEX=${SLURM_ARRAY_TASK_ID}
 PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
 WORK_DIR=$PROJECT_DIR/workdir
-OUTPUT_DIR=$PROJECT_DIR/outputs_train/HL3_ctwise
+OUTPUT_DIR=$PROJECT_DIR/outputs_train/HL4_woLdL
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
@@ -28,20 +28,20 @@ export INPUT_FILES_DATA_TO=1131
 export MODEL_DIR=$OUTPUT_DIR/model/$INDEX
 export OUT_DIR=$OUTPUT_DIR/out/$INDEX
 
-SLICE_VAR_RANGES=('0.006' '0.0105' '0.015' '0.021' '0.027' '0.048')
+# SLICE_VAR_RANGES=('0.006' '0.0105' '0.015' '0.021' '0.027' '0.048')
+SLICE_VAR_RANGES=('1' '2' '3' '4' '5' '8' '12' '20')
 export SLICE_VAR_LO=${SLICE_VAR_RANGES[$(($INDEX-1))]}
 export SLICE_VAR_HI=${SLICE_VAR_RANGES[$INDEX]}
 
-# if [ $INDEX -eq 1 ]; then SIDE_BANDS=('2.20' '2.24' '2.34' '2.38'); fi
-# if [ $INDEX -eq 2 ]; then SIDE_BANDS=('2.20' '2.24' '2.34' '2.38'); fi
-# if [ $INDEX -eq 3 ]; then SIDE_BANDS=('2.20' '2.24' '2.34' '2.38'); fi
-# if [ $INDEX -eq 4 ]; then SIDE_BANDS=('2.20' '2.24' '2.34' '2.38'); fi
-# if [ $INDEX -eq 5 ]; then SIDE_BANDS=('2.20' '2.24' '2.34' '2.38'); fi
-# if [ $INDEX -eq 6 ]; then SIDE_BANDS=('2.20' '2.24' '2.34' '2.38'); fi
-# if [ $INDEX -eq 7 ]; then SIDE_BANDS=('2.20' '2.22' '2.37' '2.39'); fi
-# if [ $INDEX -eq 8 ]; then SIDE_BANDS=('2.19' '2.21' '2.38' '2.40'); fi
+if [ $INDEX -eq 1 ]; then SIDE_BANDS=('2.20' '2.24' '2.34' '2.38'); fi
+if [ $INDEX -eq 2 ]; then SIDE_BANDS=('2.20' '2.24' '2.34' '2.38'); fi
+if [ $INDEX -eq 3 ]; then SIDE_BANDS=('2.20' '2.24' '2.34' '2.38'); fi
+if [ $INDEX -eq 4 ]; then SIDE_BANDS=('2.20' '2.24' '2.34' '2.38'); fi
+if [ $INDEX -eq 5 ]; then SIDE_BANDS=('2.20' '2.24' '2.34' '2.38'); fi
+if [ $INDEX -eq 6 ]; then SIDE_BANDS=('2.20' '2.22' '2.37' '2.39'); fi
+if [ $INDEX -eq 7 ]; then SIDE_BANDS=('2.19' '2.21' '2.38' '2.40'); fi
 
-SIDE_BANDS=('2.12' '2.20' '2.38' '2.42')
+# SIDE_BANDS=('2.12' '2.20' '2.38' '2.42')
 
 export SBLE=${SIDE_BANDS[0]}
 export SBLI=${SIDE_BANDS[1]}
