@@ -1,12 +1,12 @@
 #!/bin/bash
 #####################################################################
 
-# WHERE_TO_RUN=lustre
+WHERE_TO_RUN=lustre
 # WHERE_TO_RUN=tmp_jobonly
-WHERE_TO_RUN=tmp_jobandinput
+# WHERE_TO_RUN=tmp_jobandinput
 
 A_LOW=1
-A_HIGH=9
+A_HIGH=365
 # TIME_LIMIT=00:20:00 PARTITION=debug
 # TIME_LIMIT=00:50:00 PARTITION=main
 # TIME_LIMIT=02:50:00 PARTITION=long

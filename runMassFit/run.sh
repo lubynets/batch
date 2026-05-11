@@ -8,9 +8,9 @@ mkdir -p $LOGDIR/error
 
 WORK_DIR=/lustre/alice/users/lubynets/runMassFit/workdir
 
-A_LOW=3921
-A_HIGH=7840 #7840
-# TIME_LIMIT=00:20:00 PARTITION=debug
+A_LOW=1
+A_HIGH=10 #7840
+# TIME_LIMIT=00:30:00 PARTITION=debug
 TIME_LIMIT=01:30:00 PARTITION=main,long
 
 if [[ $PARTITION == "debug" ]]; then

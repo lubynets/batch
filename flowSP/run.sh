@@ -1,5 +1,25 @@
 #!/bin/bash
 
+if [[ ! -f /lustre/alice/users/$USER/token/tokencert_${UID}.pem ]]; then
+  echo "Token /lustre/alice/users/$USER/token/tokencert_${UID}.pem is not found!"
+  exit 1
+fi
+
+if [[ ! -f /lustre/alice/users/$USER/token/tokenkey_${UID}.pem ]]; then
+  echo "Token /lustre/alice/users/$USER/token/tokenkey_${UID}.pem is not found!"
+  exit 1
+fi
+
+if [[ $(find /lustre/alice/users/$USER/token/tokencert_${UID}.pem -mtime +30) ]]; then
+  echo "Token /lustre/alice/users/$USER/token/tokencert_${UID}.pem is older than 30 days."
+  exit 1
+fi
+
+if [[ $(find /lustre/alice/users/$USER/token/tokenkey_${UID}.pem -mtime +30) ]]; then
+  echo "Token /lustre/alice/users/$USER/token/tokenkey_${UID}.pem is older than 30 days."
+  exit 1
+fi
+
 LOGDIR=/lustre/alice/users/$USER/flowSP/log
 mkdir -p $LOGDIR/out
 mkdir -p $LOGDIR/error

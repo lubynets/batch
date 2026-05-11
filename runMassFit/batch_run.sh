@@ -10,7 +10,7 @@ PARTITION=${1}
 gcc --version
 cc --version
 
-source /lustre/alice/users/lubynets/soft/qa2/bin/qa2Config.sh
+source /lustre/alice/users/lubynets/soft/qa2_m25_vae26/bin/qa2Config.sh
 
 export INDEX=${SLURM_ARRAY_TASK_ID}
 
@@ -21,10 +21,17 @@ export CONFIG_DIR=$PROJECT_DIR/config
 # IO_PREFIX=HL/mc/HF_LHC24h1b_All/576378
 IO_PREFIX=HL/data/HF_LHC23_pass4_Thin_2P3PDstar/574294
 
-LEFT_RANGES=(2.12 2.13 2.14 2.15 2.16 2.17 2.18) # 7
-RIGHT_RANGES=(2.42 2.41 2.40 2.39 2.38 2.37 2.36) # 7
-REBIN_FACTORS=(1 2 3 4 5 6 8 10) # 8
-BG_FUNCTIONS=(2 5) # 2
+# LEFT_RANGES=(2.12 2.13 2.14 2.15 2.16 2.17 2.18) # 7
+# RIGHT_RANGES=(2.42 2.41 2.40 2.39 2.38 2.37 2.36) # 7
+# REBIN_FACTORS=(1 2 3 4 5 6 8 10) # 8
+# BG_FUNCTIONS=(2 5) # 2
+# N_JOBS_WITH_TRIALS=10
+# N_TRIALS_PER_JOB=10
+
+LEFT_RANGES=(2.12) # 1
+RIGHT_RANGES=(2.42) # 1
+REBIN_FACTORS=(4) # 1
+BG_FUNCTIONS=(5) # 1
 N_JOBS_WITH_TRIALS=10
 N_TRIALS_PER_JOB=10
 
@@ -63,7 +70,8 @@ export bgfu=${BG_FUNCTIONS[$i_bg]}
 export SCORES="0.20 0.25 0.30 0.35 0.40 0.45 0.50 0.55 0.60 0.65 0.70 0.75 0.80 0.85 0.90"
 # export SCORES="0.01 0.02"
 
-export OUTPUT_DIR=$PROJECT_DIR/outputs/$IO_PREFIX/ctbin2/syst/lera_$lera/rira_$rira/refa_$refa/bgfu_$bgfu
+# export OUTPUT_DIR=$PROJECT_DIR/outputs/$IO_PREFIX/ctbin2/syst/lera_$lera/rira_$rira/refa_$refa/bgfu_$bgfu
+export OUTPUT_DIR=$PROJECT_DIR/outputs/$IO_PREFIX/ctbin2/bgwise/tight
 # if [[ $PARTITION == "debug" ]]; then
 #   export OUTPUT_DIR=$PROJECT_DIR/outputs/draft
 #   export SCORES="0.01 0.02"
@@ -84,9 +92,6 @@ elif [[ $IO_PREFIX == *"/data/"* ]]; then
 fi
 
 mkdir -p RawYields_Lc
-
-apptainer shell /lustre/alice/users/lubynets/singularities/bdt.sif << \EOF
-source /usr/local/install_qa2_fitter/bin/qa2Config.sh
 
 for i_trial in `seq $trial_from $trial_to`; do
   echo "start processing trial = $i_trial"
@@ -128,8 +133,6 @@ for i_trial in `seq $trial_from $trial_to`; do
 
 echo "finish processing trial = $i_trial"
 done
-
-EOF
 
 rm -r $WORK_DIR/$INDEX
 
