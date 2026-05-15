@@ -9,7 +9,7 @@ START_TIME=$SECONDS
 gcc --version
 cc --version
 
-source /lustre/alice/users/lubynets/soft/qa2_m25/bin/qa2Config.sh
+source /lustre/alice/users/lubynets/soft/qa2_m25_vae26/bin/qa2Config.sh
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
@@ -56,6 +56,8 @@ rm -r $WORK_DIR/$dirPath
 mkdir -p $WORK_DIR/$dirPath/trials
 cd $WORK_DIR/$dirPath/trials
 
+cp $INPUT_DIR/$dirPath/CommonRawYields_Lc.tar .
+tar -xvf CommonRawYields_Lc.tar
 cp $INPUT_DIR/$dirPath/RawYields_Lc*tar .
 for I in `seq 1 $N_TRIALS`; do
   tar -xvf RawYields_Lc.$I.tar

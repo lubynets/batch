@@ -77,6 +77,9 @@ EOF
 mv log* $LOG_DIR/jobs
 mv $BATCH_LOG_DIR/out/$INDEX.out.log $LOG_DIR/out
 mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
+cp $MACRO_DIR/train_multi_class_BDT.py $LOG_DIR/error
+cp $CONFIG_DIR/config.train.yaml $LOG_DIR
+cp $CONFIG_DIR/config.train_selection.yaml $LOG_DIR
 
 cd ..
 rm -r $INDEX

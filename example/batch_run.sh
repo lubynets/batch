@@ -10,14 +10,13 @@ START_TIME=$SECONDS
 gcc --version
 cc --version
 
-source /lustre/alice/users/lubynets/soft/root/install_6.32_cpp17_vae25/bin/thisroot.sh
+source /lustre/alice/users/lubynets/soft/root/install_6.36_cpp17_vae26/bin/thisroot.sh
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
-PROJECT_DIR=/lustre/alice/users/lubynets/QA
-# PROJECT_DIR=/tmp/lubynets/QA
+PROJECT_DIR=/lustre/alice/users/$USER/QA
 
-OUTPUT_DIR=/lustre/alice/users/lubynets/QA/outputs/test
+OUTPUT_DIR=$PROJECT_DIR/outputs/test
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
@@ -34,6 +33,7 @@ cd $WORK_DIR/$INDEX
 
 cp /lustre/alice/users/lubynets/QA/macro/fillGauss.C ./
 
+sleep 60
 root -l -b -q "fillGauss.C($INDEX)" >& log_${INDEX}.txt
 
 rm fillGauss.C
