@@ -69,9 +69,10 @@ export SCORES="0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.10 0.11 0.12 0.13 
 
 # export SCORES="0.20 0.25 0.30 0.35 0.40 0.45 0.50 0.55 0.60 0.65 0.70 0.75 0.80 0.85 0.90"
 # export SCORES="0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.10 0.11 0.12 0.13 0.14 0.15 0.16 0.17 0.18 0.19 0.20"
+# export SCORES="0.01 0.02"
 
 # export OUTPUT_DIR=$PROJECT_DIR/outputs/$IO_PREFIX/ctbin2/syst/lera_$lera/rira_$rira/refa_$refa/bgfu_$bgfu
-export OUTPUT_DIR=$PROJECT_DIR/outputs/$IO_PREFIX/ctbin2/fixMS
+export OUTPUT_DIR=$PROJECT_DIR/outputs/$IO_PREFIX/ctbin2/debug/dev
 if [[ $PARTITION == "debug" ]]; then
   export OUTPUT_DIR=$PROJECT_DIR/outputs/draft
   export SCORES="0.01 0.02"
@@ -120,17 +121,17 @@ for i_trial in `seq $trial_from $trial_to`; do
 
     date
     echo "Packing archives (copying) of score $score"
-    if (( i_trial % 20 == 1 )); then
+#     if (( i_trial % 20 == 1 )); then
 #       tar -uf $OUTPUT_DIR/mInvFit.pdf.tar --transform="s|fileOut.pdf|mInvFit.NPgt${score}.trial${i_trial}.pdf|" fileOut.pdf
 #       tar -uf $OUTPUT_DIR/mInvFit_Residuals.pdf.tar --transform="s|fileOut_Residuals.pdf|mInvFit_Residuals.NPgt${score}.trial${i_trial}.pdf|" fileOut_Residuals.pdf
 #       tar -uf $OUTPUT_DIR/configs.json.tar --transform="s|$CONFIG_FILE|$score.trial${i_trial}.$CONFIG_FILE|" $CONFIG_FILE
 #       tar -uf $OUTPUT_DIR/jobs.log.tar log.NPgt${score}.trial${i_trial}.txt
 
-      mv fileOut.pdf $OUTPUT_DIR/mInvFits/mInvFit.NPgt${score}.trial${i_trial}.pdf
-      mv fileOut_Residuals.pdf $OUTPUT_DIR/mInvFit_Residuals/mInvFit_Residuals.NPgt${score}.trial${i_trial}.pdf
-      mv $CONFIG_FILE $OUTPUT_DIR/configs/$score.trial${i_trial}.$CONFIG_FILE
-      mv log.NPgt${score}.trial${i_trial}.txt $OUTPUT_DIR/logs
-    fi
+    mv fileOut.pdf $OUTPUT_DIR/mInvFits/mInvFit.NPgt${score}.trial${i_trial}.pdf
+    mv fileOut_Residuals.pdf $OUTPUT_DIR/mInvFit_Residuals/mInvFit_Residuals.NPgt${score}.trial${i_trial}.pdf
+    mv $CONFIG_FILE $OUTPUT_DIR/configs/$score.trial${i_trial}.$CONFIG_FILE
+    mv log.NPgt${score}.trial${i_trial}.txt $OUTPUT_DIR/logs
+#     fi
     date
 
     mv fileOut.root ../../RawYields_Lc/RawYields_Lc.NPgt${score}.trial${i_trial}.root
@@ -164,7 +165,12 @@ FINISH_TIME=$SECONDS
 echo
 echo "elapsed time " $(($(($FINISH_TIME-$START_TIME))/60)) "m " $(($(($FINISH_TIME-$START_TIME))%60)) "s"
 
-tar -uf "$OUTPUT_DIR/out.log.tar" -C "$BATCH_LOG_DIR/out" "$INDEX.out.log"
-tar -uf "$OUTPUT_DIR/error.log.tar" -C "$BATCH_LOG_DIR/error" "$INDEX.err.log"
-rm $BATCH_LOG_DIR/out/$INDEX.out.log
-rm $BATCH_LOG_DIR/error/$INDEX.err.log
+# tar -uf "$OUTPUT_DIR/out.log.tar" -C "$BATCH_LOG_DIR/out" "$INDEX.out.log"
+# tar -uf "$OUTPUT_DIR/error.log.tar" -C "$BATCH_LOG_DIR/error" "$INDEX.err.log"
+# rm $BATCH_LOG_DIR/out/$INDEX.out.log
+# rm $BATCH_LOG_DIR/error/$INDEX.err.log
+
+mv $BATCH_LOG_DIR/*/$INDEX.*.log $OUTPUT_DIR/logs
+
+CP /lustre/alice/users/lubynets/batch/runMassFit batch_run.sh $OUTPUT_DIR/logs
+CP /lustre/alice/users/lubynets/batch/runMassFit run.sh $OUTPUT_DIR/logs

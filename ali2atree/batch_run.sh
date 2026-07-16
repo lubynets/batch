@@ -19,7 +19,7 @@ gcc --version
 g++ --version
 cc --version
 
-SOFT_DIR=/lustre/alice/users/lubynets/soft/AnalysisTree/install_master_vae25
+SOFT_DIR=/lustre/alice/users/lubynets/soft/AnalysisTree/install_dev_vae26
 source $SOFT_DIR/bin/AnalysisTreeConfig.sh
 
 INDEX=${SLURM_ARRAY_TASK_ID}
@@ -40,7 +40,7 @@ fi
 
 IS_HAS_EVENT_INFO=false
 
-IO_SUFFIX=HL/mc/HF_LHC24h1b_All/595984 IS_MC=true
+IO_SUFFIX=HL/mc/HF_LHC24h1b_All/683866 IS_MC=true
 
 INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
 

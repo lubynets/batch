@@ -11,7 +11,7 @@ WORK_DIR=/lustre/alice/users/lubynets/runMassFit/workdir
 A_LOW=1
 A_HIGH=100 #7840
 # TIME_LIMIT=00:30:00 PARTITION=debug
-TIME_LIMIT=01:30:00 PARTITION=main,long
+TIME_LIMIT=07:30:00 PARTITION=main,long
 
 if [[ $PARTITION == "debug" ]]; then
   A_HIGH=2

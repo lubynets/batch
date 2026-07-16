@@ -9,7 +9,7 @@ START_TIME=$SECONDS
 gcc --version
 cc --version
 
-SOFT_DIR=/lustre/alice/users/lubynets/soft/AnalysisTree/install_master_vae25
+SOFT_DIR=/lustre/alice/users/lubynets/soft/AnalysisTree/install_dev_vae26
 
 source $SOFT_DIR/bin/AnalysisTreeConfig.sh
 
@@ -19,18 +19,14 @@ PROJECT_DIR=/lustre/alice/users/lubynets/plainer
 
 EXE_DIR=$SOFT_DIR/bin
 
-# IO_SUFFIX=mc/lhc24e3/all/noConstr/moreMoreVars # 403
-# IO_SUFFIX=data/lhc22.apass7/all/noConstr/moreMoreVars #976
-
-
-# IO_SUFFIX=HL/mc/HF_LHC24h1b_All/515935
-IO_SUFFIX=HL/data/HF_LHC23_pass4_Thin_small_2P3PDstar/515291
+IO_SUFFIX=HL/mc/HF_LHC24h1b_All/683866
+# IO_SUFFIX=HL/data/HF_LHC23_pass4_Thin_small_2P3PDstar/515291
 
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 
 EXE=plainer
 
-OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_SUFFIX}_allData
+OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_SUFFIX}
 WORK_DIR=$PROJECT_DIR/workdir
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log

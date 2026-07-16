@@ -11,16 +11,16 @@ export INDEX=${SLURM_ARRAY_TASK_ID}
 PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
 WORK_DIR=$PROJECT_DIR/workdir
-OUTPUT_DIR=$PROJECT_DIR/outputs_train/HL4_woLdL_ctwPdgPlus3sigma
+OUTPUT_DIR=$PROJECT_DIR/outputs_train/HL4_h1b_smearing3_mzang
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
 export CONFIG_DIR=$PROJECT_DIR/config
 export MACRO_DIR=$PROJECT_DIR/macro
 
-export INPUT_DIR_MC=/lustre/alice/users/lubynets/plainer/outputs/HL/mc/HF_LHC24h1b_All/515935
+export INPUT_DIR_MC=/lustre/alice/users/lubynets/plainer/outputs/HL/mc/HF_LHC24h1b_All/683866
 export INPUT_FILES_MC_FROM=1
-export INPUT_FILES_MC_TO=518
+export INPUT_FILES_MC_TO=477
 export INPUT_FILES_DATA_FROM=1
 export INPUT_DIR_DATA=/lustre/alice/users/lubynets/plainer/outputs/HL/data/HF_LHC23_pass4_Thin_small_2P3PDstar/515291_allData
 export INPUT_FILES_DATA_TO=1131
