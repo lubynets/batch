@@ -21,7 +21,7 @@ cc --version
 ATQA_DIR=AnalysisTreeQA
 SOFT_DIR_AT=/lustre/alice/users/lubynets/soft/$ATQA_DIR/install_vae25
 source $SOFT_DIR_AT/bin/AnalysisTreeQAConfig.sh
-SOFT_DIR_QA2=/lustre/alice/users/lubynets/soft/qa2_m25_vae26
+SOFT_DIR_QA2=/lustre/alice/users/lubynets/soft/qa2
 source $SOFT_DIR_QA2/bin/qa2Config.sh
 
 echo
@@ -61,7 +61,7 @@ INPUT_DIR_PREFIX=CSTlc
 
 INPUT_DIR=/lustre/alice/users/lubynets/$INPUT_DIR_PREFIX/outputs/$IO_SUFFIX
 FILELIST=$INPUT_DIR/localAnalysisResultsList.txt
-OUTPUT_DIR=$PROJECT_DIR_LUSTRE/outputs/$EXE/$IO_SUFFIX/ctbin2/NPwise
+OUTPUT_DIR=$PROJECT_DIR_LUSTRE/outputs/$EXE/$IO_SUFFIX/ctbin2/NPwiseWithUpperCuts
 # OUTPUT_DIR=$PROJECT_DIR_LUSTRE/outputs/$EXE/draft
 WORK_DIR_LUSTRE=$PROJECT_DIR_LUSTRE/workdir
 WORK_DIR_TMP=$PROJECT_DIR_TMP/workdir
@@ -95,7 +95,7 @@ elif [[ $EXE == "mass_bdt_qa_thn" ]]; then
     cp $INPUT_FILE .
     INPUT_FILE=$(basename $INPUT_FILE)
   fi
-  ARGS="$INPUT_FILE 1" # mass_bdt_qa_thn
+  ARGS="$INPUT_FILE 0" # mass_bdt_qa_thn
 elif [[ $EXE == "yield_lifetime_qa_thn" ]]; then
   ARGS="${FILELIST}:$INDEX $WEIGHTS_FILE" # yield_lifetime_qa_thn
 fi
