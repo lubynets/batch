@@ -40,7 +40,7 @@ fi
 
 IS_HAS_EVENT_INFO=false
 
-IO_SUFFIX=HL/mc/HF_LHC24h1b_All/683866 IS_MC=true
+IO_SUFFIX=HL/mc/HF_LHC24h1d_All/776257 IS_MC=true
 
 INPUT_DIR=/lustre/alice/users/lubynets/CSTlc/outputs/$IO_SUFFIX
 

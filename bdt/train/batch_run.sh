@@ -11,16 +11,16 @@ export INDEX=${SLURM_ARRAY_TASK_ID}
 PROJECT_DIR=/lustre/alice/users/lubynets/bdt
 
 WORK_DIR=$PROJECT_DIR/workdir
-OUTPUT_DIR=$PROJECT_DIR/outputs_train/HL4_h1b_smearing3_mzang
+OUTPUT_DIR=$PROJECT_DIR/outputs_train/HL4_h1d_woLdL
 LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
 
 export CONFIG_DIR=$PROJECT_DIR/config
 export MACRO_DIR=$PROJECT_DIR/macro
 
-export INPUT_DIR_MC=/lustre/alice/users/lubynets/plainer/outputs/HL/mc/HF_LHC24h1b_All/683866
+export INPUT_DIR_MC=/lustre/alice/users/lubynets/plainer/outputs/HL/mc/HF_LHC24h1d_All/776257
 export INPUT_FILES_MC_FROM=1
-export INPUT_FILES_MC_TO=477
+export INPUT_FILES_MC_TO=450
 export INPUT_FILES_DATA_FROM=1
 export INPUT_DIR_DATA=/lustre/alice/users/lubynets/plainer/outputs/HL/data/HF_LHC23_pass4_Thin_small_2P3PDstar/515291_allData
 export INPUT_FILES_DATA_TO=1131
@@ -80,10 +80,10 @@ mv $BATCH_LOG_DIR/error/$INDEX.err.log $LOG_DIR/error
 cp $MACRO_DIR/train_multi_class_BDT.py $LOG_DIR/error
 cp $CONFIG_DIR/config.train.yaml $LOG_DIR
 cp $CONFIG_DIR/config.train_selection.yaml $LOG_DIR
+cp /lustre/alice/users/lubynets/batch/bdt/train/*sh $LOG_DIR
 
 cd ..
 rm -r $INDEX
-
 
 echo
 echo "Bash script finished successfully"
