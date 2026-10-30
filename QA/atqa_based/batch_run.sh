@@ -52,7 +52,8 @@ EXE=mass_bdt_qa_thn
 # EXE=yield_lifetime_qa_thn
 # EXE=corrBg_qa
 
-IO_SUFFIX=HL/data/HF_LHC23_pass4_Thin_2P3PDstar/778891 MC_OR_DATA=data
+IO_SUFFIX=HL/data/HF_LHC26ax_pass1_Thin_medium_2P3PDstar/789186 MC_OR_DATA=data
+# IO_SUFFIX=HL/data/HF_LHC24h1d_All/786092 MC_OR_DATA=data
 
 # WEIGHTS_FILE=/lustre/alice/users/lubynets/QA/input/ptWeight.root
 

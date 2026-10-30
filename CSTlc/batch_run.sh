@@ -10,6 +10,15 @@ source /lustre/alice/users/lubynets/.export_tokens.sh
 
 export INDEX=${SLURM_ARRAY_TASK_ID}
 
+# Calculate JNDEX (cycles through 1, 2, 3)
+JNDEX=$(( (INDEX - 1) % 3 + 1 ))
+
+# Assign SUFFIX based on groups of 3
+SUFFIXES=(def dev-pkpi dev-pikp dev-pikpi dev-kkpi dev-pikk)
+SUFFIX=${SUFFIXES[$(( (INDEX - 1) / 3 ))]}
+
+export EXE_3PRONG_CC=o2-analysis-hf-candidate-creator-3prong-$SUFFIX
+
 PROJECT_DIR=/lustre/alice/users/lubynets/CSTlc
 
 WORK_DIR=$PROJECT_DIR/workdir
@@ -21,23 +30,23 @@ RUN_MODE=smallTest VERY_SMALL=small.
 # SKIM_SELECTION=lhc22.apass7 MC_OR_DATA=data #976
 SKIM_SELECTION=lhc24e3 MC_OR_DATA=mc #403
 
-SIG_BG=all
-# SIG_BG=sig_bgsup100
-# SELECTION=noSel_ML
+# SIG_BG=all
+# # SIG_BG=sig_bgsup100
+# # SELECTION=noSel_ML
 
-CONSTRAINT=noConstr
-# CONSTRAINT=topoConstr
-# CONSTRAINT=minvConstr
+# CONSTRAINT=noConstr
+# # CONSTRAINT=topoConstr
+# # CONSTRAINT=minvConstr
 
-TREES_TO_SAVE=AOD/HFCANDLCLITE/0,AOD/HFCANDLCKF/0,AOD/HFCANDLCFULLEV/0,AOD/HFCOLLIDLCLITE/0
+TREES_TO_SAVE=AOD/HFCANDLCKF/0,AOD/HFCANDLCLITE/0
 
-if [[ $MC_OR_DATA = "mc" ]]; then
-TREES_TO_SAVE=${TREES_TO_SAVE},AOD/HFCANDLCMC/0,AOD/HFCANDLCFULLP/0
-fi
+# if [[ $MC_OR_DATA = "mc" ]]; then
+# TREES_TO_SAVE=${TREES_TO_SAVE},AOD/HFCANDLCMC/0,AOD/HFCANDLCFULLP/0
+# fi
 
 CONFIG_DIR=$PROJECT_DIR/config
 INPUT_DIR=/lustre/alice/users/lubynets/skim/outputs/$MC_OR_DATA/$SKIM_SELECTION
-JSON_FILE=$CONFIG_DIR/dpl-config_CSTlc_$MC_OR_DATA.json
+
 if [[ $RUN_MODE = "greatRun" ]]; then
   INPUT_FILE=$INPUT_DIR/AnalysisResults_trees.$INDEX.root
   OUTPUT_DIR=$PROJECT_DIR/outputs/$MC_OR_DATA/$SKIM_SELECTION/$SIG_BG/$CONSTRAINT/moreMoreVars_refactor5
@@ -49,8 +58,15 @@ elif [[ $RUN_MODE = "smallTest" ]]; then
   fi
 OUTPUT_DIR=$PROJECT_DIR/outputs/draft_${MC_OR_DATA}
 fi
-LOG_DIR=$OUTPUT_DIR/log
 BATCH_LOG_DIR=$PROJECT_DIR/log
+
+MC_OR_DATA=mc
+# MC_OR_DATA=data
+
+JSON_FILE=/lustre/alice/users/lubynets/WORKDIR/lambda_c/prongsOrder/$MC_OR_DATA/configuration.json
+INPUT_FILE=/lustre/alice/users/lubynets/WORKDIR/lambda_c/prongsOrder/$MC_OR_DATA/AO2D.lite.root
+OUTPUT_DIR=/lustre/alice/users/lubynets/WORKDIR/lambda_c/prongsOrder/$MC_OR_DATA/farm_withmcbg/$INDEX
+LOG_DIR=$OUTPUT_DIR/../log
 
 export OPTIONS="-b --configuration json://$JSON_FILE --aod-file $INPUT_FILE --aod-memory-rate-limit 524288000 --shm-segment-size 10200547328 --resources-monitoring 2 --aod-parent-access-level 1 --aod-writer-keep $TREES_TO_SAVE"
 
@@ -63,45 +79,29 @@ mkdir -p $LOG_DIR/error
 cd $WORK_DIR/$INDEX
 
 apptainer shell -B /lustre -B /scratch /lustre/alice/containers/singularity_base_o2compatibility.sif << \EOF
-alienv -w /scratch/alice/lubynets/alice/sw enter O2Physics::latest
+alienv -w /scratch/alice/lubynets/alice2/sw enter O2Physics::latest
 
+o2-analysis-hf-tree-creator-lc-to-p-k-pi $OPTIONS | \
+o2-analysis-multcenttable $OPTIONS | \
+o2-analysis-hf-candidate-selector-lc $OPTIONS | \
+$EXE_3PRONG_CC $OPTIONS | \
 o2-analysis-hf-pid-creator $OPTIONS | \
 o2-analysis-pid-tof-merge $OPTIONS | \
 o2-analysis-mccollision-converter $OPTIONS | \
-o2-analysis-ft0-corrected-table $OPTIONS | \
 o2-analysis-tracks-extra-v002-converter $OPTIONS | \
-o2-analysis-hf-candidate-creator-3prong $OPTIONS | \
-o2-analysis-hf-candidate-selector-lc $OPTIONS | \
-o2-analysis-hf-tree-creator-lc-to-p-k-pi $OPTIONS | \
-o2-analysis-multcenttable $OPTIONS | \
 o2-analysis-event-selection-service $OPTIONS | \
 o2-analysis-pid-tpc-service $OPTIONS | \
 o2-analysis-propagationservice $OPTIONS | \
-o2-analysis-hf-task-mc-gen-pt-rap-shapes $OPTIONS | \
-o2-analysis-hf-task-lc $OPTIONS >& log_$INDEX.txt
-
-# o2-analysis-hf-tree-creator-lc-to-p-k-pi $OPTIONS | \
-# o2-analysis-hf-candidate-selector-lc $OPTIONS | \
-# o2-analysis-multcenttable $OPTIONS | \
-# o2-analysis-hf-task-mc-gen-pt-rap-shapes $OPTIONS | \
-# o2-analysis-hf-task-lc $OPTIONS | \
-# o2-analysis-hf-candidate-creator-3prong $OPTIONS | \
-# o2-analysis-hf-pid-creator $OPTIONS | \
-# o2-analysis-pid-tof-merge $OPTIONS | \
-# o2-analysis-mccollision-converter $OPTIONS | \
-# o2-analysis-tracks-extra-v002-converter $OPTIONS | \
-# o2-analysis-event-selection-service $OPTIONS | \
-# o2-analysis-pid-tpc-service $OPTIONS | \
-# o2-analysis-propagationservice $OPTIONS | \
-# o2-analysis-ft0-corrected-table $OPTIONS >& log_$INDEX.txt
+o2-analysis-ft0-corrected-table $OPTIONS >& log_$INDEX.txt
 
 EOF
 # EOF to trigger the end of the singularity command
 
-rm QAResults.root performanceMetrics.json
-mv dpl-config.json dpl-config.$INDEX.json
-mv AnalysisResults.root AnalysisResults.$INDEX.root
-mv AnalysisResults_trees.root AnalysisResults_trees.$INDEX.root
+rm QAResults.root
+mv performanceMetrics.json performanceMetrics.$SUFFIX.$JNDEX.json
+mv dpl-config.json dpl-config.$SUFFIX.$JNDEX.json
+mv AnalysisResults.root AnalysisResults.$SUFFIX.$JNDEX.root
+mv AnalysisResults_trees.root AnalysisResults_trees.$SUFFIX.$JNDEX.root
 mv *root $OUTPUT_DIR
 mv *json $LOG_DIR/jobs
 mv log* $LOG_DIR/jobs

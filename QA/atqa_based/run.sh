@@ -6,11 +6,11 @@ WHERE_TO_RUN=lustre
 # WHERE_TO_RUN=tmp_jobandinput
 
 A_LOW=1
-A_HIGH=528
+A_HIGH=10
 # TIME_LIMIT=00:20:00 PARTITION=debug
 # TIME_LIMIT=00:50:00 PARTITION=main
 # TIME_LIMIT=02:50:00 PARTITION=long
-TIME_LIMIT=00:50:00 PARTITION=main,long
+TIME_LIMIT=03:50:00 PARTITION=main,long
 
 IS_ARCHIVE_LOGS=true
 # IS_ARCHIVE_LOGS=false
@@ -72,6 +72,7 @@ if [[ $IS_ARCHIVE_LOGS = true ]]; then
   cd ..
 
   mv */*tar.gz $OUTPUT_LOG_DIR
+  rm -r out error
 
   cd $OUTPUT_LOG_DIR/jobs
   tar -czf jobs.tar.gz *.txt

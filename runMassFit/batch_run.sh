@@ -21,9 +21,10 @@ PROJECT_DIR=/lustre/alice/users/lubynets/runMassFit
 
 export CONFIG_DIR=$PROJECT_DIR/config
 
-# IO_PREFIX=HL/mc/HF_LHC24h1d_All/780931
-IO_PREFIX=HL/data/HF_LHC23_pass4_Thin_2P3PDstar/778891
-# IO_PREFIX=HL/data/xic
+# IO_PREFIX=HL/mc/HF_LHC26g5_All/789374
+# IO_PREFIX=HL/data/HF_LHC23_pass4_Thin_2P3PDstar/778891
+# IO_PREFIX=HL/data/HF_LHC24h1d_All/786092
+IO_PREFIX=HL/data/HF_LHC26ac_pass1_Thin_small_2P3PDstar.HF_LHC26ax_pass1_Thin_medium_2P3PDstar/789391.789186
 
 # LEFT_RANGES=(2.12 2.13 2.14 2.15 2.16 2.17 2.18) # 7
 # RIGHT_RANGES=(2.42 2.41 2.40 2.39 2.38 2.37 2.36) # 7
@@ -35,7 +36,7 @@ IO_PREFIX=HL/data/HF_LHC23_pass4_Thin_2P3PDstar/778891
 LEFT_RANGES=(2.12) # 1
 RIGHT_RANGES=(2.42) # 1
 REBIN_FACTORS=(4) # 1
-BG_FUNCTIONS=(2) # 1
+BG_FUNCTIONS=(5) # 1
 N_JOBS_WITH_TRIALS=100
 N_TRIALS_PER_JOB=1
 
@@ -84,10 +85,10 @@ export SCORES="0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.10 0.11 0.12 0.13 
 # export SCORES="0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.10 0.11 0.12 0.13 0.14 0.15 0.16 0.17 0.18 0.19 0.20"
 # export SCORES="0.01 0.02"
 
-# export SCORES="0.10 0.11 0.12 0.13 0.14 0.15 0.16 0.17 0.18 0.19 0.20"
+# export SCORES="0.00"
 
-export OUTPUT_DIR=$PROJECT_DIR/outputs/$IO_PREFIX/pol2/fixMS
-# export OUTPUT_DIR=$PROJECT_DIR/outputs/$IO_PREFIX/devtest
+export OUTPUT_DIR=$PROJECT_DIR/outputs/$IO_PREFIX/fixMS
+# export OUTPUT_DIR=$PROJECT_DIR/outputs/${IO_PREFIX}_NPltcut
 if [[ $PARTITION == "debug" ]]; then
   export OUTPUT_DIR=$PROJECT_DIR/outputs/draft
   export SCORES="0.01 0.02"

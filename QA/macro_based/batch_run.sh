@@ -4,13 +4,16 @@ echo
 echo "Bash script started"
 date
 
+echo "Hostname: $(hostname)"
+echo "SLURM partition: $SLURM_JOB_PARTITION"
+
 START_TIME=$SECONDS
 
 gcc --version
 cc --version
 
-# source /lustre/alice/users/lubynets/soft/root/install_6.32_cpp17_vae25/bin/thisroot.sh
-source /lustre/alice/users/lubynets/soft/AnalysisTree/install_master_vae25/bin/AnalysisTreeConfig.sh
+source /lustre/alice/users/lubynets/soft/root/install_6.36_cpp17_vae26/bin/thisroot.sh
+# source /lustre/alice/users/lubynets/soft/AnalysisTree/install_master_vae25/bin/AnalysisTreeConfig.sh
 
 INDEX=${SLURM_ARRAY_TASK_ID}
 
@@ -18,24 +21,27 @@ PROJECT_DIR=/lustre/alice/users/lubynets/QA
 
 MACRO_DIR=$PROJECT_DIR/macro
 
-IO_PREFIX=HL/mc/HF_LHC24h1b_All/568123
+IO_PREFIX=LHC25an_pass1_QC1_sampling/788738 # 404
+# IO_PREFIX=LHC25an_pass1_QC1_sampling/789820 # 1631
 
 # INPUT_FOLDER=tpc
-INPUT_FOLDER=CSTlc
+# INPUT_FOLDER=CSTlc
 # INPUT_FOLDER=ali2atree
+INPUT_FOLDER=pidDiag
 
 INPUT_DIR=/lustre/alice/users/lubynets/$INPUT_FOLDER/outputs/$IO_PREFIX
 
-FILE_LIST_DIR=/lustre/alice/users/lubynets/skim/filelists/mc
-INPUT_FILE_LIST=$FILE_LIST_DIR/fst.$INDEX.list
+# FILE_LIST_DIR=/lustre/alice/users/lubynets/skim/filelists/mc
+# INPUT_FILE_LIST=$FILE_LIST_DIR/fst.$INDEX.list
 
 # MACRO=mass_qa
 # MACRO=treeKF_qa
 # MACRO=mc_qa
 # MACRO=tpc_qa
 # MACRO=ptLb
-MACRO=corrBkgLc
+# MACRO=corrBkgLc
 # MACRO=mass_ptwise
+MACRO=pid_qa
 
 OUTPUT_DIR=$PROJECT_DIR/outputs/$MACRO/${IO_PREFIX}
 WORK_DIR=$PROJECT_DIR/workdir
@@ -62,6 +68,8 @@ elif [[ $MACRO == "corrBkgLc" ]]; then
   root -l -b -q "${MACRO}.C(\"$INPUT_DIR/localAO2DList.txt\", ${INDEX}, ${INDEX})" >& log_${INDEX}.txt # corrBkgLc
 elif [[ $MACRO == "mass_ptwise" ]]; then
   root -l -b -q "${MACRO}.C(\"$INPUT_DIR/AnalysisTree.$INDEX.root\")" >& log_${INDEX}.txt # mass_ptwise
+elif [[ $MACRO == "pid_qa" ]]; then
+  root -l -b -q "${MACRO}.C(\"$INPUT_DIR/localAO2DList.txt:${INDEX}\")" >& log_${INDEX}.txt # corrBkgLc
 fi
 
 rm $MACRO.C

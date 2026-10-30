@@ -19,8 +19,8 @@ PROJECT_DIR=/lustre/alice/users/lubynets/plainer
 
 EXE_DIR=$SOFT_DIR/bin
 
-IO_SUFFIX=HL/mc/HF_LHC24h1d_All/776257
-# IO_SUFFIX=HL/data/HF_LHC23_pass4_Thin_small_2P3PDstar/515291
+# IO_SUFFIX=HL/mc/HF_LHC24h1d_All/776257
+IO_SUFFIX=HL/data/HF_LHC26ax_pass1_Thin_small_2P3PDstar/788158
 
 INPUT_DIR=/lustre/alice/users/lubynets/ali2atree/outputs/$IO_SUFFIX
 

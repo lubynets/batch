@@ -9,7 +9,7 @@ mkdir -p $LOGDIR/error
 WORK_DIR=/lustre/alice/users/lubynets/runMassFit/workdir
 
 A_LOW=1
-A_HIGH=100 #7840
+A_HIGH=100
 # TIME_LIMIT=00:30:00 PARTITION=debug
 TIME_LIMIT=07:30:00 PARTITION=main,long
 
@@ -41,6 +41,7 @@ sbatch --job-name=massFit \
        --output=$LOGDIR/out/%a.out.log \
        --error=$LOGDIR/error/%a.err.log \
        -a $A \
+       --account alice \
        -- $PWD/batch_run.sh $PARTITION
 
 fi
